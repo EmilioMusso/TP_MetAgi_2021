@@ -10,7 +10,6 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import xp.App;
 import xp.model.Vendedor;
 import xp.utils.*;
 
