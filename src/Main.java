@@ -18,6 +18,7 @@ import javax.swing.WindowConstants;
 
 import xp.utils.Ini;
 import xp.db.Cons_Propietario;
+import xp.ui.PanelAltaVendedor;
 import xp.ui.PanelPropietario;
 
 
@@ -54,16 +55,16 @@ public class Main {
 	     mb.add(menu1);
 	    
 	     mi1=new JMenuItem("Agregar");
-//	     mi1.addActionListener (e -> {
-//	    	 gbcf.gridx = 0;
-//	 		 gbcf.gridy = 0;
-//	    	 ventana.setContentPane(new AEstacion().armarPanel());	
-//	    	 gbcf.gridx = 3;
-//	 		 gbcf.gridy = 6;
-//	 		 gbcf.insets= new Insets(5,5,5,5);
-//	 		 ventana.add(salir,gbcf); 
-//	    	 ventana.pack();
-//	    	 });
+	     mi1.addActionListener (e -> {
+	    	 gbcf.gridx = 0;
+	 		 gbcf.gridy = 0;
+	    	 ventana.setContentPane(new PanelAltaVendedor());
+	    	 gbcf.gridx = 3;
+	 		 gbcf.gridy = 10;
+	 		 gbcf.insets= new Insets(5,5,5,5);
+	 		 ventana.add(salir,gbcf); 
+	    	 ventana.pack();
+	    	 });
 	     menu1.add(mi1);
 	     
 	     mi2=new JMenuItem("Seleccionar");
@@ -82,7 +83,7 @@ public class Main {
 	     
     	 mi3=new JMenuItem("...");
 	     //   mi3.addActionListener(this);
-	     menu1.add(mi3); 
+	     menu1.add(mi3);
 			     
 	     
 	     
@@ -93,7 +94,7 @@ public class Main {
 	     
 	     mi12=new JMenuItem("Agregar");
 	     mi12.addActionListener (e -> {
-	    	 ventana.setContentPane(new xp.ui.PanelPropietario().armarPanel());	
+	    	 ventana.setContentPane(new PanelPropietario().armarPanel());	
 	    	 gbcf.gridx = 3;
 	 		 gbcf.gridy = 12;
 	 		 gbcf.insets= new Insets(5,5,5,5);

@@ -48,7 +48,6 @@ public class PanelPropietario extends JPanel {
 	public PanelPropietario() {
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
-		
 	}
 	
 	public PanelPropietario armarPanel() {

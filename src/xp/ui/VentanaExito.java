@@ -24,6 +24,7 @@ public class VentanaExito extends JDialog {
 	 * Create the dialog.
 	 */
 	public VentanaExito(String mensaje) {
+		super();
 		setBounds(100, 100, 450, 141);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());

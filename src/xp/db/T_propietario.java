@@ -16,7 +16,6 @@ public class T_propietario {
 	private static final String del = "DELETE FROM public.propietario WHERE Id=?";
 	
 	
-	
 	public T_propietario() {
 		super();
 		// TODO Auto-generated constructor stub
