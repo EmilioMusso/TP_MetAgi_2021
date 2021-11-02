@@ -18,6 +18,7 @@ import javax.swing.WindowConstants;
 
 import xp.utils.Ini;
 import xp.db.Cons_Propietario;
+import xp.ui.ModifProp_panel;
 import xp.ui.PanelAltaVendedor;
 import xp.ui.PanelPropietario;
 
@@ -67,18 +68,18 @@ public class Main {
 	    	 });
 	     menu1.add(mi1);
 	     
-	     mi2=new JMenuItem("Seleccionar");
-//	     mi2.addActionListener (e -> {
-//	    	 gbcf.gridx = 0;
-//	 		 gbcf.gridy = 0;
-//	    	 ventana.setContentPane(new Cons_Estacion());
-//	    	 gbcf.gridx = 3;
-//	 		 gbcf.gridy = 6;
-//	 		 gbcf.insets= new Insets(5,5,5,5);
+	     mi2=new JMenuItem("Modificar");  
+	     mi2.addActionListener (e -> {
+	    	 gbcf.gridx = 0;
+	 		 gbcf.gridy = 0;
+	 		 ventana.setContentPane(new ModifProp_panel()); //aca tiene que llamar a la lista
+	    	 gbcf.gridx = 3; 
+	 		 gbcf.gridy = 10;
+	 		 gbcf.insets= new Insets(5,5,5,5);
 //	 		 gbcf.anchor = GridBagConstraints.EAST;
-//	 		 ventana.add(salir,gbcf); 
-//	    	 ventana.pack();
-//	    	 });
+	 		 ventana.add(salir,gbcf); 
+	    	 ventana.pack();
+	    	 });
     	 menu1.add(mi2);
 	     
     	 mi3=new JMenuItem("...");
