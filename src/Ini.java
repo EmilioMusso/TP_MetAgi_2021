@@ -1,4 +1,4 @@
-package xp.utils;
+
 
 
 import java.awt.Color;
@@ -15,19 +15,9 @@ public class Ini extends JPanel {
 	private JLabel tit;
 	private JLabel nombre;
 
-	
-
 	public Ini() {
-
 		JLabel background= new JLabel();
 		background.setIcon(new ImageIcon("img/02.jpg"));
-        this.add(background);
-		
+        this.add(background);	
 	}
-	
-	
-	
-	
 }
-
-	
