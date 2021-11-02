@@ -99,11 +99,6 @@ public class ModifVendedor_panel extends JPanel {
 		gbc.gridy = 6;
 	
 		
-		
-		
-		
-		
-		
 		//text
 		gbc.gridx = 2;
 		gbc.gridy = 1;
