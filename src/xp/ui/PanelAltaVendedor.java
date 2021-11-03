@@ -155,8 +155,10 @@ public class PanelAltaVendedor extends JPanel {
 			String ape = this.tapellido.getText();
 			String tipodoc = (String) this.ttipodoc.getSelectedItem();
 			String nrodoc = this.tnrodoc.getText();
-			String claveacceso = this.claveacceso.getText();
-		
+			String claveacceso = this.tclaveacceso.getText();
+			
+			T_vendedor aT = new T_vendedor();
+			aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);
 						
 //			T_vendedor aT = new T_vendedor();
 //			aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);

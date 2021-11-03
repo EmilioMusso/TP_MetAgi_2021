@@ -9,7 +9,8 @@ import java.util.logging.Logger;
 public class ConnectionMA {
 	private static final String url = "jdbc:postgresql://127.0.0.1:5432/ma2021";
 	private static final String user = "postgres";
-	private static final String pass = "lea83";
+//	private static final String pass = "lea83";
+	private static final String pass = "777611";
 	
 	//private ConnectionP(){ }
 	

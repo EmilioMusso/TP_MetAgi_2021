@@ -7,29 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class T_vendedor {
-	private static final String ins = "INSERT INTO public.vendedor(id,nombre,apellido,numdoc,claveAcceso) VALUES(?,?,?,?,?,?,?,?,?,?)";
+	private static final String ins = "INSERT INTO public.vendedor(id,nombre,apellido,tipodoc,numdoc,claveAcceso) VALUES(?,?,?,?,?,?)";
 	private static final String bus = "SELECT * FROM public.vendedor WHERE nombre=?";
 	private static final String tod = "SELECT * FROM public.vendedor";
 	private static final String next_id = "SELECT nextval('public.seq_id') as num";
 	private static final String del = "DELETE FROM public.vendedor WHERE Id=?";
 
-	private String nombre;
-	private String apellido;
-	private String tipoDoc;
-	private String dni;
-	private String claveAcceso;
-	
 	public T_vendedor() {	}
-
-
-	public T_vendedor(String nombre, String apellido, String tipoDoc, String dni, String claveAcceso) {
-		super();
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.tipoDoc = tipoDoc;
-		this.dni = dni;
-		this.claveAcceso = claveAcceso;
-	}
 	
 	public void insert(String nombre, String apellido, String tipoDoc, String nrodoc, String claveacceso) {
 		Connection con = null;
@@ -106,58 +90,6 @@ public class T_vendedor {
 			
 			}
 		return newId;
-	}
-
-
-	public String getNombre() {
-		return nombre;
-	}
-
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-
-	public String getApellido() {
-		return apellido;
-	}
-
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-
-	public String getTipoDoc() {
-		return tipoDoc;
-	}
-
-
-	public void setTipoDoc(String tipoDoc) {
-		this.tipoDoc = tipoDoc;
-	}
-
-
-	public String getDni() {
-		return dni;
-	}
-
-
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-
-
-	public String getClaveAcceso() {
-		return claveAcceso;
-	}
-
-
-	public void setClaveAcceso(String claveAcceso) {
-		this.claveAcceso = claveAcceso;
-	}
-	
-	
+	}	
 	
 }

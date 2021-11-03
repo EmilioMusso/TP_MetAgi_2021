@@ -1,0 +1,43 @@
+CREATE TABLE public.propietario(
+	id integer NOT NULL,
+	nombre character varying(20),
+	apellido character varying(20),
+	numdoc character varying(8),
+	calle character varying(20),
+	numdom character varying(4),
+	provincia character varying(20),
+	localidad character varying(20),
+	telefono character varying(20),
+	email character varying(20),
+
+	CONSTRAINT pk_propietario PRIMARY KEY(id)
+); 
+
+CREATE TABLE public.vendedor(
+	id integer NOT NULL,
+	nombre character varying(20),
+	apellido character varying(20),
+	numdoc character varying(8),
+	claveAcceso character varying(20)
+
+	CONSTRAINT pk_vendedor PRIMARY KEY(id)
+);
+
+INSERT INTO public.propietario
+	VALUES  (345,'Carlos','Garcia','30433539','4 de Enero','2300','','','','carlos@garcia.com'),
+		(346,'Carlos','Gomez','30433539','Hernandarias','2300','','','','gomez@gmail.com');
+
+INSERT INTO public.propietario
+	VALUES  (001, 'Bill', 'Gates', 'DNI', '12123456', 'unaClave'),
+		(002, 'Elon', 'Musk', 'DNI', '98987654', 'otraClave');
+
+
+CREATE SEQUENCE public.seq_id
+    INCREMENT 1
+    START 405
+    MINVALUE 400
+    MAXVALUE 9999
+    CACHE 1;
+
+ALTER SEQUENCE public.seq_id
+    OWNER TO postgres;
