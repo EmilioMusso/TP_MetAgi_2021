@@ -9,35 +9,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import xp.model.Vendedor;
+
 public class ModifVendedor_ventana extends JFrame {
 
 	private GridBagConstraints gbcf;
 	private JLabel tit;
 	
-	//private JFrame mf = new JFrame();
-
-	public ModifVendedor_ventana() {
+	public ModifVendedor_ventana(Vendedor vendedor) {
 		super();
-		
-		this.setContentPane(new ModifVendedoer_panel().armarPanel());
+		this.setContentPane(new ModifVendedor_panel(vendedor));
 		//this.setContentPane(Pan); 
 		this.setVisible(true);
 		this.pack();
 		//this.setVisible(true); 
 	}
-	
-	public ModifVendedor_ventana(Object id, String nombre, String apellido, String numdoc, String calle, String numdom, String provincia, String localidad, String telefono, String email) {
-		super();
-		
-		this.setContentPane(new ModifVendedoer_panel().armarPanel(id, nombre, apellido, numdoc, calle, numdom, provincia, localidad, telefono, email));
-		//this.setContentPane(Pan); 
-		this.setVisible(true);
-		this.pack();
-		//this.setVisible(true); 
-	}
-
-	
-	
-	
-
 }

@@ -23,9 +23,6 @@ import xp.db.T_vendedor;
 import xp.utils.ButtonEditor;
 import xp.utils.ButtonRenderer;
 
-
-
-
 public class Cons_Vendedor extends JPanel {
 	
 	private boolean ALLOW_ROW_SELECTION = true;
@@ -36,16 +33,16 @@ public class Cons_Vendedor extends JPanel {
 	private JButton eliminar;
 	private ArrayList<JButton> botones;
 	
-	private Object id;
-	private String nombre;
-	private String apellido;
-	private String numdoc;
-	private String calle;
-	private String numdom;
-	private String provincia;
-	private String localidad;
-	private String telefono;
-	private String email;
+	private Object idSelected;
+	private String nombreSelected;
+	private String apellidoSelected;
+	private String numdocSelected;
+	private String calleSelected;
+	private String numdomSelected;
+	private String provinciaSelected;
+	private String localidadSelected;
+	private String telefonoSelected;
+	private String emailSelected;
 	
 	
 	public Cons_Vendedor() {
@@ -68,7 +65,7 @@ public class Cons_Vendedor extends JPanel {
 		gbc.gridy = 3;
 		gbc.weighty = 0.1;
 		
-		String[] columnNames = {"Id", "Nombre", "Apellido", "DNI", "Opcion"};
+		String[] columnNames = {"Id", "Nombre", "Apellido", "Num Doc", "Opcion"};
 		Object[][] data;
 		T_vendedor vT = new T_vendedor();
         ArrayList<String> data_rs = vT.buscar();
@@ -76,7 +73,7 @@ public class Cons_Vendedor extends JPanel {
 		model.addColumn("Id");
 		model.addColumn("Nombre");
 		model.addColumn("Apellido");
-		model.addColumn("DNI");
+		model.addColumn("Num Doc");
 		model.addColumn("Opcion");
         Object[] fila= {"","","","","", ""};
         int i=0;
@@ -87,7 +84,7 @@ public class Cons_Vendedor extends JPanel {
         		++i;
         		++j;
 				if(i==4) {
-					fila[i]="MODIFICAR";
+//					fila[i]="MODIFICAR";
         			model.addRow(fila);
         			i=0;
 				}
@@ -96,36 +93,8 @@ public class Cons_Vendedor extends JPanel {
  
 		JTable table = new JTable(model);
 		this.add(table,gbc);
-        table.getColumn("Opcion").setCellRenderer(new ButtonRenderer());
-        table.getColumn("Opcion").setCellEditor(new ButtonEditor(new JCheckBox()));
-
-		    	
-    	// modificar.addActionListener(e -> {
-    	// 	ModifProp_ventana modif = new ModifProp_ventana();
-    	// 	modif.setVisible(true);
-		// 	modificar.setEnabled(false);
-		// });
-
-        // Agrega las filas 
-        
-        // Object[] fila= {"","","",""};
-        // int i=0;
-        // int j=0;
-        // while(j<data_rs.size()) {
-        // 	for(String elem : data_rs) {
-        // 		fila[i]=elem;
-        // 		++i;
-        // 		++j;
-        // 		if(i==10) {
-        // 			model.addRow(fila);
-        // 			i=0;
-    	// 		}
-        //     	button_modificar_tmp = new JButton("Modificar");
-        //     	this.botones.add(button_modificar_tmp);
-        //     	this.add(botones.get(botones.size()-1),gbc);
-        // 	}
-        // }
-
+//        table.getColumn("Opcion").setCellRenderer(new ButtonRenderer());
+//        table.getColumn("Opcion").setCellEditor(new ButtonEditor(new JCheckBox()));
 	
         table.setRowHeight(20);
         table.setRowSelectionAllowed(true);
@@ -139,6 +108,7 @@ public class Cons_Vendedor extends JPanel {
         table.setPreferredScrollableViewportSize(new Dimension(800, 100));
         table.setFillsViewportHeight(true);
  
+        
         //captura valor seleccionado
         table.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -149,22 +119,14 @@ public class Cons_Vendedor extends JPanel {
                 int row = table.rowAtPoint(e.getPoint());
                 int column = table.columnAtPoint(e.getPoint());
                 
-                id = table.getValueAt(row, 0);
-            	nombre =  table.getValueAt(row, 1).toString();
-            	apellido =  table.getValueAt(row, 2).toString();
-            	numdoc =  table.getValueAt(row, 3).toString();
-            	calle =  table.getValueAt(row, 4).toString();
-            	numdom =  table.getValueAt(row, 5).toString();
-            	provincia =  table.getValueAt(row, 6).toString();
-            	localidad =  table.getValueAt(row, 7).toString();
-            	telefono =  table.getValueAt(row, 8).toString();
-            	email =  table.getValueAt(row, 9).toString();
+                idSelected = table.getValueAt(row, 0);
+            	nombreSelected =  table.getValueAt(row, 1).toString();
+            	apellidoSelected =  table.getValueAt(row, 2).toString();
+            	numdocSelected =  table.getValueAt(row, 3).toString();
             	
-            	
-                                
                 // Con la fila/columna tomamos el valor de la celda
-            	System.out.println("Valor de celda: " + table.getValueAt(row, column));
-            	System.out.println("Id: " + table.getValueAt(row, 0));
+//            	System.out.println("Valor de celda: " + table.getValueAt(row, column));
+//            	System.out.println("Id: " + table.getValueAt(row, 0));
             }
             // mousePressed
             // mouseDragged
@@ -198,9 +160,25 @@ public class Cons_Vendedor extends JPanel {
     	this.eliminar = new JButton("Eliminar");
     	this.add(eliminar,gbc);
     	
+        //Botones
+      	gbc.gridx = 0;		//posición
+      	gbc.gridy = 6;
+      	gbc.gridwidth=1;
+      	gbc.anchor = GridBagConstraints.EAST;
+      	this.modificar = new JButton("Modificar");
+      	this.add(modificar,gbc);
+
+   	 	modificar.addActionListener(e -> {
+   	 		T_vendedor tVendedor = new T_vendedor();
+   	 		Object id = idSelected;
+   	 		ModifVendedor_ventana modif = new ModifVendedor_ventana(tVendedor.buscarVendedor(idSelected));
+		 	modif.setVisible(true);
+//			modificar.setEnabled(false);
+		 });
+    	
     	eliminar.addActionListener(e -> {
 			T_vendedor mT = new T_vendedor();
-			mT.delete(id);
+			mT.delete(idSelected);
 			// eliminar.setEnabled(false);
 		});
     }

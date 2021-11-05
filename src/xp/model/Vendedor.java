@@ -2,19 +2,36 @@ package xp.model;
 
 public class Vendedor {
 
+	private Object id;
 	private String nombre;
 	private String apellido;
 	private String tipoDoc;
-	private String dni;
+	private String numDoc;
 	private String claveAcceso;
 
-	public Vendedor(String nombre, String apellido, String tipoDoc, String dni, String claveAcceso) {
+	public Vendedor(String nombre, String apellido, String tipoDoc, String numDoc, String claveAcceso) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.numDoc = numDoc;
 		this.tipoDoc = tipoDoc;
-		this.dni = dni;
 		this.claveAcceso = claveAcceso;
+	}
+
+	public Vendedor(Object id, String nombre, String apellido, String numDoc) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.numDoc = numDoc;
+	}
+	
+	public Object getId() {
+		return id;
+	}
+
+	public void setId(Object id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -47,13 +64,13 @@ public class Vendedor {
 	}
 
 
-	public String getDni() {
-		return dni;
+	public String getNumDoc() {
+		return numDoc;
 	}
 
 
-	public void setDni(String dni) {
-		this.dni = dni;
+	public void setNumDoc(String numDoc) {
+		this.numDoc = numDoc;
 	}
 
 

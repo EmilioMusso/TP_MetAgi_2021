@@ -145,8 +145,8 @@ public class Cons_Propietario extends JPanel {
             	
                                 
                 // Con la fila/columna tomamos el valor de la celda
-            	System.out.println("Valor de celda: " + table.getValueAt(row, column));
-            	System.out.println("Id: " + table.getValueAt(row, 0));
+//            	System.out.println("Valor de celda: " + table.getValueAt(row, column));
+//            	System.out.println("Id: " + table.getValueAt(row, 0));
             }
             // mousePressed
             // mouseDragged

@@ -7,9 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import xp.model.Vendedor;
+
 public class T_vendedor {
 	private static final String ins = "INSERT INTO public.vendedor(id,nombre,apellido,tipodoc,numdoc,claveAcceso) VALUES(?,?,?,?,?,?)";
 	private static final String bus = "SELECT * FROM public.vendedor WHERE nombre=?";
+	private static final String consId = "SELECT * FROM public.vendedor WHERE =?";
 	private static final String tod = "SELECT * FROM public.vendedor";
 	private static final String next_id = "SELECT nextval('public.seq_id') as num";
 	private static final String del = "DELETE FROM public.vendedor WHERE Id=?";
@@ -128,5 +131,41 @@ public class T_vendedor {
 			}
 		return fila;
 		}
+	
+	public Vendedor buscarVendedor(Object id) {
+		//genera una lista con todos los registros de una tabla
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		con = ConnectionMA.get();
+		Vendedor v1 = null;
+		
+		try {
+			ps = con.prepareStatement("SELECT * FROM public.vendedor WHERE Id="+id.toString()+"");
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				v1 = new Vendedor(
+						rs.getString("id"),
+						rs.getString("nombre"),
+						rs.getString("apellido"),
+						rs.getString("numdoc"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			
+		}
+		return v1;
+	}
 	
 }

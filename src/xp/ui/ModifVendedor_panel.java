@@ -7,12 +7,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.util.BitSet;
 
 import javax.swing.*;
 
 import xp.db.T_propietario;
+import xp.db.T_vendedor;
 import xp.model.Vendedor;
-
+import xp.utils.FieldValidators;
 
 
 public class ModifVendedor_panel extends JPanel {
@@ -22,47 +24,46 @@ public class ModifVendedor_panel extends JPanel {
 	private JTextField tnombre;
 	private JLabel apellido;
 	private JTextField tapellido;
+	private JLabel claveacceso;
+	private JPasswordField tclaveacceso;
 	private JLabel tipodoc;
 	private JComboBox<String> ttipodoc;
 	private JLabel nrodoc;
 	private JTextField tnrodoc;
-	private JLabel claveacceso;
-	private JTextField tclaveacceso;
 	
-	private JButton guardar;
+	private JButton modificar;
+	
+	private FieldValidators fv;
 	
 	private GridBagConstraints gbc;
 	
 	
-	public ModifVendedor_panel() {
+	public ModifVendedor_panel(Vendedor v1) {
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
-		
+		armarPanel(v1);
 	}
 	
-	public ModifVendedor_panel armarPanel(Object id, String nom, String ape, String ndoc, String pass) {
+	public ModifVendedor_panel armarPanel(Vendedor v1) {
 		
-		this.tit = new JLabel("Modificar propietario");
+		this.tit = new JLabel("Alta de vendedor");
 		this.nombre = new JLabel("Nombre");
-		(this.tnombre = new JTextField(40)).setText(nom);
-		
+		this.tnombre = new JTextField(40);
+		this.tnombre.setText(v1.getNombre());
 		this.apellido = new JLabel("Apellido");
-//		(this.tapellido = new JTextField(40)).setText(ape);
-		
+		this.tapellido = new JTextField(40);
+		this.tapellido.setText(v1.getApellido());
 		this.tipodoc = new JLabel("Tipo doc.");
 		this.ttipodoc = new JComboBox<String>();
-		//this.ttipodoc.setSelectedItem(est);
-		
+		this.ttipodoc.setSelectedItem(v1.getTipoDoc());
 		this.nrodoc = new JLabel("Nro. doc.");
-//		(this.tnrodoc = new JTextField(40)).setText(ndoc);
+		this.tnrodoc = new JTextField(40);
+		this.tnrodoc.setText(v1.getNumDoc());
+		this.claveacceso = new JLabel("Clave de acceso");
+		this.tclaveacceso = new JPasswordField(40);
 		
-		this.claveacceso = new JLabel("Clave de Acceso");
-//		(this.tclaveacceso =  new JTextField(40)).setText(pass);
 				
-		
-	
-		
-		this.guardar = new JButton("Guardar"); 
+		this.modificar = new JButton("Modificar"); 
 		
 		gbc.gridx = 0;		//posición
 		gbc.gridy = 0;
@@ -77,8 +78,9 @@ public class ModifVendedor_panel extends JPanel {
 		this.add(tit,gbc);
 		tit.setForeground(Color.BLUE);
 		tit.setFont(tit.getFont().deriveFont(22.0f));
+	
 		
-		//label
+		//labels
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		this.add(nombre,gbc);
@@ -93,11 +95,11 @@ public class ModifVendedor_panel extends JPanel {
 		this.add(nrodoc,gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 5;
-		
 		this.add(claveacceso,gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 6;
-	
+		
+		
 		
 		//text
 		gbc.gridx = 2;
@@ -119,13 +121,24 @@ public class ModifVendedor_panel extends JPanel {
 		gbc.gridx = 2;
 		gbc.gridy = 4;
 		this.add(tnrodoc,gbc);
-		
+		gbc.gridx = 2;
+		gbc.gridy = 5;
+		this.add(tclaveacceso,gbc);
 		gbc.gridx = 2;
 		gbc.gridy = 6;
-		this.add(tclaveacceso,gbc);
+
+//		this.add(tprovincia,gbc);
+//		gbc.gridx = 2;
+//		gbc.gridy = 9;
+//		this.add(tlocalidad,gbc);
+//		gbc.gridx = 2;
+//		gbc.gridy = 10;
+//		this.add(ttelefono,gbc);
+//		gbc.gridx = 2;
+//		gbc.gridy = 11;
+//		this.add(temail,gbc);
 		
-		
-		
+		//gbc.anchor = GridBagConstraints.WEST;
 		
 		
 		//button
@@ -137,23 +150,32 @@ public class ModifVendedor_panel extends JPanel {
 		gbc.anchor = GridBagConstraints.EAST;
 		//gbc.ipadx = 40;
 		//gbc.fill = GridBagConstraints.HORIZONTAL;
-		this.add(guardar,gbc);
+		this.add(modificar,gbc);
+		
 		gbc.gridx = 2;
-		gbc.gridy = 12;
+		gbc.gridy = 10;	
 		
-		guardar.addActionListener(e -> {
-			String tnom = this.tnombre.getText();
-			String tape = this.tapellido.getText();
-			String tdoc = this.tnrodoc.getText();
-			String tpass = this.tclaveacceso.getText();
-		
-//			Vendedor vendedor = new Vendedor();
-//			vendedor.delete(id);
-//			vendedor.insert(tnom, tape, tdoc, tpass);
+		modificar.addActionListener(e -> {
+			Object id = v1.getId();
+			String nom = this.tnombre.getText();
+			String ape = this.tapellido.getText();
+			String tipodoc = (String) this.ttipodoc.getSelectedItem();
+			String nrodoc = this.tnrodoc.getText();
+			String claveacceso = this.tclaveacceso.getText();
 			
-			tit.setText("Vendedor actualizado!");
-			tit.setForeground(Color.RED);
-			guardar.setEnabled(false);
+			T_vendedor aT = new T_vendedor();
+			aT.delete(id);
+			aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);
+						
+//			T_vendedor aT = new T_vendedor();
+//			aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);
+			
+//			tit.setText("Vendedor " + aT.toString() + " agregado correctamente!");
+			VentanaExito ventanaExito = new VentanaExito("Vendedor agregado correctamente.");
+			ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			ventanaExito.setVisible(true);
+//			tit.setForeground(Color.RED);
+//			agregar.setEnabled(false);
 		});
 			
 			
@@ -161,7 +183,17 @@ public class ModifVendedor_panel extends JPanel {
 		
 		return this;
 	}
+	
+	private Boolean camposValidos() {
+		BitSet bitSetValidacioneSet = new BitSet(4);
+		bitSetValidacioneSet.clear();
+		
+		bitSetValidacioneSet.set(0, fv.campoAlfabetico(tnombre.getText()));
+		bitSetValidacioneSet.set(1, fv.campoAlfabetico(tapellido.getText()));
+		bitSetValidacioneSet.set(2, fv.campoNumerico(tnrodoc.getText()));
+		bitSetValidacioneSet.set(3, fv.campoPassword(tclaveacceso.getText()));
+		
+		return !bitSetValidacioneSet.isEmpty();
+	}
 
 }
-
-	

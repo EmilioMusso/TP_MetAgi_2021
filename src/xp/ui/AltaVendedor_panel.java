@@ -16,7 +16,7 @@ import xp.db.T_vendedor;
 import xp.utils.FieldValidators;
 
 
-public class PanelAltaVendedor extends JPanel {
+public class AltaVendedor_panel extends JPanel {
 	
 	private JLabel tit;
 	private JLabel nombre;
@@ -37,13 +37,13 @@ public class PanelAltaVendedor extends JPanel {
 	private GridBagConstraints gbc;
 	
 	
-	public PanelAltaVendedor() {
+	public AltaVendedor_panel() {
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
 		armarPanel();
 	}
 	
-	public PanelAltaVendedor armarPanel() {
+	public AltaVendedor_panel armarPanel() {
 		
 		this.tit = new JLabel("Alta de vendedor");
 		this.nombre = new JLabel("Nombre");
@@ -55,9 +55,7 @@ public class PanelAltaVendedor extends JPanel {
 		this.nrodoc = new JLabel("Nro. doc.");
 		this.tnrodoc = new JTextField(40);
 		this.claveacceso = new JLabel("Clave de acceso");
-		this.tclaveacceso = new JPasswordField(40);
-		
-				
+		this.tclaveacceso = new JPasswordField(40);	
 		this.agregar = new JButton("Agregar"); 
 		
 		gbc.gridx = 0;		//posición
@@ -65,9 +63,9 @@ public class PanelAltaVendedor extends JPanel {
 		gbc.weightx = 0.1;	//peso
 		gbc.weighty = 0.1;
 		gbc.anchor = GridBagConstraints.EAST;	//ubicación
-		//gbc.ipadx = 10;				//margen int		
+		//gbc.ipadx = 10;						//margen int		
 		//gbc.ipady = 10;
-		gbc.insets= new Insets(5,5,5,5);	 //top,left,bottom,right 	
+		gbc.insets= new Insets(5,5,5,5);	 	//top,left,bottom,right 	
 		
 		//Título
 		this.add(tit,gbc);
@@ -122,23 +120,13 @@ public class PanelAltaVendedor extends JPanel {
 		gbc.gridx = 2;
 		gbc.gridy = 6;
 
-//		this.add(tprovincia,gbc);
-//		gbc.gridx = 2;
-//		gbc.gridy = 9;
-//		this.add(tlocalidad,gbc);
-//		gbc.gridx = 2;
-//		gbc.gridy = 10;
-//		this.add(ttelefono,gbc);
-//		gbc.gridx = 2;
-//		gbc.gridy = 11;
-//		this.add(temail,gbc);
 		
 		//gbc.anchor = GridBagConstraints.WEST;
 		
 		
 		//button
 		gbc.gridx = 2;
-		gbc.gridy = 12;
+		gbc.gridy = 7;
 		gbc.weightx = 0.1;
 		gbc.weighty = 0.5;
 		gbc.gridwidth=1;
@@ -147,8 +135,6 @@ public class PanelAltaVendedor extends JPanel {
 		//gbc.fill = GridBagConstraints.HORIZONTAL;
 		this.add(agregar,gbc);
 		
-		gbc.gridx = 2;
-		gbc.gridy = 10;	
 		
 		agregar.addActionListener(e -> {
 			String nom = this.tnombre.getText();
