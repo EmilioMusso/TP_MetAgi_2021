@@ -18,7 +18,7 @@ CREATE TABLE public.vendedor(
 	nombre character varying(20),
 	apellido character varying(20),
 	numdoc character varying(8),
-	claveAcceso character varying(20)
+	claveAcceso character varying(20),
 
 	CONSTRAINT pk_vendedor PRIMARY KEY(id)
 );
@@ -27,9 +27,9 @@ INSERT INTO public.propietario
 	VALUES  (345,'Carlos','Garcia','30433539','4 de Enero','2300','','','','carlos@garcia.com'),
 		(346,'Carlos','Gomez','30433539','Hernandarias','2300','','','','gomez@gmail.com');
 
-INSERT INTO public.propietario
-	VALUES  (001, 'Bill', 'Gates', 'DNI', '12123456', 'unaClave'),
-		(002, 'Elon', 'Musk', 'DNI', '98987654', 'otraClave');
+INSERT INTO public.vendedor
+	VALUES  (001, 'Bill', 'Gates', '12123456', 'unaClave'),
+		(002, 'Elon', 'Musk', '98987654', 'otraClave');
 
 
 CREATE SEQUENCE public.seq_id

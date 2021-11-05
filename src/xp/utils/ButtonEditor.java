@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import xp.ui.ModifProp_ventana;
-import xp.ui.ModifVendedoer_panel;
+import xp.ui.ModifVendedor_panel;
 import xp.ui.ModifVendedor_ventana;
 
 public class ButtonEditor extends DefaultCellEditor {
@@ -22,9 +22,9 @@ public class ButtonEditor extends DefaultCellEditor {
         button.setOpaque(true);
         button.addActionListener(a -> {
             // fireEditingStopped();    
-            ModifVendedor_ventana modif = new ModifVendedor_ventana();
-    		modif.setVisible(true);
-			modif.setEnabled(false);        
+           // ModifVendedor_ventana modif = new ModifVendedor_ventana();
+    	//	modif.setVisible(true);
+			//modif.setEnabled(false);        
         });
     }
 
