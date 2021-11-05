@@ -1,3 +1,5 @@
+
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -7,7 +9,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -15,18 +16,20 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.WindowConstants;
 
-import xp.ui.Cons_Propietario;
+import xp.utils.Ini;
+import xp.db.Cons_Propietario;
 import xp.ui.ModifProp_panel;
 import xp.ui.PanelAltaVendedor;
 import xp.ui.PanelPropietario;
-import xp.ui.VentanaExito;
-import xp.ui.VentanaFallo;
+
+
 
 public class Main {
 	
 	public static void main(String[] args) {
 		
 		//FRAME
+		
 		JFrame ventana = new JFrame("Sistema de compra y venta de inmuebles");
 		ventana.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
@@ -166,8 +169,19 @@ public class Main {
 			ventana.pack();
 			ventana.setVisible(true);
 		});
-				
-}}
+		
+		
+		
+		
+		
+		
+		
+	
+	  
+		
+}	
+
+}
 
 
 

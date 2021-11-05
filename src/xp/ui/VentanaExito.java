@@ -24,6 +24,7 @@ public class VentanaExito extends JDialog {
 	 * Create the dialog.
 	 */
 	public VentanaExito(String mensaje) {
+		super();
 		setBounds(100, 100, 450, 141);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
@@ -31,7 +32,7 @@ public class VentanaExito extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
 			JLabel lblMensaje = new JLabel(mensaje=="" ? "EXITO" : mensaje);
-			lblMensaje.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblMensaje.setFont(new Font("Tahoma", Font.PLAIN, 30));
 			lblMensaje.setForeground(Color.green);
 			contentPanel.add(lblMensaje);
 		}
@@ -44,9 +45,6 @@ public class VentanaExito extends JDialog {
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
-				okButton.addActionListener(a -> {
-					dispose();
-				});
 			}
 		}
 	}

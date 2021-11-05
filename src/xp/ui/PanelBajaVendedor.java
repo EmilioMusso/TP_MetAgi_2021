@@ -10,6 +10,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import xp.model.Vendedor;
 import xp.utils.*;
 
 import javax.swing.JPasswordField;

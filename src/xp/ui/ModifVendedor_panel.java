@@ -47,17 +47,17 @@ public class ModifVendedor_panel extends JPanel {
 		(this.tnombre = new JTextField(40)).setText(nom);
 		
 		this.apellido = new JLabel("Apellido");
-//		(this.tapellido = new JTextField(40)).setText(ape);
+		(this.tapellido = new JTextField(40)).setText(ape);
 		
 		this.tipodoc = new JLabel("Tipo doc.");
 		this.ttipodoc = new JComboBox<String>();
 		//this.ttipodoc.setSelectedItem(est);
 		
 		this.nrodoc = new JLabel("Nro. doc.");
-//		(this.tnrodoc = new JTextField(40)).setText(ndoc);
+		(this.tnrodoc = new JTextField(40)).setText(ndoc);
 		
 		this.claveacceso = new JLabel("Clave de Acceso");
-//		(this.tclaveacceso =  new JTextField(40)).setText(pass);
+		(this.tclaveacceso =  new JTextField(40)).setText(pass);
 				
 		
 	
@@ -98,6 +98,11 @@ public class ModifVendedor_panel extends JPanel {
 		gbc.gridx = 0;
 		gbc.gridy = 6;
 	
+		
+		
+		
+		
+		
 		
 		//text
 		gbc.gridx = 2;
@@ -147,9 +152,9 @@ public class ModifVendedor_panel extends JPanel {
 			String tdoc = this.tnrodoc.getText();
 			String tpass = this.tclaveacceso.getText();
 		
-//			Vendedor vendedor = new Vendedor();
-//			vendedor.delete(id);
-//			vendedor.insert(tnom, tape, tdoc, tpass);
+			Vendedor vendedor = new Vendedor();
+			vendedor.delete(id);
+			vendedor.insert(tnom, tape, tdoc, tpass);
 			
 			tit.setText("Vendedor actualizado!");
 			tit.setForeground(Color.RED);
