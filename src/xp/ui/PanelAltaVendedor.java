@@ -13,7 +13,6 @@ import javax.swing.*;
 
 import xp.db.T_propietario;
 import xp.db.T_vendedor;
-import xp.model.Vendedor;
 import xp.utils.FieldValidators;
 
 
@@ -156,15 +155,18 @@ public class PanelAltaVendedor extends JPanel {
 			String ape = this.tapellido.getText();
 			String tipodoc = (String) this.ttipodoc.getSelectedItem();
 			String nrodoc = this.tnrodoc.getText();
-			String claveacceso = this.claveacceso.getText();
+			String claveacceso = this.tclaveacceso.getText();
 			
-			Vendedor vendedor = new Vendedor(nom, ape, tipodoc, nrodoc, claveacceso);
+			T_vendedor aT = new T_vendedor();
+			aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);
 						
 //			T_vendedor aT = new T_vendedor();
 //			aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);
 			
-			tit.setText("Vendedor " + vendedor.toString() + " agregado correctamente!");
-//			VentanaExito ventanaExito = new VentanaExito("Vendedor " + vendedor.toString() + " agregado correctamente.");
+//			tit.setText("Vendedor " + aT.toString() + " agregado correctamente!");
+			VentanaExito ventanaExito = new VentanaExito("Vendedor agregado correctamente.");
+			ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			ventanaExito.setVisible(true);
 //			tit.setForeground(Color.RED);
 //			agregar.setEnabled(false);
 		});

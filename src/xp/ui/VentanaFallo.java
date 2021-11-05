@@ -16,23 +16,24 @@ import org.w3c.dom.css.RGBColor;
 import javax.swing.JLabel;
 import java.awt.Font;
 
-public class VentanaExito extends JDialog {
+public class VentanaFallo extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
 	/**
 	 * Create the dialog.
 	 */
-	public VentanaExito(String mensaje) {
+	public VentanaFallo(String mensaje) {
 		setBounds(100, 100, 450, 141);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
-			JLabel lblMensaje = new JLabel(mensaje=="" ? "EXITO" : mensaje);
-			lblMensaje.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			lblMensaje.setForeground(Color.green);
+			JLabel lblMensaje = new JLabel(mensaje=="" ? "ERROR" : mensaje);
+			lblMensaje.setText(mensaje);
+			lblMensaje.setFont(new Font("Tahoma", Font.PLAIN, 30));
+			lblMensaje.setForeground(Color.red);
 			contentPanel.add(lblMensaje);
 		}
 		{
@@ -44,9 +45,6 @@ public class VentanaExito extends JDialog {
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
-				okButton.addActionListener(a -> {
-					dispose();
-				});
 			}
 		}
 	}

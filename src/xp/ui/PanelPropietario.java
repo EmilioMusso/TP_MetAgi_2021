@@ -11,11 +11,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.*;
 
 import xp.db.T_propietario;
-import xp.model.Vendedor;
 
 
 
-public class ModifVendedor_panel extends JPanel {
+public class PanelPropietario extends JPanel {
 	
 	private JLabel tit;
 	private JLabel nombre;
@@ -26,43 +25,58 @@ public class ModifVendedor_panel extends JPanel {
 	private JComboBox<String> ttipodoc;
 	private JLabel nrodoc;
 	private JTextField tnrodoc;
-	private JLabel claveacceso;
-	private JTextField tclaveacceso;
+	private JLabel direccion;
+	private JLabel calle;
+	private JTextField tcalle;
+	private JLabel nrodom;
+	private JTextField tnrodom;
+	private JLabel provincia;
+	private JTextField tprovincia;
+	private JLabel localidad;
+	private JTextField tlocalidad;
+	private JLabel telefono;
+	private JTextField ttelefono;
+	private JLabel email;
+	private JTextField temail;
+
 	
-	private JButton guardar;
+	private JButton agregar;
 	
 	private GridBagConstraints gbc;
 	
 	
-	public ModifVendedor_panel() {
+	public PanelPropietario() {
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
-		
 	}
 	
-	public ModifVendedor_panel armarPanel(Object id, String nom, String ape, String ndoc, String pass) {
+	public PanelPropietario armarPanel() {
 		
-		this.tit = new JLabel("Modificar propietario");
+		this.tit = new JLabel("Alta de propietario");
 		this.nombre = new JLabel("Nombre");
-		(this.tnombre = new JTextField(40)).setText(nom);
-		
+		this.tnombre = new JTextField(40);
 		this.apellido = new JLabel("Apellido");
-//		(this.tapellido = new JTextField(40)).setText(ape);
-		
+		this.tapellido = new JTextField(40);
 		this.tipodoc = new JLabel("Tipo doc.");
 		this.ttipodoc = new JComboBox<String>();
-		//this.ttipodoc.setSelectedItem(est);
-		
 		this.nrodoc = new JLabel("Nro. doc.");
-//		(this.tnrodoc = new JTextField(40)).setText(ndoc);
-		
-		this.claveacceso = new JLabel("Clave de Acceso");
-//		(this.tclaveacceso =  new JTextField(40)).setText(pass);
+		this.tnrodoc = new JTextField(40);
+		this.direccion = new JLabel("Dirección");
+		this.calle = new JLabel("Calle");
+		this.tcalle = new JTextField(40);
+		this.nrodom = new JLabel("Nro.");
+		this.tnrodom = new JTextField(40);
+		this.provincia = new JLabel("Provincia");
+		this.tprovincia = new JTextField(40);
+		this.localidad = new JLabel("Localidad");
+		this.tlocalidad = new JTextField(40);
+		this.telefono = new JLabel("Teléfono");
+		this.ttelefono = new JTextField(40);
+		this.email = new JLabel("E-mail");
+		this.temail = new JTextField(40);
 				
 		
-	
-		
-		this.guardar = new JButton("Guardar"); 
+		this.agregar = new JButton("Agregar"); 
 		
 		gbc.gridx = 0;		//posición
 		gbc.gridy = 0;
@@ -93,11 +107,30 @@ public class ModifVendedor_panel extends JPanel {
 		this.add(nrodoc,gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 5;
-		
-		this.add(claveacceso,gbc);
+		this.add(direccion,gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 6;
-	
+		this.add(calle,gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 7;
+		this.add(nrodom,gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 8;
+		this.add(provincia,gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 9;
+		this.add(localidad,gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 10;
+		this.add(telefono,gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 11;
+		this.add(email,gbc);
+		
+		
+		
+		
+		
 		
 		//text
 		gbc.gridx = 2;
@@ -122,10 +155,28 @@ public class ModifVendedor_panel extends JPanel {
 		
 		gbc.gridx = 2;
 		gbc.gridy = 6;
-		this.add(tclaveacceso,gbc);
+		this.add(tcalle,gbc);
+		gbc.gridx = 2;
+		gbc.gridy = 7;
+		this.add(tnrodom,gbc);
+		gbc.gridx = 2;
+		gbc.gridy = 8;
+		this.add(tprovincia,gbc);
+		gbc.gridx = 2;
+		gbc.gridy = 9;
+		this.add(tlocalidad,gbc);
+		gbc.gridx = 2;
+		gbc.gridy = 10;
+		this.add(ttelefono,gbc);
+		gbc.gridx = 2;
+		gbc.gridy = 11;
+		this.add(temail,gbc);
+		
+			
 		
 		
 		
+		//gbc.anchor = GridBagConstraints.WEST;
 		
 		
 		//button
@@ -137,23 +188,30 @@ public class ModifVendedor_panel extends JPanel {
 		gbc.anchor = GridBagConstraints.EAST;
 		//gbc.ipadx = 40;
 		//gbc.fill = GridBagConstraints.HORIZONTAL;
-		this.add(guardar,gbc);
-		gbc.gridx = 2;
-		gbc.gridy = 12;
+		this.add(agregar,gbc);
 		
-		guardar.addActionListener(e -> {
+		gbc.gridx = 2;
+		gbc.gridy = 6;
+		
+		agregar.addActionListener(e -> {
 			String tnom = this.tnombre.getText();
 			String tape = this.tapellido.getText();
 			String tdoc = this.tnrodoc.getText();
-			String tpass = this.tclaveacceso.getText();
-		
-//			Vendedor vendedor = new Vendedor();
-//			vendedor.delete(id);
-//			vendedor.insert(tnom, tape, tdoc, tpass);
+			String tcal = this.tcalle.getText();
+			String tnd = this.tnrodom.getText();
+			String tpro = this.tprovincia.getText();
+			String tloc = this.tlocalidad.getText();
+			String ttel = this.ttelefono.getText();
+			String tem = this.temail.getText();
 			
-			tit.setText("Vendedor actualizado!");
+			//String test = (String) this.testado.getSelectedItem();
+			
+			T_propietario aT = new T_propietario();
+			aT.insert(tnom, tape, tdoc, tcal, tnd, tpro, tloc, ttel, tem);
+			
+			tit.setText("Propietario agregado!");
 			tit.setForeground(Color.RED);
-			guardar.setEnabled(false);
+			agregar.setEnabled(false);
 		});
 			
 			

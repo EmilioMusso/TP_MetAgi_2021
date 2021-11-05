@@ -1,5 +1,4 @@
-
-
+package xp;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -9,6 +8,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -16,20 +16,19 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.WindowConstants;
 
-import xp.utils.Ini;
-import xp.db.Cons_Propietario;
+import xp.ui.Cons_Propietario;
+import xp.ui.Cons_Vendedor;
 import xp.ui.ModifProp_panel;
 import xp.ui.PanelAltaVendedor;
 import xp.ui.PanelPropietario;
-
-
+import xp.ui.VentanaExito;
+import xp.ui.VentanaFallo;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		
 		//FRAME
-		
 		JFrame ventana = new JFrame("Sistema de compra y venta de inmuebles");
 		ventana.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
@@ -68,11 +67,11 @@ public class Main {
 	    	 });
 	     menu1.add(mi1);
 	     
-	     mi2=new JMenuItem("Modificar");  
+	     mi2=new JMenuItem("Consultar");  
 	     mi2.addActionListener (e -> {
 	    	 gbcf.gridx = 0;
 	 		 gbcf.gridy = 0;
-	 		 ventana.setContentPane(new ModifProp_panel()); //aca tiene que llamar a la lista
+	 		 ventana.setContentPane(new Cons_Vendedor()); //aca tiene que llamar a la lista
 	    	 gbcf.gridx = 3; 
 	 		 gbcf.gridy = 10;
 	 		 gbcf.insets= new Insets(5,5,5,5);
@@ -169,19 +168,8 @@ public class Main {
 			ventana.pack();
 			ventana.setVisible(true);
 		});
-		
-		
-		
-		
-		
-		
-		
-	
-	  
-		
-}	
-
-}
+				
+}}
 
 
 

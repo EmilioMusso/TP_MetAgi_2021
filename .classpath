@@ -7,10 +7,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-<<<<<<< HEAD
-	<classpathentry kind="lib" path="C:/Users/emili/Desktop/postgresql-42.3.1.jar"/>
-=======
-	<classpathentry kind="lib" path="C:/Leandro/UTN/2021/Metodos Ag/postgresql-42.2.23.jar"/>
->>>>>>> refs/remotes/origin/master
+	<classpathentry kind="lib" path="img/postgresql-42.2.24.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

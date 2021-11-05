@@ -2,39 +2,38 @@ package xp.ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.synth.ColorType;
-import javax.swing.text.AttributeSet.ColorAttribute;
 
-import org.w3c.dom.css.RGBColor;
-
-import javax.swing.JLabel;
-import java.awt.Font;
-
-public class VentanaExito extends JDialog {
+public class a extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
 	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			a dialog = new a();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * Create the dialog.
 	 */
-	public VentanaExito(String mensaje) {
-		setBounds(100, 100, 450, 141);
+	public a() {
+		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		{
-			JLabel lblMensaje = new JLabel(mensaje=="" ? "EXITO" : mensaje);
-			lblMensaje.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			lblMensaje.setForeground(Color.green);
-			contentPanel.add(lblMensaje);
-		}
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -44,9 +43,11 @@ public class VentanaExito extends JDialog {
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
-				okButton.addActionListener(a -> {
-					dispose();
-				});
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
 			}
 		}
 	}
