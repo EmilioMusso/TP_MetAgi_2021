@@ -30,9 +30,8 @@ public class VentanaFallo extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
-			JLabel lblMensaje = new JLabel(mensaje=="" ? "ERROR" : mensaje);
-			lblMensaje.setText(mensaje);
-			lblMensaje.setFont(new Font("Tahoma", Font.PLAIN, 30));
+			JLabel lblMensaje = new JLabel(mensaje=="" ? "FALLO" : mensaje);
+			lblMensaje.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			lblMensaje.setForeground(Color.red);
 			contentPanel.add(lblMensaje);
 		}
@@ -45,6 +44,9 @@ public class VentanaFallo extends JDialog {
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
+				okButton.addActionListener(a -> {
+					dispose();
+				});
 			}
 		}
 	}

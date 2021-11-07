@@ -13,6 +13,8 @@ import javax.swing.*;
 
 import xp.db.T_propietario;
 import xp.db.T_vendedor;
+import xp.exceptions.camposVaciosException;
+import xp.exceptions.passwordInvalidaException;
 import xp.utils.FieldValidators;
 
 
@@ -137,24 +139,30 @@ public class AltaVendedor_panel extends JPanel {
 		
 		
 		agregar.addActionListener(e -> {
-			String nom = this.tnombre.getText();
-			String ape = this.tapellido.getText();
-			String tipodoc = (String) this.ttipodoc.getSelectedItem();
-			String nrodoc = this.tnrodoc.getText();
-			String claveacceso = this.tclaveacceso.getText();
-			
-			T_vendedor aT = new T_vendedor();
-			aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);
-						
-//			T_vendedor aT = new T_vendedor();
-//			aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);
-			
-//			tit.setText("Vendedor " + aT.toString() + " agregado correctamente!");
-			VentanaExito ventanaExito = new VentanaExito("Vendedor agregado correctamente.");
-			ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			ventanaExito.setVisible(true);
-//			tit.setForeground(Color.RED);
-//			agregar.setEnabled(false);
+			try {
+				if (!camposVacios()) {
+					if(!camposInvalidos()) {
+						T_vendedor aT = new T_vendedor();
+						aT.insert(tnombre.getText(),
+								tapellido.getText(),
+								ttipodoc.getSelectedItem().toString(),
+								tnrodoc.getText(),
+								tclaveacceso.getText());
+//						Vendedor newVendedor = new Vendedor(tnombre.getText(),
+//						tapellido.getText(),
+//						ttipodoc.getSelectedItem().toString(),
+//						tnrodoc.getText(),
+//						tclaveacceso.getText());
+						VentanaExito ventanaExito = new VentanaExito("Vendedor agregado correctamente.");
+						ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						ventanaExito.setVisible(true);
+					}
+				}
+			} catch(camposVaciosException e1) {
+				VentanaFallo v1 = new VentanaFallo(e1.getMessage());
+			} catch (Exception e2) {
+				VentanaFallo v2 = new VentanaFallo(e2.getMessage());
+			}
 		});
 			
 			
@@ -162,126 +170,36 @@ public class AltaVendedor_panel extends JPanel {
 		
 		return this;
 	}
-	
-	private Boolean camposValidos() {
+
+	private Boolean camposVacios() throws camposVaciosException { //TODO ver si todos son obligatorios
 		BitSet bitSetValidacioneSet = new BitSet(4);
 		bitSetValidacioneSet.clear();
 		
-		bitSetValidacioneSet.set(0, fv.campoAlfabetico(tnombre.getText()));
-		bitSetValidacioneSet.set(1, fv.campoAlfabetico(tapellido.getText()));
-		bitSetValidacioneSet.set(2, fv.campoNumerico(tnrodoc.getText()));
-		bitSetValidacioneSet.set(3, fv.campoPassword(tclaveacceso.getText()));
+		bitSetValidacioneSet.set(0, tnombre.getText()=="");
+		bitSetValidacioneSet.set(1, tapellido.getText()=="");
+		bitSetValidacioneSet.set(2, tnrodoc.getText()=="");
+		bitSetValidacioneSet.set(3, tclaveacceso.getText()=="");
 		
-		return !bitSetValidacioneSet.isEmpty();
+		//Si el bitset no esta vacio es que hay un problema
+		if(!bitSetValidacioneSet.isEmpty()) throw new camposVaciosException("Complete los"
+				+ "campos obligatorios."); //TODO mejorar mensaje
+		System.out.println(bitSetValidacioneSet.toString());
+		return false;
 	}
-
-}
-
-
-/*
-
-
-
-
-
-package xp.ui;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.util.BitSet;
-
-import javax.swing.JButton;
-import javax.swing.JDesktopPane;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
-import xp.model.Vendedor;
-import xp.utils.*;
-
-import javax.swing.JPasswordField;
-
-public class PanelAltaVendedor extends JPanel {
-	private JTextField txtNombre;
-	private JTextField txtApellido;
-	private JTextField txtDni;
-	private JPasswordField txtClaveAcceso;
 	
-	private FieldValidators fv;
-
-	/**
-	 * Create the panel.
-	 *
-	public PanelAltaVendedor(JFrame frame) {
-		super();
-		frame.setContentPane(this);
-		this.setBounds(0, 0, 784, 561);
-		setLayout(null);
+	private Boolean camposInvalidos() {
+		BitSet bitSetValidacioneSet = new BitSet(4);
+		bitSetValidacioneSet.clear();
 		
-		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBounds(10, 11, 764, 539);
-		add(desktopPane);
+		bitSetValidacioneSet.set(0, fv.esAlfabetico(tnombre.getText()));
+		bitSetValidacioneSet.set(1, fv.esAlfabetico(tapellido.getText()));
+		bitSetValidacioneSet.set(2, fv.esNumerico(tnrodoc.getText()));
+		try {
+			bitSetValidacioneSet.set(3, fv.passwordValida(tclaveacceso.getText()));
+		} catch (passwordInvalidaException e) {
+			VentanaFallo vf = new VentanaFallo(e.getMessage());
+		}
 		
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(10, 11, 46, 14);
-		desktopPane.add(lblNombre);
-		
-		txtNombre = new JTextField();
-		txtNombre.setBounds(10, 36, 86, 20);
-		desktopPane.add(txtNombre);
-		txtNombre.setColumns(10);
-		
-		JLabel lblApellido = new JLabel("Apellido");
-		lblApellido.setBounds(162, 11, 46, 14);
-		desktopPane.add(lblApellido);
-		
-		txtApellido= new JTextField();
-		txtApellido.setColumns(10);
-		txtApellido.setBounds(162, 36, 86, 20);
-		desktopPane.add(txtApellido);
-		
-		txtDni = new JTextField();
-		txtDni.setColumns(10);
-		txtDni.setBounds(10, 112, 86, 20);
-		desktopPane.add(txtDni);
-		
-		JLabel lblDni = new JLabel("Dni");
-		lblDni.setBounds(10, 87, 46, 14);
-		desktopPane.add(lblDni);
-		
-		JLabel lblClaveAcceso = new JLabel("Clave");
-		lblClaveAcceso.setBounds(10, 163, 46, 14);
-		desktopPane.add(lblClaveAcceso);
-		
-		txtClaveAcceso = new JPasswordField();
-		txtClaveAcceso.setBounds(10, 188, 86, 20);
-		desktopPane.add(txtClaveAcceso);
-		
-		JButton btnCrear = new JButton("Crear");
-		btnCrear.setBounds(664, 500, 90, 28);
-		desktopPane.add(btnCrear);
-		btnCrear.addActionListener(a -> {
-			if(camposValidos()) {
-				Vendedor v1 = new Vendedor(
-						txtNombre.getText(),
-						txtApellido.getText(),
-						txtDni.getText(),
-						txtClaveAcceso.getPassword().toString());
-				//TODO guardar en app
-				VentanaExito exito = new VentanaExito("EL VENDEDOR HA SIDO CREADO CON EXITO.");
-				exito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				exito.setVisible(true);
-			}
-		});
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(564, 500, 90, 28);
-		desktopPane.add(btnCancelar);
-		btnCancelar.addActionListener(a -> {
-			
-		});		
+		return false;
 	}
-
-
 }
-*/
