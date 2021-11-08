@@ -187,12 +187,12 @@ public class ModifVendedor_panel extends JPanel {
 	private Boolean camposValidos() {
 		BitSet bitSetValidacioneSet = new BitSet(4);
 		bitSetValidacioneSet.clear();
-		
+		/*
 		bitSetValidacioneSet.set(0, fv.campoAlfabetico(tnombre.getText()));
 		bitSetValidacioneSet.set(1, fv.campoAlfabetico(tapellido.getText()));
 		bitSetValidacioneSet.set(2, fv.campoNumerico(tnrodoc.getText()));
 		bitSetValidacioneSet.set(3, fv.campoPassword(tclaveacceso.getText()));
-		
+		*/
 		return !bitSetValidacioneSet.isEmpty();
 	}
 
