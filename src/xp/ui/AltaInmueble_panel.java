@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.sql.Date;
 import java.util.BitSet;
 
 import javax.swing.AbstractButton;
@@ -51,7 +52,7 @@ public class AltaInmueble_panel extends JPanel {
 		armarPanel();
 	}
 	
-	public AltaVendedor_panel armarPanel() {
+	public AltaInmueble_panel armarPanel() {
 		
 		this.tit = new JLabel("Alta de Inmueble");
 		this.codigoInmueble = new JLabel("Codigo del Inmueble");
@@ -142,14 +143,14 @@ public class AltaInmueble_panel extends JPanel {
 		
 		
 		agregar.addActionListener(e -> {
-			String codI = this.tcodigoInmueble.getText();
+			String codI = this.tcodigoInmueble.getText(); 
 			String estI = this.testadoInmueble.getText();
 			String loc = (String) this.tlocalidad.getText();
 			String prov = this.tprovincia.getText();
-		//	String fecha = this.tfechaCarga.;
+			Date fecha = (Date) this.tfechaCarga.getDate();
 			
 			T_inmueble iT = new T_inmueble();
-		//	iT.insert(codI, estI, loc, prov); //falta la fecha
+			iT.insert(codI, estI, loc, prov, fecha); //falta la fecha
 						
 //			T_vendedor aT = new T_vendedor();
 //			aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);
@@ -166,7 +167,7 @@ public class AltaInmueble_panel extends JPanel {
 			
 		//this.agregar.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		
-		return null;
+		return this;
 	}
 	
 	/*private Boolean camposValidos() {

@@ -21,14 +21,14 @@ public class T_inmueble {
 
 	public T_inmueble() {	}
 	
-	public void insert(Integer codigoInmueble, Integer estadoInmueble, String localidad,String provincia,Date fechaCarga) {
+	public void insert(String codigoInmueble, String estadoInmueble, String localidad,String provincia,Date fechaCarga) {
 		Connection con = null;
 		PreparedStatement ps =  null;
 		con = ConnectionMA.get();
 		try{
 		ps = con.prepareStatement(ins);
 		ps.setInt(1,this.nextId());
-		ps.setInt(2,codigoInmueble);
+		ps.setString(2,codigoInmueble);
 		ps.setString(3,localidad);
 		ps.setString(4,provincia);
 		ps.setDate(5,(java.sql.Date) fechaCarga); //esto no se si esta bien - corroborar 
@@ -148,8 +148,8 @@ public class T_inmueble {
 			while(rs.next()) {
 				i1 = new Inmueble(
 						rs.getString("id"),
-						rs.getInt("codigoInmueble"),
-						rs.getInt("estadoInmueble"),
+						rs.getString("codigoInmueble"),
+						rs.getString("estadoInmueble"),
 						rs.getString("localidad"),	
 						rs.getString("provincia"),	
 						rs.getDate("fechaCarga") );	

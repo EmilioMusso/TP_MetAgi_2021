@@ -11,14 +11,14 @@ public class Inmueble {
 	
 
 	private Object id;
-	private Integer codigoInmueble;
-	private Integer estadoInmueble;
+	private String codigoInmueble;
+	private String estadoInmueble;
 	private String localidad;
 	private String provincia;
 	private Date fechaCarga;
 //	private Propietario propietario;	
 	
-	public Inmueble(Integer codigoInmueble, Integer estadoInmueble, String localidad,String provincia,Date fechaCarga) {
+	public Inmueble(String codigoInmueble,String estadoInmueble, String localidad,String provincia,Date fechaCarga) {
 		super();
 	
 		this.codigoInmueble = codigoInmueble;
@@ -28,7 +28,7 @@ public class Inmueble {
 		this.fechaCarga = fechaCarga;
 	}
 	
-	public Inmueble(Object id,Integer codigoInmueble, Integer estadoInmueble, String localidad,String provincia,Date fechaCarga) {
+	public Inmueble(Object id,String codigoInmueble, String estadoInmueble, String localidad,String provincia,Date fechaCarga) {
 		super();
 		this.id = id;
 		this.codigoInmueble = codigoInmueble;
@@ -46,16 +46,16 @@ public class Inmueble {
 	public void setId(Object id) {
 		this.id = id;
 	}
-	public Integer getCodigoInmueble() {
+	public String getCodigoInmueble() {
 		return codigoInmueble;
 	}
-	public void setCodigoInmueble(Integer codigoInmueble) {
+	public void setCodigoInmueble(String codigoInmueble) {
 		this.codigoInmueble = codigoInmueble;
 	}
-	public Integer getEstadoInmueble() {
+	public String getEstadoInmueble() {
 		return estadoInmueble;
 	}
-	public void setEstadoInmueble(Integer estadoInmueble) {
+	public void setEstadoInmueble(String estadoInmueble) {
 		this.estadoInmueble = estadoInmueble;
 	}
 	public String getLocalidad() {
