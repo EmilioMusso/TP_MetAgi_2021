@@ -54,7 +54,7 @@ public class Main {
 		 JMenuItem mi1,mi2,mi3;
 		 
 //			--------------------------------------------------------Vendedor
-	     menu1=new JMenu("Vendedor");
+	     menu1=new JMenu("Vendedore");
 	     mb.add(menu1);
 	    
 	     mi1=new JMenuItem("Agregar");
