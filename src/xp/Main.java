@@ -70,7 +70,7 @@ public class Main {
 	    	 });
 	     menu1.add(mi1);
 	     
-	     mi2=new JMenuItem("Consultar");  
+	     mi2=new JMenuItem("ConsultAR");  
 	     mi2.addActionListener (e -> {
 	    	 gbcf.gridx = 0;
 	 		 gbcf.gridy = 0;
