@@ -13,6 +13,10 @@ import javax.swing.*;
 
 import xp.db.T_propietario;
 import xp.db.T_vendedor;
+import xp.exceptions.CampoNoAlfabeticoException;
+import xp.exceptions.CamposVaciosException;
+import xp.exceptions.NroDocValidoException;
+import xp.exceptions.PasswordInvalidaException;
 import xp.model.Vendedor;
 import xp.utils.FieldValidators;
 
@@ -38,13 +42,14 @@ public class ModifVendedor_panel extends JPanel {
 	private GridBagConstraints gbc;
 	
 	
-	public ModifVendedor_panel(Vendedor v1) {
+	public ModifVendedor_panel(Vendedor v1, ModifVendedor_ventana ventana, GridBagConstraints gbcf) {
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
-		armarPanel(v1);
+		armarPanel(v1, ventana, gbcf);
 	}
 	
-	public ModifVendedor_panel armarPanel(Vendedor v1) {
+
+	public ModifVendedor_panel armarPanel(Vendedor v1, ModifVendedor_ventana ventana, GridBagConstraints gbcf) {
 		
 		this.tit = new JLabel("Alta de vendedor");
 		this.nombre = new JLabel("Nombre");
@@ -61,6 +66,8 @@ public class ModifVendedor_panel extends JPanel {
 		this.tnrodoc.setText(v1.getNumDoc());
 		this.claveacceso = new JLabel("Clave de acceso");
 		this.tclaveacceso = new JPasswordField(40);
+		 
+		this.fv = new FieldValidators();
 		
 				
 		this.modificar = new JButton("Modificar"); 
@@ -163,19 +170,36 @@ public class ModifVendedor_panel extends JPanel {
 			String nrodoc = this.tnrodoc.getText();
 			String claveacceso = this.tclaveacceso.getText();
 			
-			T_vendedor aT = new T_vendedor();
-			aT.delete(id);
-			aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);
-						
-//			T_vendedor aT = new T_vendedor();
-//			aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);
-			
-//			tit.setText("Vendedor " + aT.toString() + " agregado correctamente!");
-			VentanaExito ventanaExito = new VentanaExito("Vendedor agregado correctamente.");
-			ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			ventanaExito.setVisible(true);
-//			tit.setForeground(Color.RED);
-//			agregar.setEnabled(false);
+			try {
+				if (!camposVacios()) {
+					if(!camposInvalidos()) {
+						T_vendedor aT = new T_vendedor();
+						aT.delete(id);
+						aT.insert(tnombre.getText(),
+								tapellido.getText(),
+								ttipodoc.getSelectedItem().toString(),
+								tnrodoc.getText(),
+								tclaveacceso.getText());
+//						Vendedor newVendedor = new Vendedor(tnombre.getText(),
+//						tapellido.getText(),
+//						ttipodoc.getSelectedItem().toString(),
+//						tnrodoc.getText(),
+//						tclaveacceso.getText());
+						VentanaExito ventanaExito = new VentanaExito("Vendedor modificado correctamente.");
+						ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						ventanaExito.setVisible(true);
+						ventana.dispose();
+					}
+				}
+			} catch(CamposVaciosException e1) {
+				VentanaFallo v = new VentanaFallo(e1.getMessage());
+				v.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				v.setVisible(true);
+			} catch (Exception e2) {
+				VentanaFallo v2 = new VentanaFallo(e2.getMessage());
+				v2.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				v2.setVisible(true);
+			}
 		});
 			
 			
@@ -184,16 +208,40 @@ public class ModifVendedor_panel extends JPanel {
 		return this;
 	}
 	
-	private Boolean camposValidos() {
-		BitSet bitSetValidacioneSet = new BitSet(4);
-		bitSetValidacioneSet.clear();
-		/*
-		bitSetValidacioneSet.set(0, fv.campoAlfabetico(tnombre.getText()));
-		bitSetValidacioneSet.set(1, fv.campoAlfabetico(tapellido.getText()));
-		bitSetValidacioneSet.set(2, fv.campoNumerico(tnrodoc.getText()));
-		bitSetValidacioneSet.set(3, fv.campoPassword(tclaveacceso.getText()));
-		*/
-		return !bitSetValidacioneSet.isEmpty();
+	private Boolean camposVacios() throws CamposVaciosException { //TODO ver si todos son obligatorios
+		if(tnombre.getText().isEmpty() ||
+				tapellido.getText().isEmpty() ||
+				tnrodoc.getText().isEmpty() ||
+				tclaveacceso.getText().isEmpty()) throw new CamposVaciosException("Complete los "
+				+ "campos obligatorios."); //TODO mejorar mensaje
+		return false;
+	}
+	
+	private Boolean camposInvalidos() {
+		try {
+			if(fv.esAlfabetico(tnombre.getText(), "nombre") &&
+					fv.esAlfabetico(tapellido.getText(), "apellido") &&
+					fv.nroDocValido(tnrodoc.getText()) &&
+					fv.passwordValida(tclaveacceso.getPassword().toString())) {
+				return false;
+			}
+		} catch (PasswordInvalidaException e1) {
+			VentanaFallo v1 = new VentanaFallo(e1.getMessage());
+			v1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			v1.setVisible(true);
+			return true;
+		} catch (CampoNoAlfabeticoException e2) {
+			VentanaFallo v2 = new VentanaFallo(e2.getMessage());
+			v2.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			v2.setVisible(true);
+			return true;
+		} catch (NroDocValidoException e3) {
+			VentanaFallo v3 = new VentanaFallo(e3.getMessage());
+			v3.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			v3.setVisible(true);
+			return true;
+		}
+		return true;
 	}
 
 }

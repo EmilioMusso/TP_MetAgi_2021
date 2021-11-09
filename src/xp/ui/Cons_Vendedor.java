@@ -1,6 +1,7 @@
 package xp.ui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -45,7 +47,7 @@ public class Cons_Vendedor extends JPanel {
 	private String emailSelected;
 	
 	
-	public Cons_Vendedor() {
+	public Cons_Vendedor(JFrame ventana, GridBagConstraints gbcf) {
 	
         		
 		this.gbc = new GridBagConstraints();
@@ -137,7 +139,7 @@ public class Cons_Vendedor extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.addMouseListener(new MouseAdapter( ) {
         	public void mouseWheelMoved(MouseEvent e) {
-                System.out.println(e);
+//                System.out.println(e);
             }
         });
         
@@ -169,14 +171,25 @@ public class Cons_Vendedor extends JPanel {
       	this.add(modificar,gbc);
 
    	 	modificar.addActionListener(e -> {
+   	 		//TODO agregar excepcion si no se selecciona ninguno
    	 		T_vendedor tVendedor = new T_vendedor();
-   	 		Object id = idSelected;
    	 		ModifVendedor_ventana modif = new ModifVendedor_ventana(tVendedor.buscarVendedor(idSelected));
 		 	modif.setVisible(true);
+	    	gbcf.gridx = 0;
+	 		gbcf.gridy = 0;
+	 		ventana.setContentPane(new Cons_Vendedor(ventana, gbcf));
+	    	gbcf.gridx = 3; 
+	 		gbcf.gridy = 10;
+	 		gbcf.insets= new Insets(5,5,5,5);
+	 		JButton salir = new JButton("Salir");
+			//	 		gbcf.anchor = GridBagConstraints.EAST;
+	 		ventana.add(salir,gbcf);
+	    	ventana.pack();
 //			modificar.setEnabled(false);
 		 });
     	
     	eliminar.addActionListener(e -> {
+   	 		//TODO agregar excepcion si no se selecciona ninguno
 			T_vendedor mT = new T_vendedor();
 			mT.delete(idSelected);
 			// eliminar.setEnabled(false);
