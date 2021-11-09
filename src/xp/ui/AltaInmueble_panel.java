@@ -67,16 +67,16 @@ public class AltaInmueble_panel extends JPanel {
 		this.tfechaCarga = new JCalendar();	
 		this.agregar = new JButton("Agregar"); 
 		
-		gbc.gridx = 0;		//posición
+		gbc.gridx = 0;		//posiciï¿½n
 		gbc.gridy = 0;
 		gbc.weightx = 0.1;	//peso
 		gbc.weighty = 0.1;
-		gbc.anchor = GridBagConstraints.EAST;	//ubicación
+		gbc.anchor = GridBagConstraints.EAST;	//ubicaciï¿½n
 		//gbc.ipadx = 10;						//margen int		
 		//gbc.ipady = 10;
 		gbc.insets= new Insets(5,5,5,5);	 	//top,left,bottom,right 	
 		
-		//Título
+		//Tï¿½tulo
 		this.add(tit,gbc);
 		tit.setForeground(Color.BLUE);
 		tit.setFont(tit.getFont().deriveFont(22.0f));
@@ -147,10 +147,10 @@ public class AltaInmueble_panel extends JPanel {
 			String estI = this.testadoInmueble.getText();
 			String loc = (String) this.tlocalidad.getText();
 			String prov = this.tprovincia.getText();
-			Date fecha = (Date) this.tfechaCarga.getDate();
+			String fechaString= fechaCarga.toString();
 			
 			T_inmueble iT = new T_inmueble();
-			iT.insert(codI, estI, loc, prov, fecha); //falta la fecha
+			iT.insert(codI, estI, loc, prov, fechaString); //falta la fecha
 						
 //			T_vendedor aT = new T_vendedor();
 //			aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);

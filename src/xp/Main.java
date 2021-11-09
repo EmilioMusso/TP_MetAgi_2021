@@ -21,6 +21,7 @@ import xp.ui.Cons_Vendedor;
 import xp.ui.ModifProp_panel;
 import xp.ui.AltaInmueble_panel;
 import xp.ui.AltaVendedor_panel;
+import xp.ui.Cons_Inmueble;
 import xp.ui.PanelPropietario;
 import xp.ui.VentanaExito;
 import xp.ui.VentanaFallo;
@@ -154,17 +155,17 @@ public class Main {
 	    	 });
 	     menu4.add(mi14);
 	     
-//	     mi14=new JMenuItem("Armar viaje");
-//	     mi14.addActionListener (e -> {
-//	    	 ventana.setContentPane(new AViaje().armarPanel());	
-//	    	 gbcf.gridx = 3;
-//	 		 gbcf.gridy = 9;
+	     mi14=new JMenuItem("Consultar Inmuebles");
+	     mi14.addActionListener (e -> {
+	    	 ventana.setContentPane(new Cons_Inmueble());	
+	    	 gbcf.gridx = 3;
+	 		 gbcf.gridy = 9;
 //	 		 gbcf.insets= new Insets(20,5,20,20);
 //	 		 gbcf.anchor = GridBagConstraints.EAST;
 //	 		 ventana.add(salir,gbcf); 
-//	    	 ventana.pack();
-//	    	 });
-//	     menu4.add(mi14);
+	    	 ventana.pack();
+	    	 });
+	     menu4.add(mi14);
 		
 	     
 	    //PANEL
