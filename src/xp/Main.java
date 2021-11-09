@@ -31,7 +31,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		//FRAME
-		JFrame ventana = new JFrame("Sistema de compra y venta de INMUEBLES!!!!!!! JAJAJAJA");
+		JFrame ventana = new JFrame("Sistema de compra y venta de INMUEBLES");
 		ventana.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
 		//ventana.setTitle ("");
