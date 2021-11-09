@@ -31,7 +31,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		//FRAME
-		JFrame ventana = new JFrame("Sistema de compra y venta de inmuebles!!!!!!!");
+		JFrame ventana = new JFrame("Sistema de compra y venta de INMUEBLES!!!!!!! JAJAJAJA");
 		ventana.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
 		//ventana.setTitle ("");
@@ -55,7 +55,7 @@ public class Main {
 		 JMenuItem mi1,mi2,mi3;
 		 
 //			--------------------------------------------------------Vendedor
-	     menu1=new JMenu("Vendedor");
+	     menu1=new JMenu("Vendedore");
 	     mb.add(menu1);
 	    
 	     mi1=new JMenuItem("Agregar");
