@@ -55,7 +55,7 @@ public class ModifProp_panel extends JPanel {
 		return this;
 	}
 
-	public ModifProp_panel armarPanel(Object id, String nom, String ape, String ndoc, String call, String ndom, String prov, String loc, String tel, String em) {
+	public ModifProp_panel armarPanel(Object id, String nom, String ape, String tdoc, String ndoc, String call, String ndom, String prov, String loc, String tel, String em) {
 		
 		this.tit = new JLabel("Modificar propietario");
 		this.nombre = new JLabel("Nombre");
@@ -66,7 +66,7 @@ public class ModifProp_panel extends JPanel {
 		
 		this.tipodoc = new JLabel("Tipo doc.");
 		this.ttipodoc = new JComboBox<String>();
-		//this.ttipodoc.setSelectedItem(est);
+		this.ttipodoc.setSelectedItem(tdoc);
 		
 		this.nrodoc = new JLabel("Nro. doc.");
 		(this.tnrodoc = new JTextField(40)).setText(ndoc);
@@ -205,7 +205,8 @@ public class ModifProp_panel extends JPanel {
 		guardar.addActionListener(e -> {
 			String tnom = this.tnombre.getText();
 			String tape = this.tapellido.getText();
-			String tdoc = this.tnrodoc.getText();
+			String tipd = (String) this.ttipodoc.getSelectedItem();
+			String tndoc = this.tnrodoc.getText();
 			String tcal = this.tcalle.getText();
 			String tnd = this.tnrodom.getText();
 			String tpro = this.tprovincia.getText();
@@ -215,8 +216,8 @@ public class ModifProp_panel extends JPanel {
 			
 			T_propietario aT = new T_propietario();
 			aT.delete(id);
-			aT.insert(tnom, tape, tdoc, tcal, tnd, tpro, tloc, ttel, tem);
-			
+			aT.insert(tnom, tape, tipd, tdoc, tcal, tnd, tpro, tloc, ttel, tem);
+						
 			tit.setText("Propietario actualizado!");
 			tit.setForeground(Color.RED);
 			guardar.setEnabled(false);

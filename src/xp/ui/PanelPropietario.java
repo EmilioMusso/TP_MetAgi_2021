@@ -196,6 +196,7 @@ public class PanelPropietario extends JPanel {
 		agregar.addActionListener(e -> {
 			String tnom = this.tnombre.getText();
 			String tape = this.tapellido.getText();
+			String tipd = (String) this.ttipodoc.getSelectedItem();
 			String tdoc = this.tnrodoc.getText();
 			String tcal = this.tcalle.getText();
 			String tnd = this.tnrodom.getText();
@@ -204,10 +205,9 @@ public class PanelPropietario extends JPanel {
 			String ttel = this.ttelefono.getText();
 			String tem = this.temail.getText();
 			
-			//String test = (String) this.testado.getSelectedItem();
-			
+						
 			T_propietario aT = new T_propietario();
-			aT.insert(tnom, tape, tdoc, tcal, tnd, tpro, tloc, ttel, tem);
+			aT.insert(tnom, tape, tipd, tdoc, tcal, tnd, tpro, tloc, ttel, tem);
 			
 			tit.setText("Propietario agregado!");
 			tit.setForeground(Color.RED);

@@ -44,6 +44,7 @@ public class Cons_Propietario extends JPanel {
 	private Object id;
 	private String nombre;
 	private String apellido;
+	private String tipdoc;
 	private String numdoc;
 	private String calle;
 	private String numdom;
@@ -80,6 +81,7 @@ public class Cons_Propietario extends JPanel {
         model.addColumn("Id"); 
         model.addColumn("Nombre"); 
         model.addColumn("Apellido");
+        model.addColumn("Tipo Doc");
         model.addColumn("Num Doc");
         model.addColumn("Calle");
         model.addColumn("Nro");
@@ -94,7 +96,7 @@ public class Cons_Propietario extends JPanel {
         T_propietario aT = new T_propietario();
         ArrayList<String> data_rs = new ArrayList<String>();
         data_rs= aT.buscar();
-        Object[] fila= {"","","","","","","","","",""};
+        Object[] fila= {"","","","","","","","","","",""};
         int i=0;
         int j=0;
         while(j<data_rs.size()) {
@@ -102,7 +104,7 @@ public class Cons_Propietario extends JPanel {
         		fila[i]=elem;
         		++i;
         		++j;
-        		if(i==10) {
+        		if(i==11) {
         			model.addRow(fila);
         			i=0;
     			}
@@ -134,13 +136,14 @@ public class Cons_Propietario extends JPanel {
                 id = table.getValueAt(row, 0);
             	nombre =  table.getValueAt(row, 1).toString();
             	apellido =  table.getValueAt(row, 2).toString();
-            	numdoc =  table.getValueAt(row, 3).toString();
-            	calle =  table.getValueAt(row, 4).toString();
-            	numdom =  table.getValueAt(row, 5).toString();
-            	provincia =  table.getValueAt(row, 6).toString();
-            	localidad =  table.getValueAt(row, 7).toString();
-            	telefono =  table.getValueAt(row, 8).toString();
-            	email =  table.getValueAt(row, 9).toString();
+            	tipdoc =  table.getValueAt(row, 3).toString();
+            	numdoc =  table.getValueAt(row, 4).toString();
+            	calle =  table.getValueAt(row, 5).toString();
+            	numdom =  table.getValueAt(row, 6).toString();
+            	provincia =  table.getValueAt(row, 7).toString();
+            	localidad =  table.getValueAt(row, 8).toString();
+            	telefono =  table.getValueAt(row, 9).toString();
+            	email =  table.getValueAt(row, 10).toString();
             	
             	
                                 
