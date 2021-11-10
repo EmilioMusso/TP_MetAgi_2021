@@ -62,7 +62,7 @@ public class Main {
 	     mi1.addActionListener (e -> {
 	    	 gbcf.gridx = 0;
 	 		 gbcf.gridy = 0;
-	    	 ventana.setContentPane(new AltaVendedor_panel());
+	    	 ventana.setContentPane(new AltaVendedor_panel(gbcf, ventana));
 	    	 gbcf.gridx = 3;
 	 		 gbcf.gridy = 7;
 	 		 gbcf.insets= new Insets(5,5,5,5);
@@ -75,12 +75,12 @@ public class Main {
 	     mi2.addActionListener (e -> {
 	    	 gbcf.gridx = 0;
 	 		 gbcf.gridy = 0;
-	 		 ventana.setContentPane(new Cons_Vendedor());
+	 		 ventana.setContentPane(new Cons_Vendedor(ventana, gbcf));
 	    	 gbcf.gridx = 3; 
 	 		 gbcf.gridy = 10;
 	 		 gbcf.insets= new Insets(5,5,5,5);
 //	 		 gbcf.anchor = GridBagConstraints.EAST;
-	 		 ventana.add(salir,gbcf); 
+	 		 ventana.add(salir,gbcf);
 	    	 ventana.pack();
 	    	 });
     	 menu1.add(mi2);

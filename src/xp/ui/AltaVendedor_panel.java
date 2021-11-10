@@ -13,8 +13,11 @@ import javax.swing.*;
 
 import xp.db.T_propietario;
 import xp.db.T_vendedor;
-import xp.exceptions.camposVaciosException;
-import xp.exceptions.passwordInvalidaException;
+import xp.exceptions.CampoNoAlfabeticoException;
+import xp.exceptions.CampoNoNumericoException;
+import xp.exceptions.CamposVaciosException;
+import xp.exceptions.NroDocValidoException;
+import xp.exceptions.PasswordInvalidaException;
 import xp.utils.FieldValidators;
 
 
@@ -33,19 +36,21 @@ public class AltaVendedor_panel extends JPanel {
 	private JTextField tnrodoc;
 	
 	private JButton agregar;
+	private JButton salir;
 	
 	private FieldValidators fv;
 	
 	private GridBagConstraints gbc;
+	private JFrame ventana2;
 	
 	
-	public AltaVendedor_panel() {
+	public AltaVendedor_panel(GridBagConstraints gbcf, JFrame ventana) {
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
-		armarPanel();
+		armarPanel(gbcf, ventana);
 	}
 	
-	public AltaVendedor_panel armarPanel() {
+	public AltaVendedor_panel armarPanel(GridBagConstraints gbcf, JFrame ventana) {
 		
 		this.tit = new JLabel("Alta de vendedor");
 		this.nombre = new JLabel("Nombre");
@@ -59,6 +64,7 @@ public class AltaVendedor_panel extends JPanel {
 		this.claveacceso = new JLabel("Clave de acceso");
 		this.tclaveacceso = new JPasswordField(40);	
 		this.agregar = new JButton("Agregar"); 
+		this.fv = new FieldValidators();
 		
 		gbc.gridx = 0;		//posición
 		gbc.gridy = 0;
@@ -156,12 +162,25 @@ public class AltaVendedor_panel extends JPanel {
 						VentanaExito ventanaExito = new VentanaExito("Vendedor agregado correctamente.");
 						ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						ventanaExito.setVisible(true);
+				    	gbcf.gridx = 0;
+				 		gbcf.gridy = 0;
+				    	ventana.setContentPane(new Cons_Vendedor());
+				    	gbcf.gridx = 3;
+				 		gbcf.gridy = 7;
+				 		gbcf.insets= new Insets(5,5,5,5);
+				 		JButton salir = new JButton("Salir");
+				 		ventana.add(salir,gbcf);
+				    	ventana.pack();
 					}
 				}
-			} catch(camposVaciosException e1) {
+			} catch(CamposVaciosException e1) {
 				VentanaFallo v1 = new VentanaFallo(e1.getMessage());
+				v1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				v1.setVisible(true);
 			} catch (Exception e2) {
 				VentanaFallo v2 = new VentanaFallo(e2.getMessage());
+				v2.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				v2.setVisible(true);
 			}
 		});
 			
@@ -171,35 +190,39 @@ public class AltaVendedor_panel extends JPanel {
 		return this;
 	}
 
-	private Boolean camposVacios() throws camposVaciosException { //TODO ver si todos son obligatorios
-		BitSet bitSetValidacioneSet = new BitSet(4);
-		bitSetValidacioneSet.clear();
-		
-		bitSetValidacioneSet.set(0, tnombre.getText()=="");
-		bitSetValidacioneSet.set(1, tapellido.getText()=="");
-		bitSetValidacioneSet.set(2, tnrodoc.getText()=="");
-		bitSetValidacioneSet.set(3, tclaveacceso.getText()=="");
-		
-		//Si el bitset no esta vacio es que hay un problema
-		if(!bitSetValidacioneSet.isEmpty()) throw new camposVaciosException("Complete los"
+	private Boolean camposVacios() throws CamposVaciosException { //TODO ver si todos son obligatorios
+		if(tnombre.getText().isEmpty() ||
+				tapellido.getText().isEmpty() ||
+				tnrodoc.getText().isEmpty() ||
+				tclaveacceso.getText().isEmpty()) throw new CamposVaciosException("Complete los "
 				+ "campos obligatorios."); //TODO mejorar mensaje
-		System.out.println(bitSetValidacioneSet.toString());
 		return false;
 	}
 	
 	private Boolean camposInvalidos() {
-		BitSet bitSetValidacioneSet = new BitSet(4);
-		bitSetValidacioneSet.clear();
-		
-		bitSetValidacioneSet.set(0, fv.esAlfabetico(tnombre.getText()));
-		bitSetValidacioneSet.set(1, fv.esAlfabetico(tapellido.getText()));
-		bitSetValidacioneSet.set(2, fv.esNumerico(tnrodoc.getText()));
 		try {
-			bitSetValidacioneSet.set(3, fv.passwordValida(tclaveacceso.getText()));
-		} catch (passwordInvalidaException e) {
-			VentanaFallo vf = new VentanaFallo(e.getMessage());
+			if(fv.esAlfabetico(tnombre.getText(), "nombre") &&
+					fv.esAlfabetico(tapellido.getText(), "apellido") &&
+					fv.nroDocValido(tnrodoc.getText()) &&
+					fv.passwordValida(tclaveacceso.getPassword().toString())) {
+				return false;
+			}
+		} catch (PasswordInvalidaException e1) {
+			VentanaFallo v1 = new VentanaFallo(e1.getMessage());
+			v1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			v1.setVisible(true);
+			return true;
+		} catch (CampoNoAlfabeticoException e2) {
+			VentanaFallo v2 = new VentanaFallo(e2.getMessage());
+			v2.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			v2.setVisible(true);
+			return true;
+		} catch (NroDocValidoException e3) {
+			VentanaFallo v3 = new VentanaFallo(e3.getMessage());
+			v3.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			v3.setVisible(true);
+			return true;
 		}
-		
-		return false;
+		return true;
 	}
 }

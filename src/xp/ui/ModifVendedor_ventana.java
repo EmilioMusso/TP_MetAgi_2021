@@ -18,7 +18,7 @@ public class ModifVendedor_ventana extends JFrame {
 	
 	public ModifVendedor_ventana(Vendedor vendedor) {
 		super();
-		this.setContentPane(new ModifVendedor_panel(vendedor));
+		this.setContentPane(new ModifVendedor_panel(vendedor, this, gbcf));
 		//this.setContentPane(Pan); 
 		this.setVisible(true);
 		this.pack();
