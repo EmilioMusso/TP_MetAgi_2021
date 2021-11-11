@@ -2,6 +2,7 @@ CREATE TABLE public.propietario(
 	id integer NOT NULL,
 	nombre character varying(20),
 	apellido character varying(20),
+	tipdoc character varying(3),
 	numdoc character varying(8),
 	calle character varying(20),
 	numdom character varying(4),
@@ -13,8 +14,13 @@ CREATE TABLE public.propietario(
 	CONSTRAINT pk_propietario PRIMARY KEY(id)
 ); 
 
+INSERT INTO public.propietario
+	VALUES  (345,'Carlos','Garcia','DNI','30433539','4 de Enero','2300','','','','carlos@garcia.com'),
+		(346,'Carlos','Gomez','LE','30433539','Hernandarias','2300','','','','gomez@gmail.com');
+
+
 CREATE TABLE public.vendedor(
-	id integer NOT NULL,
+		id integer NOT NULL,
 	nombre character varying(20),
 	apellido character varying(20),
 	numdoc character varying(8),
@@ -23,14 +29,25 @@ CREATE TABLE public.vendedor(
 	CONSTRAINT pk_vendedor PRIMARY KEY(id)
 );
 
-INSERT INTO public.propietario
-	VALUES  (345,'Carlos','Garcia','30433539','4 de Enero','2300','','','','carlos@garcia.com'),
-		(346,'Carlos','Gomez','30433539','Hernandarias','2300','','','','gomez@gmail.com');
+CREATE TABLE public.inmueble(
+	id integer NOT NULL,
+	codigoInmueble character varying(20),
+	estadoInmueble character varying(20),
+	localidad character varying(20),
+	provincia character varying(20),
+	fechaCarga character varying(20),
+
+	CONSTRAINT pk_inmueble PRIMARY KEY(id)
+);
+
 
 INSERT INTO public.vendedor
 	VALUES  (001, 'Bill', 'Gates', '12123456', 'unaClave'),
 		(002, 'Elon', 'Musk', '98987654', 'otraClave');
 
+INSERT INTO public.inmueble
+	VALUES  (001, '001', '1', 'Santa Fe', 'Santa Fe',''),
+		(002, '002', '2', 'Santo Tome', 'Santa Fe','');
 
 CREATE SEQUENCE public.seq_id
     INCREMENT 1

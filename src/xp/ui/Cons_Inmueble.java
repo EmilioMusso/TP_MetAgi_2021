@@ -32,7 +32,7 @@ import xp.db.T_propietario;
 
 
 
-public class Cons_Propietario extends JPanel {
+public class Cons_Inmueble extends JPanel {
 	
 	private boolean ALLOW_ROW_SELECTION = true;
 	private boolean ALLOW_COLUMN_SELECTION = false;
@@ -44,7 +44,6 @@ public class Cons_Propietario extends JPanel {
 	private Object id;
 	private String nombre;
 	private String apellido;
-	private String tipdoc;
 	private String numdoc;
 	private String calle;
 	private String numdom;
@@ -54,12 +53,12 @@ public class Cons_Propietario extends JPanel {
 	private String email;
 	
 	
-	public Cons_Propietario() {
+	public Cons_Inmueble() {
         		
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
 		
-		gbc.gridx = 0;		//posición
+		gbc.gridx = 0;		//posiciï¿½n
 		gbc.gridy = 0;
 		//gbc.weighty = 0.1;
 		gbc.gridwidth=3;
@@ -69,7 +68,7 @@ public class Cons_Propietario extends JPanel {
 		tit.setForeground(Color.BLUE);
 		tit.setFont(tit.getFont().deriveFont(22.0f));
 		
-		gbc.gridx = 0;		//posición
+		gbc.gridx = 0;		//posiciï¿½n
 		gbc.gridy = 3;
 		gbc.weighty = 0.1;
 		
@@ -81,13 +80,12 @@ public class Cons_Propietario extends JPanel {
         model.addColumn("Id"); 
         model.addColumn("Nombre"); 
         model.addColumn("Apellido");
-        model.addColumn("Tipo Doc");
         model.addColumn("Num Doc");
         model.addColumn("Calle");
         model.addColumn("Nro");
         model.addColumn("Provincia");
         model.addColumn("Localidad");
-        model.addColumn("Teléfono");
+        model.addColumn("Telï¿½fono");
         model.addColumn("e-mail");
         
         
@@ -96,7 +94,7 @@ public class Cons_Propietario extends JPanel {
         T_propietario aT = new T_propietario();
         ArrayList<String> data_rs = new ArrayList<String>();
         data_rs= aT.buscar();
-        Object[] fila= {"","","","","","","","","","",""};
+        Object[] fila= {"","","","","","","","","",""};
         int i=0;
         int j=0;
         while(j<data_rs.size()) {
@@ -104,7 +102,7 @@ public class Cons_Propietario extends JPanel {
         		fila[i]=elem;
         		++i;
         		++j;
-        		if(i==11) {
+        		if(i==10) {
         			model.addRow(fila);
         			i=0;
     			}
@@ -119,7 +117,7 @@ public class Cons_Propietario extends JPanel {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         // ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
 
-        // Tamaño de la ventana
+        // Tamaï¿½o de la ventana
         table.setPreferredScrollableViewportSize(new Dimension(800, 100));
         table.setFillsViewportHeight(true);
  
@@ -136,14 +134,13 @@ public class Cons_Propietario extends JPanel {
                 id = table.getValueAt(row, 0);
             	nombre =  table.getValueAt(row, 1).toString();
             	apellido =  table.getValueAt(row, 2).toString();
-            	tipdoc =  table.getValueAt(row, 3).toString();
-            	numdoc =  table.getValueAt(row, 4).toString();
-            	calle =  table.getValueAt(row, 5).toString();
-            	numdom =  table.getValueAt(row, 6).toString();
-            	provincia =  table.getValueAt(row, 7).toString();
-            	localidad =  table.getValueAt(row, 8).toString();
-            	telefono =  table.getValueAt(row, 9).toString();
-            	email =  table.getValueAt(row, 10).toString();
+            	numdoc =  table.getValueAt(row, 3).toString();
+            	calle =  table.getValueAt(row, 4).toString();
+            	numdom =  table.getValueAt(row, 5).toString();
+            	provincia =  table.getValueAt(row, 6).toString();
+            	localidad =  table.getValueAt(row, 7).toString();
+            	telefono =  table.getValueAt(row, 8).toString();
+            	email =  table.getValueAt(row, 9).toString();
             	
             	
                                 
@@ -165,12 +162,12 @@ public class Cons_Propietario extends JPanel {
         });
         
         //Se agrega el scroll pane al JPanel
-        gbc.gridx = 0;		//posición
+        gbc.gridx = 0;		//posiciï¿½n
 		gbc.gridy = 3;
         add(scrollPane,gbc);
         
       //Botones
-    	gbc.gridx = 0;		//posición
+    	gbc.gridx = 0;		//posiciï¿½n
     	gbc.gridy = 6;
     	gbc.gridwidth=1;
     	gbc.anchor = GridBagConstraints.EAST;
@@ -185,12 +182,12 @@ public class Cons_Propietario extends JPanel {
 //			mT.delete(id);
 //			mT.insert(nombre, apertura, cierre, estado);
 			
-//			tit.setText("Estación agregada!");
+//			tit.setText("Estaciï¿½n agregada!");
 //			tit.setForeground(Color.RED);
 			modificar.setEnabled(false);
 		});
     	
-    	gbc.gridx = 1;		//posición
+    	gbc.gridx = 1;		//posiciï¿½n
     	gbc.gridy = 6;
     	gbc.gridwidth=1;
     	gbc.anchor = GridBagConstraints.CENTER;

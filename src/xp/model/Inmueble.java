@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Inmueble {
 	/**
-	 * Se deberá crear la clase Inmueble incluyendo el atributo propietario relacionado a la clase propietario. 
-*La clase deberá contener los atributos: localidad, provincia, …, DateTime:fechaCarga, 
+	 * Se deberï¿½ crear la clase Inmueble incluyendo el atributo propietario relacionado a la clase propietario. 
+*La clase deberï¿½ contener los atributos: localidad, provincia, ï¿½, DateTime:fechaCarga, 
 *Integer:codigoInmueble, EstadoInmueble estadoInmueble (generar enum EstadoInmueble= {DISPONIBLE, VENDIDO, RESERVADO}. 
 	 */
 	
@@ -15,10 +15,10 @@ public class Inmueble {
 	private String estadoInmueble;
 	private String localidad;
 	private String provincia;
-	private Date fechaCarga;
+	private String fechaCarga;
 //	private Propietario propietario;	
 	
-	public Inmueble(String codigoInmueble,String estadoInmueble, String localidad,String provincia,Date fechaCarga) {
+	public Inmueble(String codigoInmueble,String estadoInmueble, String localidad,String provincia,String fechaCarga) {
 		super();
 	
 		this.codigoInmueble = codigoInmueble;
@@ -28,7 +28,7 @@ public class Inmueble {
 		this.fechaCarga = fechaCarga;
 	}
 	
-	public Inmueble(Object id,String codigoInmueble, String estadoInmueble, String localidad,String provincia,Date fechaCarga) {
+	public Inmueble(Object id,String codigoInmueble, String estadoInmueble, String localidad,String provincia,String fechaCarga) {
 		super();
 		this.id = id;
 		this.codigoInmueble = codigoInmueble;
@@ -70,10 +70,10 @@ public class Inmueble {
 	public void setProvincia(String provincia) {
 		this.provincia = provincia;
 	}
-	public Date getFechaCarga() {
+	public String getFechaCarga() {
 		return fechaCarga;
 	}
-	public void setFechaCarga(Date fechaCarga) {
+	public void setFechaCarga(String fechaCarga) {
 		this.fechaCarga = fechaCarga;
 	}
 

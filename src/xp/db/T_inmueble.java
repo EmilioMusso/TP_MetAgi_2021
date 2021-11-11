@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 import xp.model.Inmueble;
 import xp.model.Vendedor;
@@ -21,7 +21,7 @@ public class T_inmueble {
 
 	public T_inmueble() {	}
 	
-	public void insert(String codigoInmueble, String estadoInmueble, String localidad,String provincia,Date fechaCarga) {
+	public void insert(String codigoInmueble, String estadoInmueble, String localidad,String provincia,String fechaCarga) {
 		Connection con = null;
 		PreparedStatement ps =  null;
 		con = ConnectionMA.get();
@@ -31,7 +31,7 @@ public class T_inmueble {
 		ps.setString(2,codigoInmueble);
 		ps.setString(3,localidad);
 		ps.setString(4,provincia);
-		ps.setDate(5,(java.sql.Date) fechaCarga); //esto no se si esta bien - corroborar 
+		ps.setString(5,fechaCarga); //esto no se si esta bien - corroborar 
 		ps.executeUpdate();
 		
 		} catch (SQLException e) {
@@ -152,7 +152,7 @@ public class T_inmueble {
 						rs.getString("estadoInmueble"),
 						rs.getString("localidad"),	
 						rs.getString("provincia"),	
-						rs.getDate("fechaCarga") );	
+						rs.getString("fechaCarga") );	
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

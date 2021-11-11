@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class T_propietario {
-	private static final String ins = "INSERT INTO public.propietario(id,nombre,apellido,numdoc,calle,numdom,provincia,localidad,telefono,email) VALUES(?,?,?,?,?,?,?,?,?,?)";
+	private static final String ins = "INSERT INTO public.propietario(id,nombre,apellido,tipdoc,numdoc,calle,numdom,provincia,localidad,telefono,email) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String bus = "SELECT * FROM public.propietario WHERE nombre=?";
 	private static final String tod = "SELECT * FROM public.propietario";
 	private static final String next_id = "SELECT nextval('public.seq_id') as num";
@@ -23,7 +23,7 @@ public class T_propietario {
 
 	
 
-	public void insert(String nombre,String apellido,String nrodoc,String calle,String nrodom,String provincia,String localidad,String telefono,String email) {
+	public void insert(String nombre,String apellido, String tipdoc, String nrodoc,String calle,String nrodom,String provincia,String localidad,String telefono,String email) {
 		Connection con = null;
 		PreparedStatement ps =  null;
 		con = ConnectionMA.get();
@@ -32,13 +32,14 @@ public class T_propietario {
 		ps.setInt(1,this.nextId());
 		ps.setString(2,nombre);
 		ps.setString(3,apellido);
-		ps.setString(4,nrodoc);
-		ps.setString(5,calle);
-		ps.setString(6,nrodom);
-		ps.setString(7,provincia);
-		ps.setString(8,localidad);
-		ps.setString(9,telefono);
-		ps.setString(10,email);
+		ps.setString(4,tipdoc);
+		ps.setString(5,nrodoc);
+		ps.setString(6,calle);
+		ps.setString(7,nrodom);
+		ps.setString(8,provincia);
+		ps.setString(9,localidad);
+		ps.setString(10,telefono);
+		ps.setString(11,email);
 		ps.executeUpdate();
 		
 		}catch (SQLException e) {e.printStackTrace();
@@ -93,6 +94,7 @@ public class T_propietario {
 			fila.add(rs.getString("Id"));
 			fila.add(rs.getString("nombre"));
 			fila.add(rs.getString("apellido"));
+			fila.add(rs.getString("tipdoc"));
 			fila.add(rs.getString("numdoc"));
 			fila.add(rs.getString("calle"));
 			fila.add(rs.getString("numdom"));
