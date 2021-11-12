@@ -15,6 +15,7 @@ import org.w3c.dom.css.RGBColor;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class VentanaExito extends JDialog {
 
@@ -26,13 +27,21 @@ public class VentanaExito extends JDialog {
 	public VentanaExito(String mensaje) {
 		setBounds(100, 100, 450, 141);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
 		{
-			JLabel lblMensaje = new JLabel(mensaje=="" ? "EXITO" : mensaje);
-			lblMensaje.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			lblMensaje.setForeground(Color.green);
+			JLabel lblExito = new JLabel("EXITO");
+			lblExito.setHorizontalAlignment(SwingConstants.CENTER);
+			lblExito.setBounds(10, 0, 414, 25);
+			lblExito.setFont(lblExito.getFont().deriveFont(lblExito.getFont().getSize() + 9f));
+			lblExito.setForeground(new Color(0, 128, 0));
+			contentPanel.add(lblExito);
+		}
+		{
+			JLabel lblMensaje = new JLabel(mensaje);
+			lblMensaje.setHorizontalAlignment(SwingConstants.CENTER);
+			lblMensaje.setBounds(10, 24, 414, 45);
 			contentPanel.add(lblMensaje);
 		}
 		{

@@ -15,6 +15,7 @@ import org.w3c.dom.css.RGBColor;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class VentanaFallo extends JDialog {
 
@@ -26,13 +27,21 @@ public class VentanaFallo extends JDialog {
 	public VentanaFallo(String mensaje) {
 		setBounds(100, 100, 450, 141);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
 		{
-			JLabel lblMensaje = new JLabel(mensaje=="" ? "FALLO" : mensaje);
-			lblMensaje.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			lblMensaje.setForeground(Color.red);
+			JLabel lblError = new JLabel("ERROR");
+			lblError.setHorizontalAlignment(SwingConstants.CENTER);
+			lblError.setBounds(10, 0, 414, 25);
+			lblError.setFont(lblError.getFont().deriveFont(lblError.getFont().getSize() + 9f));
+			lblError.setForeground(Color.red);
+			contentPanel.add(lblError);
+		}
+		{
+			JLabel lblMensaje = new JLabel(mensaje);
+			lblMensaje.setHorizontalAlignment(SwingConstants.CENTER);
+			lblMensaje.setBounds(10, 24, 414, 45);
 			contentPanel.add(lblMensaje);
 		}
 		{

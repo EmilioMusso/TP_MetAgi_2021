@@ -4,21 +4,23 @@ import java.util.Date;
 
 public class Inmueble {
 	/**
-	 * Se deber� crear la clase Inmueble incluyendo el atributo propietario relacionado a la clase propietario. 
-*La clase deber� contener los atributos: localidad, provincia, �, DateTime:fechaCarga, 
-*Integer:codigoInmueble, EstadoInmueble estadoInmueble (generar enum EstadoInmueble= {DISPONIBLE, VENDIDO, RESERVADO}. 
+	 * Se deber� crear la clase Inmueble incluyendo el atributo propietario
+	 * relacionado a la clase propietario.La clase deber� contener los atributos:
+	 * localidad, provincia, �, DateTime:fechaCarga, Integer:codigoInmueble, 
+	 * EstadoInmueble estadoInmueble (generar enum EstadoInmueble= {DISPONIBLE, VENDIDO, RESERVADO}. 
 	 */
 	
+	public enum EstadoInmueble{DISPONIBLE, VENDIDO, RESERVADO};
 
 	private Object id;
 	private String codigoInmueble;
-	private String estadoInmueble;
+	private EstadoInmueble estadoInmueble;
 	private String localidad;
 	private String provincia;
 	private String fechaCarga;
-//	private Propietario propietario;	
+	private Propietario propietario;
 	
-	public Inmueble(String codigoInmueble,String estadoInmueble, String localidad,String provincia,String fechaCarga) {
+	public Inmueble(String codigoInmueble,EstadoInmueble estadoInmueble, String localidad,String provincia,String fechaCarga) {
 		super();
 	
 		this.codigoInmueble = codigoInmueble;
@@ -28,7 +30,7 @@ public class Inmueble {
 		this.fechaCarga = fechaCarga;
 	}
 	
-	public Inmueble(Object id,String codigoInmueble, String estadoInmueble, String localidad,String provincia,String fechaCarga) {
+	public Inmueble(Object id,String codigoInmueble, EstadoInmueble estadoInmueble, String localidad,String provincia,String fechaCarga) {
 		super();
 		this.id = id;
 		this.codigoInmueble = codigoInmueble;
@@ -52,10 +54,10 @@ public class Inmueble {
 	public void setCodigoInmueble(String codigoInmueble) {
 		this.codigoInmueble = codigoInmueble;
 	}
-	public String getEstadoInmueble() {
+	public EstadoInmueble getEstadoInmueble() {
 		return estadoInmueble;
 	}
-	public void setEstadoInmueble(String estadoInmueble) {
+	public void setEstadoInmueble(EstadoInmueble estadoInmueble) {
 		this.estadoInmueble = estadoInmueble;
 	}
 	public String getLocalidad() {

@@ -95,7 +95,7 @@ public class Cons_Propietario extends JPanel {
         // Agrega las filas 
         T_propietario aT = new T_propietario();
         ArrayList<String> data_rs = new ArrayList<String>();
-        data_rs= aT.buscar();
+        data_rs = aT.buscar();
         Object[] fila= {"","","","","","","","","","",""};
         int i=0;
         int j=0;

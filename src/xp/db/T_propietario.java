@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import xp.model.Propietario;
+
 public class T_propietario {
 	private static final String ins = "INSERT INTO public.propietario(id,nombre,apellido,tipdoc,numdoc,calle,numdom,provincia,localidad,telefono,email) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String bus = "SELECT * FROM public.propietario WHERE nombre=?";
@@ -121,6 +123,51 @@ public class T_propietario {
 		return fila;
 		}
 	
+	public ArrayList<Propietario> buscarTodos() {
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		con = ConnectionMA.get();
+		
+		ArrayList<Propietario> propietarios = new ArrayList<Propietario>();
+		
+		try{
+			ps = con.prepareStatement(tod);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Propietario p = new Propietario(Integer.parseInt(rs.getString("Id")),
+						rs.getString("nombre"),
+						rs.getString("apellido"),
+						rs.getString("tipdoc"),
+						rs.getString("numdoc"),
+						rs.getString("calle"),
+						rs.getString("numdom"),
+						rs.getString("provincia"),
+						rs.getString("localidad"),
+						rs.getString("telefono"),
+						rs.getString("email"));
+				
+				propietarios.add(p);
+			}
+		}
+				
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			
+		}
+		return propietarios;
+	}
 	
 	public ArrayList<String> buscar_nombres() {
 		Connection con = null;

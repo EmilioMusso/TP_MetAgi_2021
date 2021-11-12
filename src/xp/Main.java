@@ -34,6 +34,8 @@ public class Main {
 		JFrame ventana = new JFrame("Sistema de compra y venta de INMUEBLES");
 		ventana.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
+		AppSistema appSistema = new AppSistema();
+		
 		//ventana.setTitle ("");
 		//ventana.setSize (800,400);
 //		JLabel background= new JLabel();
@@ -146,7 +148,7 @@ public class Main {
 	     
 	     mi14=new JMenuItem("Agregar");
 	     mi14.addActionListener (e -> {
-	    	 ventana.setContentPane(new AltaInmueble_panel().armarPanel());	
+	    	 ventana.setContentPane(new AltaInmueble_panel(appSistema));	
 	    	 gbcf.gridx = 3;
 	 		 gbcf.gridy = 12;
 	 		 gbcf.insets= new Insets(5,5,5,5);

@@ -6,22 +6,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import java.util.Date;
 
 import xp.model.Inmueble;
 import xp.model.Vendedor;
 
 public class T_inmueble {
-	private static final String ins = "INSERT INTO public.inmueble(id,nombre,apellido,tipodoc,numdoc,claveAcceso) VALUES(?,?,?,?,?,?)";
+	private static final String ins = "INSERT INTO public.inmueble(id,codigoInmueble,estadoInmueble,localidad,provincia,fechaCarga) VALUES(?,?,?,?,?,?)";
 	private static final String bus = "SELECT * FROM public.inmueble WHERE nombre=?"; //codigo
 	private static final String consId = "SELECT * FROM public.inmueble WHERE =?";
 	private static final String tod = "SELECT * FROM public.inmueble";
 	private static final String next_id = "SELECT nextval('public.seq_id') as num";
 	private static final String del = "DELETE FROM public.inmueble WHERE Id=?";
-
+	
 	public T_inmueble() {	}
 	
-	public void insert(String codigoInmueble, String estadoInmueble, String localidad,String provincia,String fechaCarga) {
+	public void insert(String codigoInmueble,
+			String estadoInmueble,
+			String localidad,
+			String provincia,
+			Date fechaCarga) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =  null;
 		con = ConnectionMA.get();
@@ -29,13 +33,16 @@ public class T_inmueble {
 		ps = con.prepareStatement(ins);
 		ps.setInt(1,this.nextId());
 		ps.setString(2,codigoInmueble);
-		ps.setString(3,localidad);
-		ps.setString(4,provincia);
-		ps.setString(5,fechaCarga); //esto no se si esta bien - corroborar 
+		ps.setString(3,estadoInmueble);
+		ps.setString(4,localidad);
+		ps.setString(5,provincia);
+//		ps.setString(5,fechaCarga); //esto no se si esta bien - corroborar 
+		ps.setDate(6, new java.sql.Date(fechaCarga.getTime()));
 		ps.executeUpdate();
+		System.out.println(ps.toString());
 		
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLException();
 		} finally {
 			if (con!=null)
 				try {con.close ();}
@@ -96,13 +103,13 @@ public class T_inmueble {
 		return newId;
 	}	
 
-	public ArrayList<String> buscar() {
+	public ArrayList<Object> buscar() {
 		//genera una lista con todos los registros de una tabla
 		Connection con = null;
 		PreparedStatement ps =  null;
 		ResultSet rs = null;
 		con = ConnectionMA.get();
-		ArrayList<String> fila = new ArrayList<String>();
+		ArrayList<Object> fila = new ArrayList<Object>();
 		
 		try{
 		ps = con.prepareStatement(tod);
@@ -114,7 +121,7 @@ public class T_inmueble {
 			fila.add(rs.getString("estadoInmueble"));
 			fila.add(rs.getString("localidad"));	
 			fila.add(rs.getString("provincia"));	
-			fila.add(rs.getString("fechaCarga"));	
+			fila.add(rs.getDate("fechaCarga"));	
 		}}
 				
 		catch (SQLException e) {e.printStackTrace();
