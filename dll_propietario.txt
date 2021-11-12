@@ -35,7 +35,7 @@ CREATE TABLE public.inmueble(
 	estadoInmueble character varying(20),
 	localidad character varying(20),
 	provincia character varying(20),
-	fechaCarga character varying(20),
+	fechaCarga date,
 
 	CONSTRAINT pk_inmueble PRIMARY KEY(id)
 );
@@ -46,8 +46,8 @@ INSERT INTO public.vendedor
 		(002, 'Elon', 'Musk', '98987654', 'otraClave');
 
 INSERT INTO public.inmueble
-	VALUES  (001, '001', '1', 'Santa Fe', 'Santa Fe',''),
-		(002, '002', '2', 'Santo Tome', 'Santa Fe','');
+	VALUES  (001, '001', '1', 'Santa Fe', 'Santa Fe','2021-01-01'),
+		(002, '002', '2', 'Santo Tome', 'Santa Fe','2021-11-10');
 
 CREATE SEQUENCE public.seq_id
     INCREMENT 1

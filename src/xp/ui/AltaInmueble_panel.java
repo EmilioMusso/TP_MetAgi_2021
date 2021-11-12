@@ -125,7 +125,7 @@ public class AltaInmueble_panel extends JPanel {
 		//gbc.ipady = 10;
 		gbc.insets= new Insets(5,5,5,5);	 	//top,left,bottom,right 	
 		
-		//T�tulo
+		//Titulo
 		this.add(tit,gbc);
 		tit.setForeground(Color.BLUE);
 		tit.setFont(tit.getFont().deriveFont(22.0f));
