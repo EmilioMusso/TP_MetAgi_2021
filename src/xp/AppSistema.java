@@ -23,7 +23,7 @@ public class AppSistema {
 		this.inmueblesSistema = new ArrayList<Inmueble>();
 		
 		T_propietario aT = new T_propietario();
-		propietariosSistema = aT.buscarTodos();
+//		propietariosSistema = aT.buscarTodos();
 		
 		//TODO buscar vendedores e inmuebles
 //		T_vendedor vT = new T_vendedor();

@@ -34,7 +34,7 @@ public class Main {
 		JFrame ventana = new JFrame("Sistema de compra y venta de INMUEBLES");
 		ventana.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
-		AppSistema appSistema = new AppSistema();
+//		AppSistema appSistema = new AppSistema();
 		
 		//ventana.setTitle ("");
 		//ventana.setSize (800,400);
@@ -57,7 +57,7 @@ public class Main {
 		 JMenuItem mi1,mi2,mi3;
 		 
 //			--------------------------------------------------------Vendedor
-	     menu1=new JMenu("Vendedore");
+	     menu1=new JMenu("Vendedor");
 	     mb.add(menu1);
 	    
 	     mi1=new JMenuItem("Agregar");
@@ -148,7 +148,7 @@ public class Main {
 	     
 	     mi14=new JMenuItem("Agregar");
 	     mi14.addActionListener (e -> {
-	    	 ventana.setContentPane(new AltaInmueble_panel(appSistema));	
+//	    	 ventana.setContentPane(new AltaInmueble_panel(appSistema));	
 	    	 gbcf.gridx = 3;
 	 		 gbcf.gridy = 12;
 	 		 gbcf.insets= new Insets(5,5,5,5);

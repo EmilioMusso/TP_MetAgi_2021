@@ -10,8 +10,8 @@ public class ConnectionMA {
 	private static final String url = "jdbc:postgresql://127.0.0.1:5432/ma2021";
 	private static final String user = "postgres";
 //	private static final String pass = "lea83"; //lea
-	private static final String pass = "777611"; //emi
-//	private static final String pass = "ma2021"; //lu
+	//private static final String pass = "777611"; //emi
+	private static final String pass = "ma2021"; //lu
 	//private ConnectionP(){ }
 	
 	public static Connection get() {	//throws PgException{
