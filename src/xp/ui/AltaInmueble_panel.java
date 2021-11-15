@@ -41,12 +41,12 @@ public class AltaInmueble_panel extends JPanel {
 	private JComboBox<EstadoInmueble> testadoInmueble;
 	private JLabel localidad;
 //	private JTextField tlocalidad;
-	private JComboBox<String> tlocalidad;
+	private JComboBox<String> boxLocalidad;
 	private JTextField otraLocalidad;
 	private JLabel provincia;
 	//private JComboBox<String> ttipodoc;
 	//private JLabel nrodoc;
-	private JTextField tprovincia;
+	private JComboBox<String> boxProvincia;
 	private JLabel fechaCarga;
 	
 	private JDateChooser calendarFechaCarga;
@@ -55,6 +55,7 @@ public class AltaInmueble_panel extends JPanel {
 	private Integer mesFechaSelected;
 	private Integer anioFechaSelected;
 	private String selectedLocalidad;
+	private String selectedProvincia;
 	
 	private JButton agregar;
 	
@@ -63,13 +64,14 @@ public class AltaInmueble_panel extends JPanel {
 	private GridBagConstraints gbc;
 	
 	
-	public AltaInmueble_panel(AppSistema appSistema) {
+	
+	public AltaInmueble_panel(AppSistema appSistema, JButton agregar) { //TODO para usar en task kard
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
-		armarPanel(appSistema);
+		armarPanel(appSistema, agregar);
 	}
 	
-	public AltaInmueble_panel armarPanel(AppSistema appSistema) {
+	public AltaInmueble_panel armarPanel(AppSistema appSistema, JButton agregar) {
 		
 		this.tit = new JLabel("Alta de Inmueble");
 		this.codigoInmueble = new JLabel("Codigo del Inmueble");
@@ -81,10 +83,9 @@ public class AltaInmueble_panel extends JPanel {
 		this.otraLocalidad = new JTextField(10);
 //		this.tlocalidad = new JTextField(40);
 		this.provincia = new JLabel("Provincia");
-		this.tprovincia = new JTextField(40);
 		this.fechaCarga = new JLabel("Fecha de carga:");
 			
-		this.agregar = new JButton("Agregar");
+//		this.agregar = new JButton("Agregar");
 		
 		
 //		--------------------------------------------------------Box de estado
@@ -94,19 +95,36 @@ public class AltaInmueble_panel extends JPanel {
 		this.testadoInmueble.addItem(EstadoInmueble.VENDIDO);
 		
 //		--------------------------------------------------------Box de localidades
-		this.tlocalidad = new JComboBox<String>();
+		this.boxLocalidad = new JComboBox<String>();
 		appSistema.getLocalidadesSistema().stream().forEach(loc -> {
-			this.tlocalidad.addItem(loc.getNombre());
+			this.boxLocalidad.addItem(loc.getNombre());
 		});
-		this.tlocalidad.addItem("Otra...");
-		this.selectedLocalidad=tlocalidad.getSelectedItem().toString();
+		this.boxLocalidad.addItem("Otra...");
+		this.selectedLocalidad=boxLocalidad.getSelectedItem().toString();
 		
-		this.tlocalidad.addActionListener(act -> {
-			if(this.tlocalidad.getSelectedItem()=="Otra...") {
+		this.boxLocalidad.addActionListener(act -> {
+			if(this.boxLocalidad.getSelectedItem()=="Otra...") {
 				otraLocalidad.setEnabled(true);
 			}
 		});
 		
+//		--------------------------------------------------------Box de provincias
+		this.boxProvincia= new JComboBox<String>();
+		appSistema.getProvinciasSistema().stream().forEach(prov -> {
+			this.boxProvincia.addItem(prov);
+		});
+		this.selectedProvincia=boxProvincia.getSelectedItem().toString();
+		this.boxProvincia.addActionListener(act -> {
+			otraLocalidad.setText("");
+			if(this.boxProvincia.getSelectedItem()!="Santa Fe") {
+				otraLocalidad.setEnabled(true);
+				boxLocalidad.setEnabled(false);
+			} else {
+				otraLocalidad.setEnabled(false);
+				boxLocalidad.setEnabled(true);
+				boxLocalidad.setSelectedItem("Santa Fe");
+			}
+		});
 		
 		this.calendarFechaCarga = new JDateChooser();
 		this.calendarFechaCarga.setDate(new Date(1111111111));
@@ -165,92 +183,73 @@ public class AltaInmueble_panel extends JPanel {
 		this.add(testadoInmueble,gbc);
 		gbc.gridx = 2;
 		gbc.gridy = 3;
-		this.add(tlocalidad,gbc);
+		this.add(boxLocalidad,gbc);
 		gbc.gridx = 2;
 		gbc.gridy = 4;
 		this.add(otraLocalidad,gbc);
 		otraLocalidad.setEnabled(false);
 		gbc.gridx = 2;
 		gbc.gridy = 5;
-		this.add(tprovincia,gbc);
+		this.add(boxProvincia,gbc);
 		gbc.gridx = 2;
 		gbc.gridy = 6;
 		this.add(calendarFechaCarga,gbc);
 		gbc.gridx = 2;
 		gbc.gridy = 7;
 		
-		//gbc.anchor = GridBagConstraints.WEST;
+
 		
 		
-		//button
-		gbc.gridx = 2;
-		gbc.gridy = 8;
-		gbc.weightx = 0.1;
-		gbc.weighty = 0.5;
-		gbc.gridwidth=1;
-		gbc.anchor = GridBagConstraints.EAST;
-		//gbc.ipadx = 40;
-		//gbc.fill = GridBagConstraints.HORIZONTAL;
-		this.add(agregar,gbc);
-		
-		
-		agregar.addActionListener(e -> {
-			String codI = this.tcodigoInmueble.getText(); 
-			String estI = this.testadoInmueble.getSelectedItem().toString();
-			String loc;
-			if(this.tlocalidad.getSelectedItem()=="Otra...") {
-				loc = this.otraLocalidad.getText();
-			} else {
-				loc = this.selectedLocalidad;
-			}
-			String prov = this.tprovincia.getText();
-			
-			//TODO levantar valor date del calendario
-//			System.out.println(this.calendarFechaCarga);
-			
-//			System.out.println(calendarFechaCarga.getDayChooser().getDay());
-//			System.out.println(calendarFechaCarga.getMonthChooser().getMonth());
-//			System.out.println(calendarFechaCarga.getYearChooser().getYear());
-//			
-//			this.diaFechaSelected = calendarFechaCarga.getDayChooser().getDay();
-//			this.mesFechaSelected = calendarFechaCarga.getMonthChooser().getMonth();
-//			this.anioFechaSelected = calendarFechaCarga.getYearChooser().getYear();
-//			
-//			
-//			
-//			T_inmueble iT = new T_inmueble();
-//			try {
-//				iT.insert(codI, estI, loc, prov, fechaSelected);
-//				VentanaExito ventanaExito = new VentanaExito("Inmueble agregado correctamente.");
-//				ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//				ventanaExito.setVisible(true);
-//				
-//			} catch (SQLException e1) {
-//				e1.printStackTrace();
-//				VentanaFallo ventanaFallo = new VentanaFallo("Hubo un error al cargar los datos. "
-//						+ "Intente nuevamente.");
-//				ventanaFallo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//				ventanaFallo.setVisible(true);
-//			}
-		
-						
-//			T_vendedor aT = new T_vendedor();
-//			aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);
-			
-//			tit.setText("Vendedor " + aT.toString() + " agregado correctamente!");
-			
-//			tit.setForeground(Color.RED);
-//			agregar.setEnabled(false);
-		});
-			
-			
-		//this.agregar.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		
-		return this;
-	}
+	agregar.addActionListener(e -> {
 	
-	/*private Boolean camposValidos() {
+		String codI = this.tcodigoInmueble.getText(); 
+		String estI = this.testadoInmueble.getSelectedItem().toString();
+		String loc;
+		if(this.boxLocalidad.getSelectedItem()=="Otra...") {
+			loc = this.otraLocalidad.getText();
+		} else {
+			loc = this.selectedLocalidad;
+		}
+		String prov = this.provincia.getText();
 
-	}*/
+//TODO levantar valor date del calendario
+//		System.out.println(this.calendarFechaCarga);
 
+//		System.out.println(calendarFechaCarga.getDayChooser().getDay());
+//		System.out.println(calendarFechaCarga.getMonthChooser().getMonth());
+//		System.out.println(calendarFechaCarga.getYearChooser().getYear());
+//		
+//		this.diaFechaSelected = calendarFechaCarga.getDayChooser().getDay();
+//		this.mesFechaSelected = calendarFechaCarga.getMonthChooser().getMonth();
+//		this.anioFechaSelected = calendarFechaCarga.getYearChooser().getYear();
+//		
+//		
+//		
+//		T_inmueble iT = new T_inmueble();
+//		try {
+//			iT.insert(codI, estI, loc, prov, fechaSelected);
+//			VentanaExito ventanaExito = new VentanaExito("Inmueble agregado correctamente.");
+//			ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			ventanaExito.setVisible(true);
+//			
+//		} catch (SQLException e1) {
+//			e1.printStackTrace();
+//			VentanaFallo ventanaFallo = new VentanaFallo("Hubo un error al cargar los datos. "
+//					+ "Intente nuevamente.");
+//			ventanaFallo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			ventanaFallo.setVisible(true);
+//		}
+
+		
+//		T_vendedor aT = new T_vendedor();
+//		aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);
+
+//		tit.setText("Vendedor " + aT.toString() + " agregado correctamente!");
+
+//		tit.setForeground(Color.RED);
+//		agregar.setEnabled(false);
+	});
+	
+	return this;
+	}
 }

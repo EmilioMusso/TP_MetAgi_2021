@@ -43,13 +43,15 @@ public class Main {
 //        ventana.add(background);
 		
 		JButton salir = new JButton("Salir");
+		JButton agregar = new JButton("Agregar"); //Usado para inmueble
 		
 		GridBagConstraints gbcf = new GridBagConstraints();
 		ventana.setLayout(new GridBagLayout());
 		
 		
-		//MENU
+		AppSistema appSistema = new AppSistema(); 
 		
+		//MENU
          JMenuBar mb = new JMenuBar();
 		 ventana.setJMenuBar(mb);
 		 
@@ -148,11 +150,17 @@ public class Main {
 	     
 	     mi14=new JMenuItem("Agregar");
 	     mi14.addActionListener (e -> {
-//	    	 ventana.setContentPane(new AltaInmueble_panel(appSistema));	
-	    	 gbcf.gridx = 3;
+	    	 ventana.setContentPane(new AltaInmueble_panel(appSistema,agregar));
+	 		 gbcf.gridx = 4;
+	 		 gbcf.gridy = 12;
+	 		 ventana.add(agregar, gbcf);
+	    	 gbcf.gridx = 5;
 	 		 gbcf.gridy = 12;
 	 		 gbcf.insets= new Insets(5,5,5,5);
-	 		 ventana.add(salir,gbcf); 
+	 		 ventana.add(salir,gbcf);
+//	 		 agregar.addActionListener(a -> {
+//	 			 AltaInmueble_panel.agregarPressed(agregar);
+//	 		 });
 	    	 ventana.pack();
 	    	 });
 	     menu4.add(mi14);

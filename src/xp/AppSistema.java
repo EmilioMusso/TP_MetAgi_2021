@@ -1,6 +1,7 @@
 package xp;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import xp.db.T_propietario;
 import xp.db.T_vendedor;
@@ -15,12 +16,13 @@ public class AppSistema {
 	private ArrayList<Propietario> propietariosSistema;
 	private ArrayList<Inmueble> inmueblesSistema;
 	private ArrayList<Localidad> localidadesSistema;
-	private ArrayList<Provincia> provinciasSistema;
+	private ArrayList<String> provinciasSistema;
 	
 	public AppSistema() {
 		this.vendedoresSistema = new ArrayList<Vendedor>();
 		this.propietariosSistema = new ArrayList<Propietario>();
 		this.inmueblesSistema = new ArrayList<Inmueble>();
+		this.provinciasSistema = new ArrayList<String>();
 		
 		T_propietario aT = new T_propietario();
 //		propietariosSistema = aT.buscarTodos();
@@ -41,12 +43,40 @@ public class AppSistema {
 		
 		
 		localidadesSistema = new ArrayList<Localidad>(); 
-		localidadesSistema.add(new Localidad("Santa Fe"));
+		localidadesSistema.add(new Localidad("Santa Fe")); //TODO agregar a DB
 		localidadesSistema.add(new Localidad("Santo Tomé"));
 		localidadesSistema.add(new Localidad("Sauce Viejo"));
 		localidadesSistema.add(new Localidad("Rincón"));
 		localidadesSistema.add(new Localidad("Colastiné Norte"));
 		localidadesSistema.add(new Localidad("Colastiné Sur"));
+		
+
+		provinciasSistema.add("Santa Fe");
+		provinciasSistema.add("Buenos Aires");
+		
+//		provinciasSistema.add("Buenos Aires", //TODO agregar a DB
+//				"Catamarca",
+//				"Chaco",
+//				"Chubut",
+//				"Cordoba",
+//				"Corrientes",
+//				"Entre Ríos",
+//				"Formosa",
+//				"Jujuy",
+//				"La Pampa",
+//				"La Rioja",
+//				"Mendoza",
+//				"Misiones",
+//				"Neuquén",
+//				"Río Negro",
+//				"Salta",
+//				"San Juan",
+//				"San Luis",
+//				"Santa Cruz",
+//				"Santiago del Estero",
+//				"Tierra del Fuego",
+//				"Tucumán");
+		
 		
 	}
 
@@ -75,7 +105,7 @@ public class AppSistema {
 		return localidadesSistema;
 	}
 
-	public ArrayList<Provincia> getProvinciasSistema() {
+	public ArrayList<String> getProvinciasSistema() {
 		return provinciasSistema;
 	}
 

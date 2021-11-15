@@ -1,8 +1,9 @@
 package xp.model;
 
-public class Localidad {
+public class Localidad { //TODO sobrevive por si acaso necesitamos algun dato mas de la localidad
 	
 	private String nombre;
+	private String codPostal;
 	
 	public Localidad() {}
 	
