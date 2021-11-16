@@ -19,6 +19,7 @@ import javax.swing.WindowConstants;
 import xp.ui.Cons_Propietario;
 import xp.ui.Cons_Vendedor;
 import xp.ui.ModifProp_panel;
+import xp.ui.AltaCliente_Panel;
 import xp.ui.AltaInmueble_panel;
 import xp.ui.AltaVendedor_panel;
 import xp.ui.Cons_Inmueble;
@@ -130,16 +131,16 @@ public class Main {
 	     mb.add(menu3);	     
 	     
 	     mi13=new JMenuItem("Agregar");
-//	     mi13.addActionListener (e -> {
-//	    	 ventana.setContentPane(new ATrayecto().armarPanel());	
-//	    	 gbcf.gridx = 3;
-//	 		 gbcf.gridy = 8;
-//	 		 gbcf.insets= new Insets(20,5,20,20);
-//	 		 gbcf.anchor = GridBagConstraints.EAST;
-//	 		 ventana.add(salir,gbcf); 
-//	    	 ventana.pack();
-//	    	 });
-//	     menu3.add(mi13);
+	     mi13.addActionListener (e -> {
+	    	 ventana.setContentPane(new AltaCliente_Panel(gbcf,ventana));	
+	    	 gbcf.gridx = 3;
+	 		 gbcf.gridy = 8;
+	 		 gbcf.insets= new Insets(20,5,20,20);
+	 		 gbcf.anchor = GridBagConstraints.EAST;
+	 		 ventana.add(salir,gbcf); 
+	    	 ventana.pack();
+	    	 });
+	     menu3.add(mi13);
 	     
 	     
 //			--------------------------------------------------------Inmueble
