@@ -21,6 +21,10 @@ public class Propietario {
 	public Propietario(AppSistema appSistema) {
 		super();
 	}
+	
+	public Propietario() {
+		super();
+	}
 
 	public Propietario(Integer id, String nombre, String apellido, String tipoDoc, String numDoc, String calle,
 			String numeroDir, String provincia, String localidad, String telefono, String email) {
@@ -36,6 +40,11 @@ public class Propietario {
 		this.localidad = localidad;
 		this.telefono = telefono;
 		this.email = email;
+	}
+
+	public Propietario(Object id) {
+		super();
+		this.id = (Integer) id;
 	}
 
 	@Override

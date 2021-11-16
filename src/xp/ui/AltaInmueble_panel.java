@@ -17,6 +17,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -46,6 +47,7 @@ public class AltaInmueble_panel extends JPanel {
 //	private JTextField tlocalidad;
 	private JComboBox<String> boxLocalidad;
 	private JTextField otraLocalidad;
+	private JTextField tpropietarioselected;
 	private JLabel provincia;
 	//private JComboBox<String> ttipodoc;
 	//private JLabel nrodoc;
@@ -59,6 +61,7 @@ public class AltaInmueble_panel extends JPanel {
 	private Integer anioFechaSelected;
 	private String selectedLocalidad;
 	private String selectedProvincia;
+	private String propietarioSelected;
 	
 	private JButton seleccionarPropietario;
 	
@@ -212,9 +215,7 @@ public class AltaInmueble_panel extends JPanel {
 		gbc_splitPane.gridx = 2;
 		gbc_splitPane.gridy = 3;
 		add(splitPane, gbc_splitPane);
-		
 		splitPane.setLeftComponent(boxLocalidad);
-
 		this.add(otraLocalidad,gbc);
 		otraLocalidad.setEnabled(false);
 		splitPane.setRightComponent(otraLocalidad);
@@ -234,13 +235,33 @@ public class AltaInmueble_panel extends JPanel {
 		gbc.gridy = 8;
 		this.add(panelOpcional, gbc);
 		
+		JSplitPane splitPane2 = new JSplitPane();
+		GridBagConstraints gbc_splitPane2 = new GridBagConstraints();
+		gbc_splitPane2.insets = new Insets(0, 0, 0, 5);
+		gbc_splitPane2.fill = GridBagConstraints.BOTH;
+		gbc_splitPane2.gridx = 2;
+		gbc_splitPane2.gridy = 7;
+		add(splitPane2, gbc_splitPane2);
 		this.seleccionarPropietario = new JButton("Seleccionar Propietario");
-		gbc.gridx = 1;
-		gbc.gridy = 7;
-		this.add(seleccionarPropietario, gbc);
+		splitPane2.setLeftComponent(seleccionarPropietario);
+//		this.add(seleccionarPropietario, gbc);
+		otraLocalidad.setEnabled(false);
+		tpropietarioselected = new JTextField(40);
+		splitPane2.setRightComponent(tpropietarioselected);
+		tpropietarioselected.setEditable(false);
+		tpropietarioselected.setText("Ningun propietario seleccionado");
+		
 		
 		seleccionarPropietario.addActionListener(a -> {
-			//TODO ir a seleccionar propietario de la lista
+			JFrame tmpFrame = new JFrame("Seleccionar Propietario");
+			SeleccionarPropietario_Panel sp = new SeleccionarPropietario_Panel(tmpFrame);
+			tmpFrame.setContentPane(sp);
+			tmpFrame.setVisible(true);
+			tmpFrame.pack();
+//			propietarioSelected = sp.getSelected().getNombre(); //TODO agregar metodo
+//			tpropietarioselected.setText(propietarioSelected);
+			String msg = (propietarioSelected == null) ? "Ningun propietario seleccionado" : "TEST SELECCIONADO";
+			tpropietarioselected.setText(msg);
 		});
 		
 		agregar.addActionListener(e -> {

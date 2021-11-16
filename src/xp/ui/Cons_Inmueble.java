@@ -121,13 +121,9 @@ public class Cons_Inmueble extends JPanel {
         table.setPreferredScrollableViewportSize(new Dimension(800, 100));
         table.setFillsViewportHeight(true);
  
-        //captura valor seleccionado
         table.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-            	// Tomamos la fuente del evento
             	JTable table = (JTable)e.getSource();
-            	// Desde la tabla podemos optener la fila / columna, usando un punto (x,y) dentro de la ventana
-            	// En este caso usamos el punto del evento
                 int row = table.rowAtPoint(e.getPoint());
                 int column = table.columnAtPoint(e.getPoint());
                 
@@ -143,17 +139,12 @@ public class Cons_Inmueble extends JPanel {
             	email =  table.getValueAt(row, 9).toString();
             	
             	
-                                
-                // Con la fila/columna tomamos el valor de la celda
 //            	System.out.println("Valor de celda: " + table.getValueAt(row, column));
 //            	System.out.println("Id: " + table.getValueAt(row, 0));
             }
-            // mousePressed
-            // mouseDragged
         });
     
- 
-        //Se crea un ScrollPane como contenedor de la Tabla
+
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.addMouseListener(new MouseAdapter( ) {
         	public void mouseWheelMoved(MouseEvent e) {

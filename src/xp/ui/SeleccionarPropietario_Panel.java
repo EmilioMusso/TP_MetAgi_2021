@@ -1,102 +1,117 @@
 package xp.ui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 import xp.db.T_propietario;
-import xp.db.T_vendedor;
-import xp.utils.ButtonEditor;
-import xp.utils.ButtonRenderer;
+import xp.model.Propietario;
 
-public class Cons_Vendedor extends JPanel {
+
+
+
+public class SeleccionarPropietario_Panel extends JPanel {
 	
 	private boolean ALLOW_ROW_SELECTION = true;
 	private boolean ALLOW_COLUMN_SELECTION = false;
 	private JLabel tit;
 	private GridBagConstraints gbc;
-	private JButton modificar;
-	private JButton eliminar;
-	private ArrayList<JButton> botones;
+	private JButton seleccionar;
 	
-	private Object idSelected;
-	private String nombreSelected;
-	private String apellidoSelected;
-	private String numdocSelected;
-	private String calleSelected;
-	private String numdomSelected;
-	private String provinciaSelected;
-	private String localidadSelected;
-	private String telefonoSelected;
-	private String emailSelected;
+	private Object id;
+	private String nombre;
+	private String apellido;
+	private String tipdoc;
+	private String numdoc;
+	private String calle;
+	private String numdom;
+	private String provincia;
+	private String localidad;
+	private String telefono;
+	private String email;
+	
+	private Propietario propietarioSelected;
 	
 	
-	public Cons_Vendedor(JFrame ventana, GridBagConstraints gbcf) {
-	
+	public SeleccionarPropietario_Panel(JFrame tmpFrame) {
         		
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
 		
-		gbc.gridx = 0;		//posiciï¿½n
+		gbc.gridx = 0;		//posición
 		gbc.gridy = 0;
 		//gbc.weighty = 0.1;
 		gbc.gridwidth=3;
 		gbc.insets= new Insets(5,5,5,5);
-		this.tit = new JLabel("Vendedores");
+		this.tit = new JLabel("Seleccionar Propietario");
 		this.add(tit,gbc);
 		tit.setForeground(Color.BLUE);
 		tit.setFont(tit.getFont().deriveFont(22.0f));
 		
-		gbc.gridx = 0;		//posiciï¿½n
+		gbc.gridx = 0;		//posición
 		gbc.gridy = 3;
 		gbc.weighty = 0.1;
 		
-		String[] columnNames = {"Id", "Nombre", "Apellido", "Num Doc", "Opcion"};
-		Object[][] data;
-		T_vendedor vT = new T_vendedor();
-        ArrayList<String> data_rs = vT.buscar();
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Id");
-		model.addColumn("Nombre");
-		model.addColumn("Apellido");
-		model.addColumn("Num Doc");
-		model.addColumn("Opcion");
-        Object[] fila= {"","","","","", ""};
+		DefaultTableModel model = new DefaultTableModel(); 
+        JTable table = new JTable(model); 
+        this.add(table,gbc);
+
+        // Crea las columnas 
+        model.addColumn("Id"); 
+        model.addColumn("Nombre"); 
+        model.addColumn("Apellido");
+        model.addColumn("Tipo Doc");
+        model.addColumn("Num Doc");
+        model.addColumn("Calle");
+        model.addColumn("Nro");
+        model.addColumn("Provincia");
+        model.addColumn("Localidad");
+        model.addColumn("Teléfono");
+        model.addColumn("e-mail");
+        
+        
+        
+        // Agrega las filas 
+        T_propietario aT = new T_propietario();
+        ArrayList<String> data_rs = new ArrayList<String>();
+        data_rs = aT.buscar();
+        Object[] fila= {"","","","","","","","","","",""};
         int i=0;
         int j=0;
         while(j<data_rs.size()) {
         	for(String elem : data_rs) {
-				fila[i]=elem;
+        		fila[i]=elem;
         		++i;
         		++j;
-				if(i==4) {
-//					fila[i]="MODIFICAR";
+        		if(i==11) {
         			model.addRow(fila);
         			i=0;
-				}
+    			}
         	}
         }
- 
-		JTable table = new JTable(model);
-		this.add(table,gbc);
-//        table.getColumn("Opcion").setCellRenderer(new ButtonRenderer());
-//        table.getColumn("Opcion").setCellEditor(new ButtonEditor(new JCheckBox()));
 	
         table.setRowHeight(20);
         table.setRowSelectionAllowed(true);
@@ -106,10 +121,11 @@ public class Cons_Vendedor extends JPanel {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         // ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
 
-        // Tamaï¿½o de la ventana
+        // Tamaño de la ventana
         table.setPreferredScrollableViewportSize(new Dimension(800, 100));
         table.setFillsViewportHeight(true);
  
+        propietarioSelected = null;
         
         //captura valor seleccionado
         table.addMouseListener(new MouseAdapter() {
@@ -118,10 +134,8 @@ public class Cons_Vendedor extends JPanel {
                 int row = table.rowAtPoint(e.getPoint());
                 int column = table.columnAtPoint(e.getPoint());
                 
-                idSelected = table.getValueAt(row, 0);
-            	nombreSelected =  table.getValueAt(row, 1).toString();
-            	apellidoSelected =  table.getValueAt(row, 2).toString();
-            	numdocSelected =  table.getValueAt(row, 3).toString();
+                id = table.getValueAt(row, 0);
+            	            	
 //            	System.out.println("Valor de celda: " + table.getValueAt(row, column));
 //            	System.out.println("Id: " + table.getValueAt(row, 0));
             }
@@ -132,65 +146,35 @@ public class Cons_Vendedor extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.addMouseListener(new MouseAdapter( ) {
         	public void mouseWheelMoved(MouseEvent e) {
-//                System.out.println(e);
+                System.out.println(e);
             }
         });
         
         //Se agrega el scroll pane al JPanel
-        gbc.gridx = 0;		//posiciï¿½n
+        gbc.gridx = 0;		//posición
 		gbc.gridy = 3;
         add(scrollPane,gbc);
         
       //Botones
-    	gbc.gridx = 0;		//posiciï¿½n
+    	gbc.gridx = 0;		//posición
     	gbc.gridy = 6;
     	gbc.gridwidth=1;
     	gbc.anchor = GridBagConstraints.EAST;
-
+    	this.seleccionar = new JButton("Seleccionar");
+    	this.add(seleccionar,gbc);
     	
-    	gbc.gridx = 1;		//posiciï¿½n
-    	gbc.gridy = 6;
-    	gbc.gridwidth=1;
-    	gbc.anchor = GridBagConstraints.CENTER;
-    	this.eliminar = new JButton("Eliminar");
-    	this.add(eliminar,gbc);
-    	
-        //Botones
-      	gbc.gridx = 0;		//posición
-      	gbc.gridy = 6;
-      	gbc.gridwidth=1;
-      	gbc.anchor = GridBagConstraints.EAST;
-      	this.modificar = new JButton("Modificar");
-      	this.add(modificar,gbc);
-
-   	 	modificar.addActionListener(e -> {
-   	 		//TODO agregar excepcion si no se selecciona ninguno
-   	 		T_vendedor tVendedor = new T_vendedor();
-   	 		ModifVendedor_ventana modif = new ModifVendedor_ventana(tVendedor.buscarVendedor(idSelected));
-		 	modif.setVisible(true);
-	    	gbcf.gridx = 0;
-	 		gbcf.gridy = 0;
-	 		ventana.setContentPane(new Cons_Vendedor(ventana, gbcf));
-	    	gbcf.gridx = 3; 
-	 		gbcf.gridy = 10;
-	 		gbcf.insets= new Insets(5,5,5,5);
-	 		JButton salir = new JButton("Salir");
-			//	 		gbcf.anchor = GridBagConstraints.EAST;
-	 		ventana.add(salir,gbcf);
-	    	ventana.pack();
-//			modificar.setEnabled(false);
-		 });
-    	
-    	eliminar.addActionListener(e -> {
-   	 		//TODO agregar excepcion si no se selecciona ninguno
-			T_vendedor mT = new T_vendedor();
-			mT.delete(idSelected);
-			// eliminar.setEnabled(false);
+    	seleccionar.addActionListener(e -> {
+            propietarioSelected = new Propietario(); //TODO eliminar cuando se tenga la busqueda
+//          propietarioSelected = T_propietario.buscarPropietario(id); //TODO buscar propietario por id
+            tmpFrame.dispose();
 		});
+
     }
 	
 	
-	
+	public Propietario getSelected() {
+		return propietarioSelected;
+	}	
  
     private void printDebugData(JTable table) {
         int numRows = table.getRowCount();
