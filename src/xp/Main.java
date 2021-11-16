@@ -151,11 +151,11 @@ public class Main {
 	     mi14=new JMenuItem("Agregar");
 	     mi14.addActionListener (e -> {
 	    	 ventana.setContentPane(new AltaInmueble_panel(appSistema,agregar));
-	 		 gbcf.gridx = 4;
-	 		 gbcf.gridy = 12;
+	 		 gbcf.gridx = 3;
+	 		 gbcf.gridy = 9;
 	 		 ventana.add(agregar, gbcf);
-	    	 gbcf.gridx = 5;
-	 		 gbcf.gridy = 12;
+	    	 gbcf.gridx = 4;
+	 		 gbcf.gridy = 9;
 	 		 gbcf.insets= new Insets(5,5,5,5);
 	 		 ventana.add(salir,gbcf);
 //	 		 agregar.addActionListener(a -> {

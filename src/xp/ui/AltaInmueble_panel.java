@@ -20,6 +20,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JCalendar;
@@ -57,11 +60,12 @@ public class AltaInmueble_panel extends JPanel {
 	private String selectedLocalidad;
 	private String selectedProvincia;
 	
-	private JButton agregar;
+	private JButton seleccionarPropietario;
 	
 	private FieldValidators fv;
 	
 	private GridBagConstraints gbc;
+	private PanelOpcional panelOpcional;
 	
 	
 	
@@ -84,8 +88,6 @@ public class AltaInmueble_panel extends JPanel {
 //		this.tlocalidad = new JTextField(40);
 		this.provincia = new JLabel("Provincia");
 		this.fechaCarga = new JLabel("Fecha de carga:");
-			
-//		this.agregar = new JButton("Agregar");
 		
 		
 //		--------------------------------------------------------Box de estado
@@ -105,6 +107,9 @@ public class AltaInmueble_panel extends JPanel {
 		this.boxLocalidad.addActionListener(act -> {
 			if(this.boxLocalidad.getSelectedItem()=="Otra...") {
 				otraLocalidad.setEnabled(true);
+			} else {
+				otraLocalidad.setEnabled(false);
+				otraLocalidad.setText("");
 			}
 		});
 		
@@ -160,13 +165,14 @@ public class AltaInmueble_panel extends JPanel {
 		gbc.gridy = 3;
 		this.add(localidad,gbc);
 		gbc.gridx = 0;
-		gbc.gridy = 5;
+		gbc.gridy = 4;
+		
 		this.add(provincia,gbc);
 		gbc.gridx = 0;
-		gbc.gridy = 6;
+		gbc.gridy = 5;
 		this.add(fechaCarga,gbc);
 		gbc.gridx = 0;
-		gbc.gridy = 7;
+		gbc.gridy = 6;
 		
 		
 		
@@ -181,36 +187,73 @@ public class AltaInmueble_panel extends JPanel {
 		gbc.gridx = 2;
 		gbc.gridy = 2;
 		this.add(testadoInmueble,gbc);
-		gbc.gridx = 2;
-		gbc.gridy = 3;
-		this.add(boxLocalidad,gbc);
-		gbc.gridx = 2;
-		gbc.gridy = 4;
+		
+		
+//		gbc.gridx = 2;
+//		gbc.gridy = 3;
+//		this.add(boxLocalidad,gbc);
+//		gbc.gridx = 2;
+//		gbc.gridy = 4;
+//		this.add(otraLocalidad,gbc);
+//		otraLocalidad.setEnabled(false);
+		
+		JSeparator separator = new JSeparator();
+		GridBagConstraints gbc_separator = new GridBagConstraints();
+		gbc_separator.insets = new Insets(0, 0, 5, 0);
+		gbc_separator.gridwidth = 4;
+		gbc_separator.gridx = 2;
+		gbc_separator.gridy = 3;
+		add(separator, gbc);
+		
+		JSplitPane splitPane = new JSplitPane();
+		GridBagConstraints gbc_splitPane = new GridBagConstraints();
+		gbc_splitPane.insets = new Insets(0, 0, 0, 5);
+		gbc_splitPane.fill = GridBagConstraints.BOTH;
+		gbc_splitPane.gridx = 2;
+		gbc_splitPane.gridy = 3;
+		add(splitPane, gbc_splitPane);
+		
+		splitPane.setLeftComponent(boxLocalidad);
+
 		this.add(otraLocalidad,gbc);
 		otraLocalidad.setEnabled(false);
+		splitPane.setRightComponent(otraLocalidad);
+		
+		
 		gbc.gridx = 2;
-		gbc.gridy = 5;
+		gbc.gridy = 4;
 		this.add(boxProvincia,gbc);
 		gbc.gridx = 2;
-		gbc.gridy = 6;
+		gbc.gridy = 5;
 		this.add(calendarFechaCarga,gbc);
 		gbc.gridx = 2;
+		gbc.gridy = 6;
+		
+		panelOpcional = new PanelOpcional();
+		gbc.gridx = 1;
+		gbc.gridy = 8;
+		this.add(panelOpcional, gbc);
+		
+		this.seleccionarPropietario = new JButton("Seleccionar Propietario");
+		gbc.gridx = 1;
 		gbc.gridy = 7;
+		this.add(seleccionarPropietario, gbc);
 		
-
+		seleccionarPropietario.addActionListener(a -> {
+			//TODO ir a seleccionar propietario de la lista
+		});
 		
+		agregar.addActionListener(e -> {
 		
-	agregar.addActionListener(e -> {
-	
-		String codI = this.tcodigoInmueble.getText(); 
-		String estI = this.testadoInmueble.getSelectedItem().toString();
-		String loc;
-		if(this.boxLocalidad.getSelectedItem()=="Otra...") {
-			loc = this.otraLocalidad.getText();
-		} else {
-			loc = this.selectedLocalidad;
-		}
-		String prov = this.provincia.getText();
+			String codI = this.tcodigoInmueble.getText(); 
+			String estI = this.testadoInmueble.getSelectedItem().toString();
+			String loc;
+			if(this.boxLocalidad.getSelectedItem()=="Otra...") {
+				loc = this.otraLocalidad.getText();
+			} else {
+				loc = this.selectedLocalidad;
+			}
+			String prov = this.provincia.getText();
 
 //TODO levantar valor date del calendario
 //		System.out.println(this.calendarFechaCarga);
@@ -248,8 +291,8 @@ public class AltaInmueble_panel extends JPanel {
 
 //		tit.setForeground(Color.RED);
 //		agregar.setEnabled(false);
-	});
+		});
 	
-	return this;
+		return this;
 	}
 }
