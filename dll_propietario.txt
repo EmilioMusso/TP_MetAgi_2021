@@ -12,12 +12,7 @@ CREATE TABLE public.propietario(
 	email character varying(20),
 
 	CONSTRAINT pk_propietario PRIMARY KEY(id)
-); 
-
-INSERT INTO public.propietario
-	VALUES  (345,'Carlos','Garcia','DNI','30433539','4 de Enero','2300','','','','carlos@garcia.com'),
-		(346,'Carlos','Gomez','LE','30433539','Hernandarias','2300','','','','gomez@gmail.com');
-
+);
 
 CREATE TABLE public.vendedor(
 		id integer NOT NULL,
@@ -40,14 +35,16 @@ CREATE TABLE public.inmueble(
 	CONSTRAINT pk_inmueble PRIMARY KEY(id)
 );
 
+CREATE TABLE public.cliente(
+	id integer NOT NULL,
+	nombre character varying(40),
+	apellido character varying(40),
+	telefono character varying(20),
+	usuario character varying(20),
+	claveacceso character varying(20),
 
-INSERT INTO public.vendedor
-	VALUES  (001, 'Bill', 'Gates', '12123456', 'unaClave'),
-		(002, 'Elon', 'Musk', '98987654', 'otraClave');
-
-INSERT INTO public.inmueble
-	VALUES  (001, '001', '1', 'Santa Fe', 'Santa Fe','2021-01-01'),
-		(002, '002', '2', 'Santo Tome', 'Santa Fe','2021-11-10');
+	CONSTRAINT pk_propietario PRIMARY KEY(id)
+); 
 
 CREATE SEQUENCE public.seq_id
     INCREMENT 1
@@ -58,3 +55,20 @@ CREATE SEQUENCE public.seq_id
 
 ALTER SEQUENCE public.seq_id
     OWNER TO postgres;
+
+
+INSERT INTO public.propietario
+	VALUES  (345,'Carlos','Garcia','DNI','30433539','4 de Enero','2300','','','','carlos@garcia.com'),
+		(346,'Carlos','Gomez','LE','30433539','Hernandarias','2300','','','','gomez@gmail.com');
+
+INSERT INTO public.vendedor
+	VALUES  (001, 'Bill', 'Gates', '12123456', 'unaClave'),
+		(002, 'Elon', 'Musk', '98987654', 'otraClave');
+
+INSERT INTO public.inmueble
+	VALUES  (001, '001', '1', 'Santa Fe', 'Santa Fe','2021-01-01'),
+		(002, '002', '2', 'Santo Tome', 'Santa Fe','2021-11-10');
+		
+INSERT INTO public.cliente
+	VALUES  (111, '', '', '', '', ''),
+		(112, '', '', '', '', '');

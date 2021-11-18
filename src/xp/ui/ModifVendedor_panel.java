@@ -42,14 +42,14 @@ public class ModifVendedor_panel extends JPanel {
 	private GridBagConstraints gbc;
 	
 	
-	public ModifVendedor_panel(Vendedor v1, ModifVendedor_ventana ventana, GridBagConstraints gbcf) {
+	public ModifVendedor_panel(Vendedor v1, ModifVendedor_ventana ventana, GridBagConstraints gbcf, JFrame ventanaAnterior, GridBagConstraints gbcfAnterior) {
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
-		armarPanel(v1, ventana, gbcf);
+		armarPanel(v1, ventana, gbcf, ventanaAnterior, gbcfAnterior);
 	}
 	
 
-	public ModifVendedor_panel armarPanel(Vendedor v1, ModifVendedor_ventana ventana, GridBagConstraints gbcf) {
+	public ModifVendedor_panel armarPanel(Vendedor v1, ModifVendedor_ventana ventana, GridBagConstraints gbcf, JFrame ventanaAnterior, GridBagConstraints gbcfAnterior) {
 		
 		this.tit = new JLabel("Alta de vendedor");
 		this.nombre = new JLabel("Nombre");
@@ -188,7 +188,17 @@ public class ModifVendedor_panel extends JPanel {
 						VentanaExito ventanaExito = new VentanaExito("Vendedor modificado correctamente.");
 						ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						ventanaExito.setVisible(true);
-						ventana.dispose();
+						ventana.dispose();	
+						
+						JButton salir = new JButton("Salir");
+				    	gbcfAnterior.gridx = 0;
+				    	gbcfAnterior.gridy = 0;
+				 		ventanaAnterior.setContentPane(new Cons_Vendedor(ventana, gbcfAnterior));
+				 		gbcfAnterior.gridx = 3; 
+				 		gbcfAnterior.gridy = 10;
+				 		gbcfAnterior.insets= new Insets(5,5,5,5);
+				 		ventanaAnterior.add(salir,gbcfAnterior);
+				 		ventanaAnterior.pack();
 					}
 				}
 			} catch(CamposVaciosException e1) {

@@ -19,6 +19,7 @@ import javax.swing.WindowConstants;
 import xp.ui.Cons_Propietario;
 import xp.ui.Cons_Vendedor;
 import xp.ui.ModifProp_panel;
+import xp.enums.TipoUsuario;
 import xp.ui.AltaCliente_Panel;
 import xp.ui.AltaInmueble_panel;
 import xp.ui.AltaVendedor_panel;
@@ -26,6 +27,7 @@ import xp.ui.Cons_Inmueble;
 import xp.ui.PanelPropietario;
 import xp.ui.VentanaExito;
 import xp.ui.VentanaFallo;
+import xp.ui.VentanaLogin;
 
 public class Main {
 	
@@ -49,8 +51,7 @@ public class Main {
 		GridBagConstraints gbcf = new GridBagConstraints();
 		ventana.setLayout(new GridBagLayout());
 		
-		
-		AppSistema appSistema = new AppSistema(); 
+		AppSistema appSistema = new AppSistema();
 		
 		//MENU
          JMenuBar mb = new JMenuBar();
@@ -166,8 +167,8 @@ public class Main {
 	    	 });
 	     menu4.add(mi14);
 	     
-	     mi14=new JMenuItem("Consultar Inmuebles");
-	     mi14.addActionListener (e -> {
+	     mi24=new JMenuItem("Consultar Inmuebles");
+	     mi24.addActionListener (e -> {
 	    	 ventana.setContentPane(new Cons_Inmueble());	
 	    	 gbcf.gridx = 3;
 	 		 gbcf.gridy = 9;
@@ -176,16 +177,78 @@ public class Main {
 //	 		 ventana.add(salir,gbcf); 
 	    	 ventana.pack();
 	    	 });
-	     menu4.add(mi14);
+	     menu4.add(mi24);
 		
+//				--------------------------------------------------------Usuario
+	     /*	
+		 * TODO todavia no importa saber los datos del usuario registrado
+		 * Los usuarios vendedores o el super-usuario son los que pueden dar de alta,
+		 * modificar y borrar de la base de datos a los mismos. 
+		 * El cliente puede interactuar con el sistema solamente con consulta inmueble o consulta catálogo.
+		 * */
+	     JMenu menu5;
+		 JMenuItem mi15,mi25,mi35;
+		 menu5=new JMenu("Usuario");
+	     mb.add(menu5);
+	     
+	     mi15=new JMenuItem("Iniciar Sesion");
+	     menu5.add(mi15);
+	     
+	     mi25=new JMenuItem("Cerrar Sesion");
+	     menu5.add(mi25);
+	    
+	     if(appSistema.getTipoUsuario() == TipoUsuario.NO_REGISTRADO) {
+	    	 mi15.setVisible(true);
+	    	 mi25.setVisible(false);
+	    	 menu1.setVisible(false);
+	    	 menu2.setVisible(false);
+	    	 menu3.setVisible(false);
+	    	 mi14.setVisible(false);
+	     } else if(appSistema.getTipoUsuario() == TipoUsuario.SUPER_USUARIO) {
+	    	 mi15.setVisible(false);
+	    	 mi25.setVisible(true);
+	    	 menu1.setVisible(true);
+	    	 menu2.setVisible(true);
+	    	 menu3.setVisible(true);
+	    	 mi14.setVisible(true);
+	     }
+	   
+	     mi15.addActionListener (e -> {
+//	    	 VentanaLogin vl = new VentanaLogin();
+	    	 VentanaExito v1 = new VentanaExito("Inicio exitoso");
+	    	 v1.setVisible(true);
+	    	 appSistema.setTipoUsuario(TipoUsuario.SUPER_USUARIO);
+	    	 mi15.setVisible(false);
+	    	 mi25.setVisible(true);
+	    	 menu1.setVisible(true);
+	    	 menu2.setVisible(true);
+	    	 menu3.setVisible(true);
+	    	 mi14.setVisible(true);
+	     });
+	     mi25.addActionListener (e -> {
+	    	 VentanaExito v1 = new VentanaExito("Se cerro la sesion");
+	    	 v1.setVisible(true);
+	    	 appSistema.setTipoUsuario(TipoUsuario.NO_REGISTRADO);
+	    	 mi15.setVisible(true);
+	    	 mi25.setVisible(false);
+	    	 menu1.setVisible(false);
+	    	 menu2.setVisible(false);
+	    	 menu3.setVisible(false);
+	    	 mi14.setVisible(false);
+	     });
 	     
 	    //PANEL
 	   
 	    gbcf.gridx = 0;
 		gbcf.gridy = 0;
-	    ventana.setContentPane(new Ini()); 
-	    	//ventana.setSize (700,450);
-	     	//ventana.setContentPane(new AEstacion().armarPanel());
+		if(appSistema.getTipoUsuario() == TipoUsuario.NO_REGISTRADO) {
+	    	 mi15.setVisible(true);
+	    	 mi25.setVisible(false);
+		} else if(appSistema.getTipoUsuario() == TipoUsuario.SUPER_USUARIO) {
+	    	 mi15.setVisible(false);
+	    	 mi25.setVisible(true);
+		}
+	    ventana.setContentPane(new Ini());
 		ventana.pack();
 		ventana.setVisible(true); 
 	     

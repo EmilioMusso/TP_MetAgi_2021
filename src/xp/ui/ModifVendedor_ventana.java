@@ -16,9 +16,9 @@ public class ModifVendedor_ventana extends JFrame {
 	private GridBagConstraints gbcf;
 	private JLabel tit;
 	
-	public ModifVendedor_ventana(Vendedor vendedor) {
+	public ModifVendedor_ventana(Vendedor vendedor, JFrame ventana, GridBagConstraints gbcfAnterior) {
 		super();
-		this.setContentPane(new ModifVendedor_panel(vendedor, this, gbcf));
+		this.setContentPane(new ModifVendedor_panel(vendedor, this, gbcf, ventana, gbcfAnterior));
 		//this.setContentPane(Pan); 
 		this.setVisible(true);
 		this.pack();

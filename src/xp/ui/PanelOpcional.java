@@ -15,7 +15,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JRadioButton;
 import javax.swing.DefaultComboBoxModel;
-import xp.utils.TipoInmueble;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
@@ -29,6 +28,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
+
+import xp.enums.TipoInmueble;
 
 public class PanelOpcional extends JPanel {
 	private JTextField tcalle;

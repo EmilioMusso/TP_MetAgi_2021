@@ -55,7 +55,7 @@ public class T_vendedor {
 		//ps.setInt(1,id);
 		
 		ps = con.createStatement();
-		System.out.println(id);
+//		System.out.println(id);
 		int nro=ps.executeUpdate("DELETE FROM public.vendedor WHERE Id="+id+"");
 		
 		} catch (SQLException e) {

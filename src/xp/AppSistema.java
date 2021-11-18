@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import xp.db.T_propietario;
 import xp.db.T_vendedor;
+import xp.enums.TipoUsuario;
 import xp.model.Inmueble;
 import xp.model.Localidad;
 import xp.model.Propietario;
@@ -17,12 +18,14 @@ public class AppSistema {
 	private ArrayList<Inmueble> inmueblesSistema;
 	private ArrayList<Localidad> localidadesSistema;
 	private ArrayList<String> provinciasSistema;
+	private TipoUsuario tipoUsuario;
 	
 	public AppSistema() {
 		this.vendedoresSistema = new ArrayList<Vendedor>();
 		this.propietariosSistema = new ArrayList<Propietario>();
 		this.inmueblesSistema = new ArrayList<Inmueble>();
 		this.provinciasSistema = new ArrayList<String>();
+		this.tipoUsuario = TipoUsuario.NO_REGISTRADO; //por default
 		
 		T_propietario aT = new T_propietario();
 //		propietariosSistema = aT.buscarTodos();
@@ -116,5 +119,16 @@ public class AppSistema {
 	public void agregarLocalidad(String nombre) {
 		this.localidadesSistema.add(new Localidad(nombre));
 	}
+
+	public TipoUsuario getTipoUsuario() {
+		return this.tipoUsuario;
+	}
+
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
+
+	
 	
 }

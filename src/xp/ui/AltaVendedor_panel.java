@@ -162,13 +162,14 @@ public class AltaVendedor_panel extends JPanel {
 						VentanaExito ventanaExito = new VentanaExito("Vendedor agregado correctamente.");
 						ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						ventanaExito.setVisible(true);
+
+						JButton salir = new JButton("Salir");
 				    	gbcf.gridx = 0;
 				 		gbcf.gridy = 0;
-				    	ventana.setContentPane(new Cons_Vendedor());
-				    	gbcf.gridx = 3;
-				 		gbcf.gridy = 7;
+				 		ventana.setContentPane(new Cons_Vendedor(ventana, gbcf));
+				    	gbcf.gridx = 3; 
+				 		gbcf.gridy = 10;
 				 		gbcf.insets= new Insets(5,5,5,5);
-				 		JButton salir = new JButton("Salir");
 				 		ventana.add(salir,gbcf);
 				    	ventana.pack();
 					}
