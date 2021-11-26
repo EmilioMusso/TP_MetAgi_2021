@@ -7,8 +7,8 @@ INSERT INTO public.vendedor
 		(002, 'Elon', 'Musk', '98987654', 'otraClave');
 		
 INSERT INTO public.cliente
-	VALUES  (111, '', '', '', '', ''),
-		(112, '', '', '', '', '');
+	VALUES  (111, 'Alberto', 'Olmedo', '03424563594', 'aolmedo', 'aolmedo'),
+		(112, 'Jorge', 'Porcel', '03424597585', 'jporcel', 'jporcel');
 		
 INSERT INTO public.inmueble
 	VALUES (

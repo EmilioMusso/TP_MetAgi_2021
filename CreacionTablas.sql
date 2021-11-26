@@ -20,7 +20,7 @@ CREATE TABLE public.propietario(
 );
 
 CREATE TABLE public.vendedor(
-		id integer NOT NULL,
+	id integer NOT NULL,
 	nombre character varying(20),
 	apellido character varying(20),
 	numdoc character varying(8),
@@ -65,6 +65,17 @@ CREATE TABLE public.cliente(
 
 	CONSTRAINT pk_propietario PRIMARY KEY(id)
 ); 
+
+CREATE TABLE public.cliente(
+	id integer NOT NULL,
+	nombre character varying(40),
+	apellido character varying(40),
+	telefono character varying(20),
+	usuario character varying(20),
+	claveacceso character varying(20),
+
+	CONSTRAINT pk_cliente PRIMARY KEY(id)
+);
 
 CREATE SEQUENCE public.seq_id
     INCREMENT 1

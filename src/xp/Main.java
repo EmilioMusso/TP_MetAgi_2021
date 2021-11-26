@@ -229,6 +229,7 @@ public class Main {
 	    	 VentanaExito v1 = new VentanaExito("Se cerro la sesion");
 	    	 v1.setVisible(true);
 	    	 appSistema.setTipoUsuario(TipoUsuario.NO_REGISTRADO);
+	    	 
 	    	 mi15.setVisible(true);
 	    	 mi25.setVisible(false);
 	    	 menu1.setVisible(false);

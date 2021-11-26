@@ -22,6 +22,20 @@ public class VendedorTest {
 	public void testAlmacenarVendedor() {
 		Integer newId = vT.insert(v1);
 		v2 = vT.buscarVendedor(newId);
+		
+		System.out.println(v2.getClaveAcceso());
+		
 		assertTrue(v1.equals(v2));
 	}
+	
+	@Test
+	public void testBajaVendedor() {
+		assertEquals("2", "2");
+	}
+	
+	@Test
+	public void testModificarVendedor() {
+		assertEquals("2", "2");
+	}
+	
 }
