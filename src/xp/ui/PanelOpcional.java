@@ -29,7 +29,11 @@ import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 
+import xp.dto.OpcionalesInmuebleDTO;
 import xp.enums.TipoInmueble;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import java.awt.Cursor;
 
 public class PanelOpcional extends JPanel {
 	private JTextField tcalle;
@@ -40,23 +44,44 @@ public class PanelOpcional extends JPanel {
 	private JTextField tfrente;
 	private JTextField tfondo;
 	private JTextField tsuperficie;
-	private JTextField textField;
+	
+	private JComboBox<String> boxOrientacion;
+	private JComboBox<TipoInmueble> boxTipoInmueble;
+	private JSpinner thabitaciones;
+	private JSpinner tbaños;
+	private JCheckBox propiedadhorizontal;
+	private JCheckBox patio;
+	private JCheckBox piscina;
+	private JCheckBox cochera;
+	private JCheckBox telefono;
+	private JCheckBox cloacas;
+	private JCheckBox lavadero;
+	private JCheckBox aguacaliente;
+	private JCheckBox aguacorriente;
+	private JCheckBox gasnatural;
+	private JCheckBox pavimento;
+	private JTextArea tobservaciones;
+	
+	private OpcionalesInmuebleDTO dto; 
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelOpcional() {
+	public PanelOpcional(OpcionalesInmuebleDTO opcionalesInmuebleDTO) {
+		dto = opcionalesInmuebleDTO;
+		
 		setAutoscrolls(true);
 		setMaximumSize(new Dimension(450, 500));
 		setBackground(SystemColor.info);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{140, 80, 80, 80, 80};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 70, 11, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 4.9E-324};
+		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 0.0, 1.0, 4.9E-324};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		JLabel calle = new JLabel("Calle");
+		calle.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_calle = new GridBagConstraints();
 		gbc_calle.fill = GridBagConstraints.HORIZONTAL;
 		gbc_calle.insets = new Insets(0, 0, 5, 5);
@@ -65,7 +90,7 @@ public class PanelOpcional extends JPanel {
 		add(calle, gbc_calle);
 		
 		JLabel pisoDpto = new JLabel("Piso/Dpto.");
-		pisoDpto.setHorizontalAlignment(SwingConstants.LEFT);
+		pisoDpto.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_pisoDpto = new GridBagConstraints();
 		gbc_pisoDpto.insets = new Insets(0, 0, 5, 5);
 		gbc_pisoDpto.gridx = 1;
@@ -73,6 +98,7 @@ public class PanelOpcional extends JPanel {
 		add(pisoDpto, gbc_pisoDpto);
 		
 		JLabel orientacion = new JLabel("Orientacion");
+		orientacion.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_orientacion = new GridBagConstraints();
 		gbc_orientacion.fill = GridBagConstraints.HORIZONTAL;
 		gbc_orientacion.insets = new Insets(0, 0, 5, 5);
@@ -81,6 +107,7 @@ public class PanelOpcional extends JPanel {
 		add(orientacion, gbc_orientacion);
 		
 		JLabel tipo = new JLabel("Tipo Inmueble");
+		tipo.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_tipo = new GridBagConstraints();
 		gbc_tipo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tipo.insets = new Insets(0, 0, 5, 0);
@@ -106,25 +133,26 @@ public class PanelOpcional extends JPanel {
 		gbc_tpisodpto.gridy = 1;
 		add(tpisodpto, gbc_tpisodpto);
 		
-		JComboBox rdbtnNewRadioButton_1 = new JComboBox();
-		rdbtnNewRadioButton_1.setModel(new DefaultComboBoxModel(new String[] {"NORTE", "SUR", "ESTE", "OESTE", "NORESTE", "NOROESTE", "SURESTE", "SUROESTE"}));
-		GridBagConstraints gbc_rdbtnNewRadioButton_1 = new GridBagConstraints();
-		gbc_rdbtnNewRadioButton_1.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnNewRadioButton_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_rdbtnNewRadioButton_1.gridx = 2;
-		gbc_rdbtnNewRadioButton_1.gridy = 1;
-		add(rdbtnNewRadioButton_1, gbc_rdbtnNewRadioButton_1);
+		boxOrientacion = new JComboBox<String>();
+		boxOrientacion.setModel(new DefaultComboBoxModel<String>(new String[] {"NORTE", "SUR", "ESTE", "OESTE", "NORESTE", "NOROESTE", "SURESTE", "SUROESTE"}));
+		GridBagConstraints gbc_boxOrientacion = new GridBagConstraints();
+		gbc_boxOrientacion.insets = new Insets(0, 0, 5, 5);
+		gbc_boxOrientacion.fill = GridBagConstraints.HORIZONTAL;
+		gbc_boxOrientacion.gridx = 2;
+		gbc_boxOrientacion.gridy = 1;
+		add(boxOrientacion, gbc_boxOrientacion);
 		
-		JComboBox rdbtnNewRadioButton = new JComboBox();
-		rdbtnNewRadioButton.setModel(new DefaultComboBoxModel(TipoInmueble.values()));
-		GridBagConstraints gbc_rdbtnNewRadioButton = new GridBagConstraints();
-		gbc_rdbtnNewRadioButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_rdbtnNewRadioButton.insets = new Insets(0, 0, 5, 0);
-		gbc_rdbtnNewRadioButton.gridx = 3;
-		gbc_rdbtnNewRadioButton.gridy = 1;
-		add(rdbtnNewRadioButton, gbc_rdbtnNewRadioButton);
+		boxTipoInmueble = new JComboBox<TipoInmueble>();
+		boxTipoInmueble.setModel(new DefaultComboBoxModel<TipoInmueble>(TipoInmueble.values()));
+		GridBagConstraints gbc_boxTipoInmueble = new GridBagConstraints();
+		gbc_boxTipoInmueble.fill = GridBagConstraints.HORIZONTAL;
+		gbc_boxTipoInmueble.insets = new Insets(0, 0, 5, 0);
+		gbc_boxTipoInmueble.gridx = 3;
+		gbc_boxTipoInmueble.gridy = 1;
+		add(boxTipoInmueble, gbc_boxTipoInmueble);
 		
 		JLabel barrio = new JLabel("Barrio");
+		barrio.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_barrio = new GridBagConstraints();
 		gbc_barrio.fill = GridBagConstraints.BOTH;
 		gbc_barrio.insets = new Insets(0, 0, 5, 5);
@@ -133,12 +161,29 @@ public class PanelOpcional extends JPanel {
 		add(barrio, gbc_barrio);
 		
 		JLabel precio = new JLabel("Precio (AR$)");
+		precio.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_precio = new GridBagConstraints();
 		gbc_precio.fill = GridBagConstraints.BOTH;
 		gbc_precio.insets = new Insets(0, 0, 5, 5);
 		gbc_precio.gridx = 1;
 		gbc_precio.gridy = 2;
 		add(precio, gbc_precio);
+		
+		JLabel habitaciones = new JLabel("Habitaciones");
+		habitaciones.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_habitaciones = new GridBagConstraints();
+		gbc_habitaciones.insets = new Insets(0, 0, 5, 5);
+		gbc_habitaciones.gridx = 2;
+		gbc_habitaciones.gridy = 2;
+		add(habitaciones, gbc_habitaciones);
+		
+		JLabel baños = new JLabel("Ba\u00F1os");
+		baños.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_baños = new GridBagConstraints();
+		gbc_baños.insets = new Insets(0, 0, 5, 0);
+		gbc_baños.gridx = 3;
+		gbc_baños.gridy = 2;
+		add(baños, gbc_baños);
 		
 		tbarrio = new JTextField();
 		GridBagConstraints gbc_tbarrio = new GridBagConstraints();
@@ -158,7 +203,26 @@ public class PanelOpcional extends JPanel {
 		gbc_tprecio.gridy = 3;
 		add(tprecio, gbc_tprecio);
 		
+		thabitaciones = new JSpinner();
+		thabitaciones.setModel(new SpinnerNumberModel(1,1,null,1));
+		GridBagConstraints gbc_thabitaciones = new GridBagConstraints();
+		gbc_thabitaciones.fill = GridBagConstraints.HORIZONTAL;
+		gbc_thabitaciones.insets = new Insets(0, 0, 5, 5);
+		gbc_thabitaciones.gridx = 2;
+		gbc_thabitaciones.gridy = 3;
+		add(thabitaciones, gbc_thabitaciones);
+		
+		tbaños = new JSpinner();
+		tbaños.setModel(new SpinnerNumberModel(1,0,null,1));
+		GridBagConstraints gbc_tbaños = new GridBagConstraints();
+		gbc_tbaños.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tbaños.insets = new Insets(0, 0, 5, 0);
+		gbc_tbaños.gridx = 3;
+		gbc_tbaños.gridy = 3;
+		add(tbaños, gbc_tbaños);
+		
 		JLabel numtelefono = new JLabel("Num. de Telefono");
+		numtelefono.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_numtelefono = new GridBagConstraints();
 		gbc_numtelefono.fill = GridBagConstraints.HORIZONTAL;
 		gbc_numtelefono.insets = new Insets(0, 0, 5, 5);
@@ -167,7 +231,7 @@ public class PanelOpcional extends JPanel {
 		add(numtelefono, gbc_numtelefono);
 		
 		JLabel frente = new JLabel("Frente (m)");
-		frente.setHorizontalAlignment(SwingConstants.LEFT);
+		frente.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_frente = new GridBagConstraints();
 		gbc_frente.insets = new Insets(0, 0, 5, 5);
 		gbc_frente.gridx = 1;
@@ -175,7 +239,7 @@ public class PanelOpcional extends JPanel {
 		add(frente, gbc_frente);
 		
 		JLabel fondo = new JLabel("Fondo (m)");
-		fondo.setHorizontalAlignment(SwingConstants.LEFT);
+		fondo.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_fondo = new GridBagConstraints();
 		gbc_fondo.insets = new Insets(0, 0, 5, 5);
 		gbc_fondo.gridx = 2;
@@ -183,7 +247,7 @@ public class PanelOpcional extends JPanel {
 		add(fondo, gbc_fondo);
 		
 		JLabel superficie = new JLabel("Superficie (m2)");
-		superficie.setHorizontalAlignment(SwingConstants.LEFT);
+		superficie.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_superficie = new GridBagConstraints();
 		gbc_superficie.insets = new Insets(0, 0, 5, 0);
 		gbc_superficie.gridx = 3;
@@ -226,7 +290,7 @@ public class PanelOpcional extends JPanel {
 		add(tsuperficie, gbc_tsuperficie);
 		tsuperficie.setColumns(10);
 		
-		JCheckBox propiedadhorizontal = new JCheckBox("Propiedad Horizontal");
+		propiedadhorizontal = new JCheckBox("Propiedad Horizontal");
 		propiedadhorizontal.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_propiedadhorizontal = new GridBagConstraints();
 		gbc_propiedadhorizontal.fill = GridBagConstraints.HORIZONTAL;
@@ -236,7 +300,7 @@ public class PanelOpcional extends JPanel {
 		gbc_propiedadhorizontal.gridy = 7;
 		add(propiedadhorizontal, gbc_propiedadhorizontal);
 		
-		JCheckBox patio = new JCheckBox("Patio");
+		patio = new JCheckBox("Patio");
 		GridBagConstraints gbc_patio = new GridBagConstraints();
 		gbc_patio.fill = GridBagConstraints.HORIZONTAL;
 		gbc_patio.gridwidth = 2;
@@ -245,7 +309,7 @@ public class PanelOpcional extends JPanel {
 		gbc_patio.gridy = 8;
 		add(patio, gbc_patio);
 		
-		JCheckBox piscina = new JCheckBox("Piscina");
+		piscina = new JCheckBox("Piscina");
 		GridBagConstraints gbc_piscina = new GridBagConstraints();
 		gbc_piscina.fill = GridBagConstraints.HORIZONTAL;
 		gbc_piscina.gridwidth = 2;
@@ -254,7 +318,7 @@ public class PanelOpcional extends JPanel {
 		gbc_piscina.gridy = 8;
 		add(piscina, gbc_piscina);
 		
-		JCheckBox cochera = new JCheckBox("Cochera");
+		cochera = new JCheckBox("Cochera");
 		cochera.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_cochera = new GridBagConstraints();
 		gbc_cochera.fill = GridBagConstraints.HORIZONTAL;
@@ -263,8 +327,8 @@ public class PanelOpcional extends JPanel {
 		gbc_cochera.gridx = 0;
 		gbc_cochera.gridy = 9;
 		add(cochera, gbc_cochera);
-		
-		JCheckBox telefono = new JCheckBox("Telefono");
+	
+		telefono = new JCheckBox("Telefono");
 		GridBagConstraints gbc_telefono = new GridBagConstraints();
 		gbc_telefono.fill = GridBagConstraints.HORIZONTAL;
 		gbc_telefono.gridwidth = 2;
@@ -273,7 +337,7 @@ public class PanelOpcional extends JPanel {
 		gbc_telefono.gridy = 9;
 		add(telefono, gbc_telefono);
 		
-		JCheckBox cloacas = new JCheckBox("Cloacas");
+		cloacas = new JCheckBox("Cloacas");
 		GridBagConstraints gbc_cloacas = new GridBagConstraints();
 		gbc_cloacas.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cloacas.gridwidth = 2;
@@ -281,8 +345,8 @@ public class PanelOpcional extends JPanel {
 		gbc_cloacas.gridx = 0;
 		gbc_cloacas.gridy = 10;
 		add(cloacas, gbc_cloacas);
-		
-		JCheckBox lavadero = new JCheckBox("Lavadero");
+	
+		lavadero = new JCheckBox("Lavadero");
 		GridBagConstraints gbc_lavadero = new GridBagConstraints();
 		gbc_lavadero.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lavadero.gridwidth = 2;
@@ -291,7 +355,7 @@ public class PanelOpcional extends JPanel {
 		gbc_lavadero.gridy = 10;
 		add(lavadero, gbc_lavadero);
 		
-		JCheckBox aguacaliente = new JCheckBox("Agua Caliente");
+		aguacaliente = new JCheckBox("Agua Caliente");
 		GridBagConstraints gbc_aguacaliente = new GridBagConstraints();
 		gbc_aguacaliente.fill = GridBagConstraints.HORIZONTAL;
 		gbc_aguacaliente.gridwidth = 2;
@@ -299,8 +363,8 @@ public class PanelOpcional extends JPanel {
 		gbc_aguacaliente.gridx = 0;
 		gbc_aguacaliente.gridy = 11;
 		add(aguacaliente, gbc_aguacaliente);
-		
-		JCheckBox aguacorriente = new JCheckBox("Agua Corriente");
+
+		aguacorriente = new JCheckBox("Agua Corriente");
 		GridBagConstraints gbc_aguacorriente = new GridBagConstraints();
 		gbc_aguacorriente.fill = GridBagConstraints.HORIZONTAL;
 		gbc_aguacorriente.gridwidth = 2;
@@ -309,7 +373,7 @@ public class PanelOpcional extends JPanel {
 		gbc_aguacorriente.gridy = 11;
 		add(aguacorriente, gbc_aguacorriente);
 		
-		JCheckBox gasnatural = new JCheckBox("Gas Natural");
+		gasnatural = new JCheckBox("Gas Natural");
 		GridBagConstraints gbc_gasnatural = new GridBagConstraints();
 		gbc_gasnatural.fill = GridBagConstraints.HORIZONTAL;
 		gbc_gasnatural.gridwidth = 2;
@@ -318,7 +382,7 @@ public class PanelOpcional extends JPanel {
 		gbc_gasnatural.gridy = 12;
 		add(gasnatural, gbc_gasnatural);
 		
-		JCheckBox pavimento = new JCheckBox("Pavimento");
+		pavimento = new JCheckBox("Pavimento");
 		GridBagConstraints gbc_pavimento = new GridBagConstraints();
 		gbc_pavimento.fill = GridBagConstraints.HORIZONTAL;
 		gbc_pavimento.gridwidth = 2;
@@ -335,7 +399,8 @@ public class PanelOpcional extends JPanel {
 		gbc_observaciones.gridy = 13;
 		add(observaciones, gbc_observaciones);
 		
-		JTextArea tobservaciones = new JTextArea();
+
+		tobservaciones = new JTextArea();
 		tobservaciones.setWrapStyleWord(true);
 		tobservaciones.setBorder(UIManager.getBorder("CheckBoxMenuItem.border"));
 		tobservaciones.setRows(4);
@@ -352,6 +417,7 @@ public class PanelOpcional extends JPanel {
 		gbc_tobservaciones.gridx = 0;
 		gbc_tobservaciones.gridy = 14;
 		add(scrollBar, gbc_tobservaciones);
+
 
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
@@ -370,5 +436,35 @@ public class PanelOpcional extends JPanel {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
+	}
+	
+	public OpcionalesInmuebleDTO getData() {
+		dto = new OpcionalesInmuebleDTO(tcalle.getText(),
+				(tpisodpto.getText().isBlank()) ? null : Integer.parseInt(tpisodpto.getText()),
+				boxOrientacion.getSelectedItem().toString(),
+				(TipoInmueble) boxTipoInmueble.getSelectedItem(),
+				tbarrio.getText(),
+				(tprecio.getText().isBlank()) ? 00 : Integer.parseInt(tprecio.getText()),
+				(Integer)thabitaciones.getValue(),
+				(Integer)tbaños.getValue(),
+				tnumtelefono.getText(),
+				(tfrente.getText().isBlank()) ? null : Integer.parseInt(tfrente.getText()), 
+				(tfondo.getText().isBlank()) ? null : Integer.parseInt(tfondo.getText()),
+				(tpisodpto.getText().isBlank()) ? null : Integer.parseInt(tsuperficie.getText()),
+				propiedadhorizontal.isSelected(),
+				patio.isSelected(),
+				piscina.isSelected(),
+				cochera.isSelected(),
+				telefono.isSelected(),
+				cloacas.isSelected(),
+				lavadero.isSelected(),
+				aguacaliente.isSelected(),
+				aguacorriente.isSelected(), 
+				gasnatural.isSelected(),
+				pavimento.isSelected(),
+				tobservaciones.getText(),
+				null);
+		
+		return dto;
 	}
 }

@@ -32,7 +32,10 @@ import com.toedter.calendar.JDateChooser;
 import xp.AppSistema;
 import xp.db.T_inmueble;
 import xp.db.T_vendedor;
-import xp.model.Inmueble.EstadoInmueble;
+import xp.dto.OpcionalesInmuebleDTO;
+import xp.enums.EstadoInmueble;
+import xp.exceptions.CamposVaciosException;
+import xp.model.Inmueble;
 import xp.utils.FieldValidators;
 
 public class AltaInmueble_panel extends JPanel {
@@ -62,6 +65,13 @@ public class AltaInmueble_panel extends JPanel {
 	private String selectedLocalidad;
 	private String selectedProvincia;
 	private String propietarioSelected;
+	private Inmueble inm; 
+	
+	private String codI;
+	private EstadoInmueble estI;
+	private String loc;
+	private String prov;
+	private String msg;
 	
 	private JButton seleccionarPropietario;
 	
@@ -230,10 +240,12 @@ public class AltaInmueble_panel extends JPanel {
 		gbc.gridx = 2;
 		gbc.gridy = 6;
 		
-		panelOpcional = new PanelOpcional();
+		OpcionalesInmuebleDTO inmuebleDTO = null; //TODO agregar data
+		panelOpcional = new PanelOpcional(inmuebleDTO);
 		gbc.gridx = 1;
 		gbc.gridy = 8;
 		this.add(panelOpcional, gbc);
+//		System.out.println("1 -> "+panelOpcional.getData().getCalle());
 		
 		JSplitPane splitPane2 = new JSplitPane();
 		GridBagConstraints gbc_splitPane2 = new GridBagConstraints();
@@ -260,23 +272,55 @@ public class AltaInmueble_panel extends JPanel {
 			tmpFrame.pack();
 //			propietarioSelected = sp.getSelected().getNombre(); //TODO agregar metodo
 //			tpropietarioselected.setText(propietarioSelected);
-			String msg = (propietarioSelected == null) ? "Ningun propietario seleccionado" : "TEST SELECCIONADO";
+			msg = (propietarioSelected == null) ? "Ningun propietario seleccionado" : "TEST SELECCIONADO";
 			tpropietarioselected.setText(msg);
 		});
 		
 		agregar.addActionListener(e -> {
-		
-			String codI = this.tcodigoInmueble.getText(); 
-			String estI = this.testadoInmueble.getSelectedItem().toString();
-			String loc;
-			if(this.boxLocalidad.getSelectedItem()=="Otra...") {
-				loc = this.otraLocalidad.getText();
-			} else {
-				loc = this.selectedLocalidad;
+//			System.out.println("2 -> "+panelOpcional.getData().getCalle());
+			try {
+				if(!camposVacios()) {
+					codI = this.tcodigoInmueble.getText(); 
+					estI = (EstadoInmueble) this.testadoInmueble.getSelectedItem();
+					
+					if(this.boxLocalidad.getSelectedItem()=="Otra...") {
+						loc = this.otraLocalidad.getText();
+					} else {
+						loc = this.selectedLocalidad;
+					}
+					prov = this.provincia.getText();
+					
+					T_inmueble iT = new T_inmueble();
+					inm = new Inmueble(codI, codI, estI, loc, prov, null,
+							null, null, null, null, null, null, null,
+							null, null, null, null, null, null, null,
+							null, null, null, null, null, null, null, null, null, null, null);
+					try {
+						iT.insertInmueble(inm);
+						VentanaExito ventanaExito = new VentanaExito("Inmueble agregado correctamente.");
+						ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						ventanaExito.setVisible(true);
+						
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+						VentanaFallo ventanaFallo = new VentanaFallo("Hubo un error al cargar los datos. "
+								+ "Intente nuevamente.");
+						ventanaFallo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						ventanaFallo.setVisible(true);
+					}
+				}
+			} catch (CamposVaciosException e1) {
+				VentanaFallo v1 = new VentanaFallo(e1.getMessage());
+				v1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				v1.setVisible(true);
 			}
-			String prov = this.provincia.getText();
 
-//TODO levantar valor date del calendario
+//		TODO levantar valor date del calendario
+//		TODO hacer campo cantidad dormitorios - guardar en db
+//		TODO en DB -> provincia, localidad, barrio, cant dormitorios y precio
+			
+			
+			
 //		System.out.println(this.calendarFechaCarga);
 
 //		System.out.println(calendarFechaCarga.getDayChooser().getDay());
@@ -286,34 +330,29 @@ public class AltaInmueble_panel extends JPanel {
 //		this.diaFechaSelected = calendarFechaCarga.getDayChooser().getDay();
 //		this.mesFechaSelected = calendarFechaCarga.getMonthChooser().getMonth();
 //		this.anioFechaSelected = calendarFechaCarga.getYearChooser().getYear();
-//		
-//		
-//		
-//		T_inmueble iT = new T_inmueble();
-//		try {
-//			iT.insert(codI, estI, loc, prov, fechaSelected);
-//			VentanaExito ventanaExito = new VentanaExito("Inmueble agregado correctamente.");
-//			ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			ventanaExito.setVisible(true);
-//			
-//		} catch (SQLException e1) {
-//			e1.printStackTrace();
-//			VentanaFallo ventanaFallo = new VentanaFallo("Hubo un error al cargar los datos. "
-//					+ "Intente nuevamente.");
-//			ventanaFallo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			ventanaFallo.setVisible(true);
-//		}
-
 		
-//		T_vendedor aT = new T_vendedor();
-//		aT.insert(nom, ape, tipodoc, nrodoc, claveacceso);
-
-//		tit.setText("Vendedor " + aT.toString() + " agregado correctamente!");
-
-//		tit.setForeground(Color.RED);
-//		agregar.setEnabled(false);
+		
 		});
 	
 		return this;
+	}
+	
+	private Boolean camposVacios() throws CamposVaciosException {
+		if(tcodigoInmueble.getText().isEmpty()) {
+			throw new CamposVaciosException("Complete los "
+				+ "campos obligatorios: Codigo del inmueble.");
+		}
+		if(boxLocalidad.getSelectedItem()=="Otra..." && otraLocalidad.getText().isEmpty()) {
+			System.out.println(tpropietarioselected.getText());
+			throw new CamposVaciosException("Complete los "
+				+ "campos obligatorios: Localidad.");
+		}
+//		if(propietarioSelected==null) {
+//			throw new CamposVaciosException("Complete los "
+//				+ "campos obligatorios: Propietario.");
+//		}
+		
+		
+		return false;
 	}
 }

@@ -83,4 +83,31 @@ public class Vendedor {
 		this.claveAcceso = claveAcceso;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		
+		Vendedor other = (Vendedor) obj;
+		
+		if (this.getNombre() == null) {
+			if (other.getNombre() != null)
+				return false;
+		} else if (!this.getNombre().equals(other.getNombre())) {
+			return false;
+		} else if (!this.getApellido().equals(other.getApellido())) {
+			return false;
+		} else if (!this.getNumDoc().equals(other.getNumDoc())) {
+			return false;
+		} else if (!this.getClaveAcceso().equals(other.getClaveAcceso())) {
+			return false;
+		}
+
+		return true;
+	}
+	
 }

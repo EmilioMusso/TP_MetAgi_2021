@@ -1,3 +1,8 @@
+DROP TABLE public.propietario;
+DROP TABLE public.vendedor;
+DROP TABLE public.inmueble;
+DROP TABLE public.cliente;
+
 CREATE TABLE public.propietario(
 	id integer NOT NULL,
 	nombre character varying(20),
@@ -31,6 +36,21 @@ CREATE TABLE public.inmueble(
 	localidad character varying(20),
 	provincia character varying(20),
 	fechaCarga date,
+	id_propietario integer,
+	numtelefono character varying(20),
+	calle character varying(20),
+	pisoDpto integer,
+	orientacion character varying(20),
+	tipoInmueble character,
+	barrio character varying(20),
+	precio integer,
+	frente integer,
+	fondo integer,
+	superficie integer,
+	habitaciones integer,
+	banios integer,
+	arraybooleans boolean array,
+	
 
 	CONSTRAINT pk_inmueble PRIMARY KEY(id)
 );

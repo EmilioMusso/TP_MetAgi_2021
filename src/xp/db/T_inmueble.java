@@ -1,5 +1,6 @@
 package xp.db;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +13,13 @@ import xp.model.Inmueble;
 import xp.model.Vendedor;
 
 public class T_inmueble {
-	private static final String ins = "INSERT INTO public.inmueble(id,codigoInmueble,estadoInmueble,localidad,provincia,fechaCarga) VALUES(?,?,?,?,?,?)";
+//	private static final String ins = "INSERT INTO public.inmueble(id,"
+//			+ "codigoInmueble,estadoInmueble,localidad,provincia,fechaCarga,"
+//			+ "propietario, calle, pisoDpto, orientacion, tipoInmueble, barrio,"
+//			+ "precio, telefono, frente, fondo, superficie, cantHabitaciones)"
+//			+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String ins = "INSERT INTO public.inmueble "
+			+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String bus = "SELECT * FROM public.inmueble WHERE nombre=?"; //codigo
 	private static final String consId = "SELECT * FROM public.inmueble WHERE =?";
 	private static final String tod = "SELECT * FROM public.inmueble";
@@ -36,8 +43,7 @@ public class T_inmueble {
 		ps.setString(3,estadoInmueble);
 		ps.setString(4,localidad);
 		ps.setString(5,provincia);
-//		ps.setString(5,fechaCarga); //esto no se si esta bien - corroborar 
-		ps.setDate(6, new java.sql.Date(fechaCarga.getTime()));
+		ps.setDate(6, null); //fechacarga
 		ps.executeUpdate();
 		System.out.println(ps.toString());
 		
@@ -53,6 +59,52 @@ public class T_inmueble {
 			
 			}
 		}
+	
+	public void insertInmueble(Inmueble inm) throws SQLException { //TODO implementar propietario y fecha
+		Connection con = null;
+		PreparedStatement ps =  null;
+		con = ConnectionMA.get();
+		try{
+			ps = con.prepareStatement(ins);
+			ps.setInt(1,this.nextId());
+			ps.setString(2,inm.getCodigoInmueble());
+			ps.setString(3,inm.getEstadoInmueble().toString());
+			ps.setString(4,inm.getLocalidad());
+			ps.setString(5,inm.getProvincia());
+			ps.setDate(6, null); //fechacarga
+			ps.setInt(7, 0); //propietario
+			ps.setString(8, inm.getNumTelefono());
+			ps.setString(9, inm.getCalle());
+			ps.setInt(10, 0);//inm.getPisoDpto());
+			ps.setString(11, inm.getOrientacion());
+			ps.setString(12, "");//inm.getTipoInmueble().toString());
+			ps.setString(13, inm.getBarrio());
+			ps.setInt(14, 10);//inm.getPrecio());
+			ps.setInt(15, 0);//inm.getFrente());
+			ps.setInt(16, 0);//inm.getFondo());
+			ps.setInt(17, 0);//inm.getSuperficie());
+			ps.setInt(18, 0);//inm.getHabitaciones());
+			ps.setInt(19, 0);//inm.getBanios());
+		
+			ps.setArray(20, con.createArrayOf("BOOLEAN", new String[] {}));//Array de 12
+
+			System.out.println(ps.toString());
+			ps.executeUpdate();
+		
+		} catch (SQLException e) {
+			throw new SQLException();
+		} finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {
+					ps.close ();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+	}
 	
 	public void delete(Object id){
 		Connection con = null;
@@ -153,13 +205,19 @@ public class T_inmueble {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				i1 = new Inmueble(
-						rs.getString("id"),
-						rs.getString("codigoInmueble"),
-						rs.getString("estadoInmueble"),
-						rs.getString("localidad"),	
-						rs.getString("provincia"),	
-						rs.getString("fechaCarga") );	
+//				i1 = new Inmueble(
+//						rs.getString("id"),
+//						rs.getString("codigoInmueble"),
+//						rs.getString("estadoInmueble"),
+//						rs.getString("localidad"),	
+//						rs.getString("provincia"),	
+//						rs.getString("fechaCarga"),
+//						rs.getString("provincia"),
+//						rs.getString("provincia"),
+//						rs.getString("provincia"),
+//						rs.getString("provincia"),
+//						rs.getString("provincia"),
+//						);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

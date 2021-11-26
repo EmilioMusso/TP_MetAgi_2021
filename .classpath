@@ -17,12 +17,8 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="img/junit-4.6.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="img/postgresql-42.2.24.jar"/>
 	<classpathentry kind="lib" path="img/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="img/junit-4.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

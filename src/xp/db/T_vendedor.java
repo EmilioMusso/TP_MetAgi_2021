@@ -17,7 +17,7 @@ public class T_vendedor {
 	private static final String next_id = "SELECT nextval('public.seq_id') as num";
 	private static final String del = "DELETE FROM public.vendedor WHERE Id=?";
 
-	public T_vendedor() {	}
+	public T_vendedor() {}
 	
 	public void insert(String nombre, String apellido, String tipoDoc, String nrodoc, String claveacceso) {
 		Connection con = null;
@@ -44,6 +44,36 @@ public class T_vendedor {
 				catch (SQLException e) {e.printStackTrace();}
 			
 			}
+		}
+	
+	public Integer insert(Vendedor v1) {
+		Integer newId = null;
+		Connection con = null;
+		PreparedStatement ps =  null;
+		con = ConnectionMA.get();
+		try{
+		newId = this.nextId();
+		ps = con.prepareStatement(ins);
+		ps.setInt(1,newId);
+		ps.setString(2,v1.getNombre());
+		ps.setString(3,v1.getApellido());
+		ps.setString(4,v1.getTipoDoc());
+		ps.setString(5,v1.getNumDoc());
+		ps.setString(6,v1.getClaveAcceso());
+		ps.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			}
+			return newId;
 		}
 	
 	public void delete(Object id){
