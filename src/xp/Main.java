@@ -169,16 +169,18 @@ public class Main {
 	     
 	     mi24=new JMenuItem("Consultar Inmuebles");
 	     mi24.addActionListener (e -> {
-	    	 ventana.setContentPane(new Cons_Inmueble());	
-	    	 gbcf.gridx = 3;
-	 		 gbcf.gridy = 9;
+	    	Cons_Inmueble cons = new Cons_Inmueble();
+	    	cons.frame.setVisible(true);
+	    	cons.frame.pack();
+//	    	 ventana.setContentPane(new Cons_Inmueble());	
+//	    	 gbcf.gridx = 3;
+//	 		 gbcf.gridy = 9;
 //	 		 gbcf.insets= new Insets(20,5,20,20);
 //	 		 gbcf.anchor = GridBagConstraints.EAST;
 //	 		 ventana.add(salir,gbcf); 
-	    	 ventana.pack();
+//	    	 ventana.pack();
 	    	 });
 	     menu4.add(mi24);
-		
 //				--------------------------------------------------------Usuario
 	     /*	
 		 * TODO todavia no importa saber los datos del usuario registrado

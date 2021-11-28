@@ -25,6 +25,7 @@ public class T_inmueble {
 	private static final String tod = "SELECT * FROM public.inmueble";
 	private static final String next_id = "SELECT nextval('public.seq_id') as num";
 	private static final String del = "DELETE FROM public.inmueble WHERE Id=?";
+	private static final String prov = "SELECT DISTINCT Provincia FROM public.inmueble";
 	
 	public T_inmueble() {	}
 	
@@ -192,6 +193,89 @@ public class T_inmueble {
 		return fila;
 		}
 	
+	public ArrayList<String> buscarS() {
+		//genera una lista con todos los registros de una tabla
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		con = ConnectionMA.get();
+		ArrayList<String> fila = new ArrayList<String>();
+		
+		try{
+		ps = con.prepareStatement(tod);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			fila.add(rs.getString("id"));
+			fila.add(rs.getString("codigoInmueble"));
+			fila.add(rs.getString("estadoInmueble"));
+			fila.add(rs.getString("localidad"));	
+			fila.add(rs.getString("provincia"));	
+			fila.add(rs.getString("fechaCarga"));	
+		}}
+				
+		catch (SQLException e) {e.printStackTrace();
+		}finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			
+			}
+		return fila;
+		}
+	
+	public ArrayList<String> buscarFiltro(String f) {
+		//genera una lista con todos los registros de una tabla
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		con = ConnectionMA.get();
+		ArrayList<String> fila = new ArrayList<String>();
+		
+		String filtro ="";
+				
+		if(f==null) {
+			filtro = "SELECT * FROM public.inmueble";}
+		else {
+			filtro = "SELECT * FROM public.inmueble WHERE provincia="+"'"+f+"'";
+		}
+		System.out.println(filtro);
+		
+		try{
+		ps = con.prepareStatement(filtro);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			fila.add(rs.getString("id"));
+			fila.add(rs.getString("codigoInmueble"));
+			fila.add(rs.getString("estadoInmueble"));
+			fila.add(rs.getString("localidad"));	
+			fila.add(rs.getString("provincia"));	
+			fila.add(rs.getString("fechaCarga"));	
+		}}
+				
+		catch (SQLException e) {e.printStackTrace();
+		}finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			
+			}
+		return fila;
+		}
+	
 	public Inmueble buscarInmueble(Object id) {
 		//genera una lista con todos los registros de una tabla
 		Connection con = null;
@@ -235,5 +319,38 @@ public class T_inmueble {
 		}
 		return i1;
 	}
+	
+	public ArrayList<String> buscar_nombres() {
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		con = ConnectionMA.get();
+		ArrayList<String> nombres = new ArrayList<String>();
+		
+		try{
+		ps = con.prepareStatement(prov);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			nombres.add(rs.getString("Provincia"));
+			
+		}}
+				
+		catch (SQLException e) {e.printStackTrace();
+		}finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			
+			}
+		return nombres;
+		}
+
 	
 }

@@ -1,100 +1,224 @@
 package xp.ui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+
+import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.JCheckBox;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 
+
+import xp.db.T_inmueble;
 import xp.db.T_propietario;
+import javax.swing.JSeparator;
 
+public class Cons_Inmueble {
 
+	public JFrame frame;
+	private JTable table_1;
 
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Cons_Inmueble window = new Cons_Inmueble();
+					window.frame.setVisible(true);
+					window.frame.pack();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
-public class Cons_Inmueble extends JPanel {
-	
-	private boolean ALLOW_ROW_SELECTION = true;
-	private boolean ALLOW_COLUMN_SELECTION = false;
-	private JLabel tit;
-	private GridBagConstraints gbc;
-	private JButton modificar;
-	private JButton eliminar;
-	
-	private Object id;
-	private String nombre;
-	private String apellido;
-	private String numdoc;
-	private String calle;
-	private String numdom;
-	private String provincia;
-	private String localidad;
-	private String telefono;
-	private String email;
-	
-	
+	/**
+	 * Create the application.
+	 */
 	public Cons_Inmueble() {
-        		
-		this.gbc = new GridBagConstraints();
-		this.setLayout(new GridBagLayout());
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setTitle("Inmuebles");
+		frame.setBounds(100, 100, 573, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		frame.getContentPane().setLayout(gridBagLayout);
 		
-		gbc.gridx = 0;		//posiciï¿½n
-		gbc.gridy = 0;
-		//gbc.weighty = 0.1;
-		gbc.gridwidth=3;
-		gbc.insets= new Insets(5,5,5,5);
-		this.tit = new JLabel("Propietarios");
-		this.add(tit,gbc);
-		tit.setForeground(Color.BLUE);
-		tit.setFont(tit.getFont().deriveFont(22.0f));
+		JLabel lblNewLabel = new JLabel("Consulta de inmuebles");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setForeground(Color.BLUE);
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.gridwidth = 2;
+		gbc_lblNewLabel.insets = new Insets(5, 5, 5, 0);
+		gbc_lblNewLabel.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 0;
+		frame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
 		
-		gbc.gridx = 0;		//posiciï¿½n
-		gbc.gridy = 3;
-		gbc.weighty = 0.1;
+		
+		JLabel lblNewLabel_1 = new JLabel("Provincia");
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_1.gridx = 0;
+		gbc_lblNewLabel_1.gridy = 2;
+		frame.getContentPane().add(lblNewLabel_1, gbc_lblNewLabel_1);
+		
+		JComboBox comboProv = new JComboBox();
+		GridBagConstraints gbc_comboProv = new GridBagConstraints();
+		gbc_comboProv.insets = new Insets(0, 0, 5, 5);
+		gbc_comboProv.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboProv.gridx = 0;
+		gbc_comboProv.gridy = 3;
+		frame.getContentPane().add(comboProv, gbc_comboProv);
+				
+		T_inmueble Ti = new T_inmueble();
+		ArrayList<String> i_rs = new ArrayList<String>();
+	    i_rs= Ti.buscar_nombres();
+	    for (String nom: i_rs) {
+	    	comboProv.addItem(nom);}
+	    comboProv.setSelectedItem(null);
+		
+		JLabel lblNewLabel_4 = new JLabel("Tipo");
+		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
+		gbc_lblNewLabel_4.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_4.insets = new Insets(5, 5, 5, 0);
+		gbc_lblNewLabel_4.gridx = 1;
+		gbc_lblNewLabel_4.gridy = 2;
+		frame.getContentPane().add(lblNewLabel_4, gbc_lblNewLabel_4);
+		
+		JComboBox comboTip = new JComboBox();
+		GridBagConstraints gbc_comboTip = new GridBagConstraints();
+		gbc_comboTip.insets = new Insets(0, 0, 5, 0);
+		gbc_comboTip.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboTip.gridx = 1;
+		gbc_comboTip.gridy = 3;
+		frame.getContentPane().add(comboTip, gbc_comboTip);
+		
+		JLabel lblNewLabel_5 = new JLabel("Cant. dormitorios");
+		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
+		gbc_lblNewLabel_5.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel_5.gridx = 1;
+		gbc_lblNewLabel_5.gridy = 4;
+		frame.getContentPane().add(lblNewLabel_5, gbc_lblNewLabel_5);
+		
+		JComboBox comboDor = new JComboBox();
+		GridBagConstraints gbc_comboDor = new GridBagConstraints();
+		gbc_comboDor.insets = new Insets(0, 0, 5, 0);
+		gbc_comboDor.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboDor.gridx = 1;
+		gbc_comboDor.gridy = 5;
+		frame.getContentPane().add(comboDor, gbc_comboDor);
+		
+		JLabel lblNewLabel_2 = new JLabel("Localidad");
+		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+		gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_2.gridx = 0;
+		gbc_lblNewLabel_2.gridy = 4;
+		frame.getContentPane().add(lblNewLabel_2, gbc_lblNewLabel_2);
+		
+		JComboBox comboLoc = new JComboBox();
+		GridBagConstraints gbc_comboLoc = new GridBagConstraints();
+		gbc_comboLoc.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboLoc.insets = new Insets(0, 0, 5, 5);
+		gbc_comboLoc.gridx = 0;
+		gbc_comboLoc.gridy = 5;
+		frame.getContentPane().add(comboLoc, gbc_comboLoc);
+				
+		JLabel lblNewLabel_3 = new JLabel("Barrio");
+		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
+		gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_3.gridx = 0;
+		gbc_lblNewLabel_3.gridy = 6;
+		frame.getContentPane().add(lblNewLabel_3, gbc_lblNewLabel_3);
+		
+		JComboBox comboBar = new JComboBox();
+		GridBagConstraints gbc_comboBar = new GridBagConstraints();
+		gbc_comboBar.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBar.gridx = 0;
+		gbc_comboBar.gridy = 7;
+		frame.getContentPane().add(comboBar, gbc_comboBar);
+		
+		JLabel lblNewLabel_6 = new JLabel("Precio");
+		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
+		gbc_lblNewLabel_6.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel_6.gridx = 1;
+		gbc_lblNewLabel_6.gridy = 6;
+		frame.getContentPane().add(lblNewLabel_6, gbc_lblNewLabel_6);
+		
+		JComboBox comboPre = new JComboBox();
+		GridBagConstraints gbc_comboPre = new GridBagConstraints();
+		gbc_comboPre.insets = new Insets(0, 0, 5, 0);
+		gbc_comboPre.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboPre.gridx = 1;
+		gbc_comboPre.gridy = 7;
+		frame.getContentPane().add(comboPre, gbc_comboPre);
+		
+	
+		// ---- Tabla
 		
 		DefaultTableModel model = new DefaultTableModel(); 
-        JTable table = new JTable(model); 
-        this.add(table,gbc);
+		
+		table_1 = new JTable(model);
+		table_1.setCellSelectionEnabled(true);
+		table_1.setColumnSelectionAllowed(true);
+		GridBagConstraints gbc_table_1 = new GridBagConstraints();
+		gbc_table_1.gridwidth = 2;
+		gbc_table_1.insets = new Insets(5, 5, 5, 5);
+		gbc_table_1.fill = GridBagConstraints.BOTH;
+		gbc_table_1.gridx = 0;
+		gbc_table_1.gridy = 12;
+//		frame.getContentPane().add(table_1, gbc_table_1);
+		        
 
         // Crea las columnas 
         model.addColumn("Id"); 
-        model.addColumn("Nombre"); 
-        model.addColumn("Apellido");
-        model.addColumn("Num Doc");
-        model.addColumn("Calle");
-        model.addColumn("Nro");
-        model.addColumn("Provincia");
+        model.addColumn("Cod_inmueble"); 
+        model.addColumn("Estado");
         model.addColumn("Localidad");
-        model.addColumn("Telï¿½fono");
-        model.addColumn("e-mail");
+        model.addColumn("Provincia");
+        model.addColumn("Fecha_carga");
         
         
         
         // Agrega las filas 
-        T_propietario aT = new T_propietario();
+        T_inmueble aT = new T_inmueble();
         ArrayList<String> data_rs = new ArrayList<String>();
-        data_rs= aT.buscar();
-        Object[] fila= {"","","","","","","","","",""};
+        data_rs = aT.buscarS();
+        Object[] fila= {"","","","","",""};
         int i=0;
         int j=0;
         while(j<data_rs.size()) {
@@ -102,116 +226,92 @@ public class Cons_Inmueble extends JPanel {
         		fila[i]=elem;
         		++i;
         		++j;
-        		if(i==10) {
+        		if(i==6) {
         			model.addRow(fila);
         			i=0;
     			}
         	}
         }
 	
-        table.setRowHeight(20);
-        table.setRowSelectionAllowed(true);
-        table.setColumnSelectionAllowed(false);
-        
-        // Modo de seleccion
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        // ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
-
-        // Tamaï¿½o de la ventana
-        table.setPreferredScrollableViewportSize(new Dimension(800, 100));
-        table.setFillsViewportHeight(true);
  
-        table.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-            	JTable table = (JTable)e.getSource();
-                int row = table.rowAtPoint(e.getPoint());
-                int column = table.columnAtPoint(e.getPoint());
-                
-                id = table.getValueAt(row, 0);
-            	nombre =  table.getValueAt(row, 1).toString();
-            	apellido =  table.getValueAt(row, 2).toString();
-            	numdoc =  table.getValueAt(row, 3).toString();
-            	calle =  table.getValueAt(row, 4).toString();
-            	numdom =  table.getValueAt(row, 5).toString();
-            	provincia =  table.getValueAt(row, 6).toString();
-            	localidad =  table.getValueAt(row, 7).toString();
-            	telefono =  table.getValueAt(row, 8).toString();
-            	email =  table.getValueAt(row, 9).toString();
-            	
-            	
-//            	System.out.println("Valor de celda: " + table.getValueAt(row, column));
-//            	System.out.println("Id: " + table.getValueAt(row, 0));
-            }
-        });
-    
+        table_1.setRowHeight(20);
+        table_1.setRowSelectionAllowed(true);
+        table_1.setColumnSelectionAllowed(false);
+		
+        // Tamaño de la ventana
+        table_1.setPreferredScrollableViewportSize(new Dimension(800, 100));
+        table_1.setFillsViewportHeight(true);
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.addMouseListener(new MouseAdapter( ) {
+    
+ 
+        //Se crea un ScrollPane como contenedor de la Tabla
+        JScrollPane scrollPane = new JScrollPane(table_1);
+        scrollPane.addMouseListener(new MouseAdapter() {
         	public void mouseWheelMoved(MouseEvent e) {
                 System.out.println(e);
             }
         });
         
-        //Se agrega el scroll pane al JPanel
-        gbc.gridx = 0;		//posiciï¿½n
-		gbc.gridy = 3;
-        add(scrollPane,gbc);
+        JSeparator separator = new JSeparator();
+        separator.setForeground(Color.LIGHT_GRAY);
+        GridBagConstraints gbc_separator = new GridBagConstraints();
+        gbc_separator.fill = GridBagConstraints.HORIZONTAL;
+        gbc_separator.gridwidth = 2;
+        gbc_separator.insets = new Insets(5, 5, 5, 5);
+        gbc_separator.gridx = 0;
+        gbc_separator.gridy = 11;
+        frame.getContentPane().add(separator, gbc_separator);
         
-      //Botones
-    	gbc.gridx = 0;		//posiciï¿½n
-    	gbc.gridy = 6;
-    	gbc.gridwidth=1;
-    	gbc.anchor = GridBagConstraints.EAST;
-    	this.modificar = new JButton("Modificar");
-    	this.add(modificar,gbc);
-    	
-    	modificar.addActionListener(e -> {
+        //Se agrega el scroll pane al JPanel
+        gbc_table_1.gridx = 0;		//posición
+		gbc_table_1.gridy = 12;
+        frame.getContentPane().add(scrollPane,gbc_table_1);
+        
+        
+        
+		
+		JButton btnNewButton = new JButton("Buscar");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewButton.gridwidth = 2;
+		gbc_btnNewButton.gridx = 0;
+		gbc_btnNewButton.gridy = 10;
+		frame.getContentPane().add(btnNewButton, gbc_btnNewButton);
+		
+		btnNewButton.addActionListener(e -> {
+			int r=0;
+			int s=model.getRowCount();
+			while(r<s) {
+				System.out.println(r);
+				model.removeRow(0);
+				++r;}
 			
-    		ModifProp_ventana modif = new ModifProp_ventana(id, nombre, apellido, numdoc, calle, numdom, provincia, localidad, telefono, email);
-    		modif.setVisible(true);
-//			T_estacion mT = new T_estacion();
-//			mT.delete(id);
-//			mT.insert(nombre, apertura, cierre, estado);
-			
-//			tit.setText("Estaciï¿½n agregada!");
-//			tit.setForeground(Color.RED);
-			modificar.setEnabled(false);
+			// Agrega las filas 
+	        T_inmueble Tfil = new T_inmueble();
+	        ArrayList<String> prov_rs = new ArrayList<String>();
+	       
+	        Object it = comboProv.getSelectedItem();
+	        		
+	        System.out.println(it);		
+	        prov_rs = aT.buscarFiltro((String) it);
+	        
+	        Object[] fila2= {"","","","","",""};
+	        int i2=0;
+	        int j2=0;
+	        while(j2<prov_rs.size()) {
+	        	for(String elem : prov_rs) {
+	        		fila2[i2]=elem;
+	        		++i2;
+	        		++j2;
+	        		if(i2==6) {
+	        			model.addRow(fila2);
+	        			i2=0;
+	    			}
+	        	}
+	        }
 		});
-    	
-    	gbc.gridx = 1;		//posiciï¿½n
-    	gbc.gridy = 6;
-    	gbc.gridwidth=1;
-    	gbc.anchor = GridBagConstraints.CENTER;
-    	this.eliminar = new JButton("Eliminar");
-    	this.add(eliminar,gbc);
-    	
-    	eliminar.addActionListener(e -> {
-			
-			T_propietario mT = new T_propietario();
-			mT.delete(id);
-			
-			eliminar.setEnabled(false);
-		});
-    }
-	
-	
-	
- 
-    private void printDebugData(JTable table) {
-        int numRows = table.getRowCount();
-        int numCols = table.getColumnCount();
-        javax.swing.table.TableModel model = table.getModel();
- 
-        System.out.println("Valor: ");
-        for (int i=0; i < numRows; i++) {
-            System.out.print("    row " + i + ":");
-            for (int j=0; j < numCols; j++) {
-                System.out.print("  " + model.getValueAt(i, j));
-            }
-            System.out.println();
-        }
-        System.out.println("--------------------------");
-    }
-    
-	
+		
+		
+	}
+
 }
