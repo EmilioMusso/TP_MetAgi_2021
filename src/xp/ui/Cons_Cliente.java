@@ -76,7 +76,7 @@ public class Cons_Cliente extends JPanel {
 		String[] columnNames = {"Id", "Nombre", "Apellido", "Telefono", "Usuario", "Contrasenia"};
 		Object[][] data;
 		T_cliente vT = new T_cliente();
-        ArrayList<String> data_rs = vT.buscar();
+        ArrayList<Object> data_rs = vT.buscar();
 		ClienteTableModel model = new ClienteTableModel();
 		model.addColumn("Id");
 		model.addColumn("Nombre");
@@ -88,7 +88,7 @@ public class Cons_Cliente extends JPanel {
         int i=0;
         int j=0;
         while(j<data_rs.size()) {
-        	for(String elem : data_rs) {
+        	for(Object elem : data_rs) {
 				fila[i]=elem;
         		++i;
         		++j;

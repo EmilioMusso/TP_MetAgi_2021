@@ -60,7 +60,7 @@ public class AltaCliente_Panel extends JPanel {
 		this.apellido = new JLabel("Apellido");
 		this.tapellido = new JTextField(40);
 		this.telefono = new JLabel("Telefono");
-		this.ttelefono = new JTextField(20);
+		this.ttelefono = new JTextField(40);
 		this.usuario = new JLabel("Usuario");
 		this.tusuario = new JTextField(40);
 		this.claveacceso = new JLabel("Clave de acceso");
@@ -133,7 +133,7 @@ public class AltaCliente_Panel extends JPanel {
 		
 		//button
 		gbc.gridx = 2;
-		gbc.gridy = 7;
+		gbc.gridy = 8;
 		gbc.weightx = 0.1;
 		gbc.weighty = 0.5;
 		gbc.gridwidth=1;
