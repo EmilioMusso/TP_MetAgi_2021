@@ -23,9 +23,16 @@ public class T_inmueble {
 	private static final String bus = "SELECT * FROM public.inmueble WHERE nombre=?"; //codigo
 	private static final String consId = "SELECT * FROM public.inmueble WHERE =?";
 	private static final String tod = "SELECT * FROM public.inmueble";
+	private static final String consInm = "SELECT id, codigoInmueble, estadoInmueble, localidad, provincia, barrio, tipoInmueble, habitaciones, precio FROM public.inmueble"; 
 	private static final String next_id = "SELECT nextval('public.seq_id') as num";
 	private static final String del = "DELETE FROM public.inmueble WHERE Id=?";
-	private static final String prov = "SELECT DISTINCT Provincia FROM public.inmueble";
+	private static final String prov = "SELECT DISTINCT provincia FROM public.inmueble";
+	private static final String loc = "SELECT DISTINCT localidad FROM public.inmueble";
+	private static final String barr = "SELECT DISTINCT barrio FROM public.inmueble";
+	private static final String tipo = "SELECT DISTINCT tipoInmueble FROM public.inmueble";
+	private static final String hab = "SELECT DISTINCT habitaciones FROM public.inmueble";
+	private static final String prec = "SELECT DISTINCT precio FROM public.inmueble";
+	
 	
 	public T_inmueble() {	}
 	
@@ -202,7 +209,7 @@ public class T_inmueble {
 		ArrayList<String> fila = new ArrayList<String>();
 		
 		try{
-		ps = con.prepareStatement(tod);
+		ps = con.prepareStatement(consInm);
 		rs = ps.executeQuery();
 		
 		while(rs.next()) {
@@ -211,7 +218,10 @@ public class T_inmueble {
 			fila.add(rs.getString("estadoInmueble"));
 			fila.add(rs.getString("localidad"));	
 			fila.add(rs.getString("provincia"));	
-			fila.add(rs.getString("fechaCarga"));	
+			fila.add(rs.getString("barrio"));
+			fila.add(rs.getString("tipoInmueble"));
+			fila.add(rs.getString("habitaciones"));
+			fila.add(rs.getString("precio"));
 		}}
 				
 		catch (SQLException e) {e.printStackTrace();
@@ -230,7 +240,7 @@ public class T_inmueble {
 		return fila;
 		}
 	
-	public ArrayList<String> buscarFiltro(String f) {
+	public ArrayList<String> buscarFiltro(String pv, String lc, String br, String tp, String dr, String pr) {
 		//genera una lista con todos los registros de una tabla
 		Connection con = null;
 		PreparedStatement ps =  null;
@@ -238,13 +248,16 @@ public class T_inmueble {
 		con = ConnectionMA.get();
 		ArrayList<String> fila = new ArrayList<String>();
 		
-		String filtro ="";
+		String filtro = consInm+" WHERE id>0";
 				
-		if(f==null) {
-			filtro = "SELECT * FROM public.inmueble";}
-		else {
-			filtro = "SELECT * FROM public.inmueble WHERE provincia="+"'"+f+"'";
-		}
+		if(pv!=null) {filtro = filtro+" AND provincia="+"'"+pv+"'";}
+		if(lc!=null) {filtro = filtro+" AND localidad="+"'"+lc+"'";}
+		if(br!=null) {filtro = filtro+" AND barrio="+"'"+br+"'";}
+		if(tp!=null) {filtro = filtro+" AND tipoinmueble="+"'"+tp+"'";}
+		if(dr!=null) {filtro = filtro+" AND habitaciones="+"'"+dr+"'";}
+		if(pr!=null) {filtro = filtro+" AND precio="+"'"+pr+"'";}
+			
+	
 		System.out.println(filtro);
 		
 		try{
@@ -257,7 +270,10 @@ public class T_inmueble {
 			fila.add(rs.getString("estadoInmueble"));
 			fila.add(rs.getString("localidad"));	
 			fila.add(rs.getString("provincia"));	
-			fila.add(rs.getString("fechaCarga"));	
+			fila.add(rs.getString("barrio"));
+			fila.add(rs.getString("tipoInmueble"));
+			fila.add(rs.getString("habitaciones"));
+			fila.add(rs.getString("precio"));
 		}}
 				
 		catch (SQLException e) {e.printStackTrace();
@@ -320,7 +336,7 @@ public class T_inmueble {
 		return i1;
 	}
 	
-	public ArrayList<String> buscar_nombres() {
+	public ArrayList<String> buscar_provincia() {
 		Connection con = null;
 		PreparedStatement ps =  null;
 		ResultSet rs = null;
@@ -332,7 +348,39 @@ public class T_inmueble {
 		rs = ps.executeQuery();
 		
 		while(rs.next()) {
-			nombres.add(rs.getString("Provincia"));
+			nombres.add(rs.getString("provincia"));
+			
+		}}
+				
+		catch (SQLException e) {e.printStackTrace();
+		}finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			
+			}
+		return nombres;
+		}
+	
+	public ArrayList<String> buscar_localidad() {
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		con = ConnectionMA.get();
+		ArrayList<String> nombres = new ArrayList<String>();
+		
+		try{
+		ps = con.prepareStatement(loc);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			nombres.add(rs.getString("localidad"));
 			
 		}}
 				
@@ -352,5 +400,132 @@ public class T_inmueble {
 		return nombres;
 		}
 
+	public ArrayList<String> buscar_barrio() {
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		con = ConnectionMA.get();
+		ArrayList<String> nombres = new ArrayList<String>();
+		
+		try{
+		ps = con.prepareStatement(barr);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			nombres.add(rs.getString("barrio"));
+			
+		}}
+				
+		catch (SQLException e) {e.printStackTrace();
+		}finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			
+			}
+		return nombres;
+		}
+	
+	public ArrayList<String> buscar_tipo() {
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		con = ConnectionMA.get();
+		ArrayList<String> nombres = new ArrayList<String>();
+		
+		try{
+		ps = con.prepareStatement(tipo);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			nombres.add(rs.getString("tipoInmueble"));
+			
+		}}
+				
+		catch (SQLException e) {e.printStackTrace();
+		}finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			
+			}
+		return nombres;
+		}
+	
+	public ArrayList<String> buscar_habit() {
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		con = ConnectionMA.get();
+		ArrayList<String> nombres = new ArrayList<String>();
+		
+		try{
+		ps = con.prepareStatement(hab);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			nombres.add(rs.getString("habitaciones"));
+			
+		}}
+				
+		catch (SQLException e) {e.printStackTrace();
+		}finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			
+			}
+		return nombres;
+		}
+	
+	public ArrayList<String> buscar_precio() {
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		con = ConnectionMA.get();
+		ArrayList<String> nombres = new ArrayList<String>();
+		
+		try{
+		ps = con.prepareStatement(prec);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			nombres.add(rs.getString("precio"));
+			
+		}}
+				
+		catch (SQLException e) {e.printStackTrace();
+		}finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			
+			}
+		return nombres;
+		}
 	
 }
