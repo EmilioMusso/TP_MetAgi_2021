@@ -18,7 +18,7 @@ public class Inmueble {
 	private EstadoInmueble estadoInmueble;
 	private String localidad;
 	private String provincia;
-	private String fechaCarga;
+	private Date fechaCarga;
 	private Propietario propietario;
 	
 	private String calle;
@@ -47,7 +47,7 @@ public class Inmueble {
 	private Boolean pavimento;
 	private String observaciones;
 	
-	public Inmueble(String codigoInmueble,EstadoInmueble estadoInmueble, String localidad,String provincia,String fechaCarga) {
+	public Inmueble(String codigoInmueble,EstadoInmueble estadoInmueble, String localidad,String provincia,Date fechaCarga) {
 		super();
 	
 		this.codigoInmueble = codigoInmueble;
@@ -57,7 +57,7 @@ public class Inmueble {
 		this.fechaCarga = fechaCarga;
 	}
 	
-	public Inmueble(Object id,String codigoInmueble, EstadoInmueble estadoInmueble, String localidad,String provincia,String fechaCarga) {
+	public Inmueble(Object id,String codigoInmueble, EstadoInmueble estadoInmueble, String localidad,String provincia,Date fechaCarga) {
 		super();
 		this.id = id;
 		this.codigoInmueble = codigoInmueble;
@@ -68,7 +68,7 @@ public class Inmueble {
 	}
 
 	public Inmueble(Object id, String codigoInmueble, EstadoInmueble estadoInmueble, String localidad, String provincia,
-			String fechaCarga, Propietario propietario, String calle, String numtelefono, String barrio, Integer precio,
+			Date fechaCarga, Propietario propietario, String calle, String numtelefono, String barrio, Integer precio,
 			Integer pisodpto, Integer frente, Integer fondo, Integer superficie, String orientacion,
 			TipoInmueble tipoInmueble, Integer habitaciones, Integer banios, Boolean propiedadhorizontal, Boolean patio,
 			Boolean piscina, Boolean cochera, Boolean telefono, Boolean cloacas, Boolean lavadero, Boolean aguacaliente,
@@ -146,11 +146,11 @@ public class Inmueble {
 		this.provincia = provincia;
 	}
 
-	public String getFechaCarga() {
+	public Date getFechaCarga() {
 		return fechaCarga;
 	}
 
-	public void setFechaCarga(String fechaCarga) {
+	public void setFechaCarga(Date fechaCarga) {
 		this.fechaCarga = fechaCarga;
 	}
 

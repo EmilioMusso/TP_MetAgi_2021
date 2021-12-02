@@ -8,9 +8,11 @@ import java.awt.Insets;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.BitSet;
+import java.util.Calendar;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.swing.AbstractButton;
@@ -145,10 +147,9 @@ public class AltaInmueble_panel extends JPanel {
 		});
 		
 		this.calendarFechaCarga = new JDateChooser();
-		this.calendarFechaCarga.setDate(new Date(1111111111));
+		Date today = Calendar.getInstance().getTime();
+		this.calendarFechaCarga.setDate(today);
 		this.calendarFechaCarga.setDateFormatString("dd-MM-yyyy");
-//		System.out.println(this.calendarFechaCarga.getDate().toString());
-
 		
 //		Date fechaSelected = new Date(diaFechaSelected, mesFechaSelected, anioFechaSelected);
 		
@@ -277,21 +278,35 @@ public class AltaInmueble_panel extends JPanel {
 		});
 		
 		agregar.addActionListener(e -> {
-//			System.out.println("2 -> "+panelOpcional.getData().getCalle());
 			try {
-				if(!camposVacios()) {
+				if(!camposVacios() && true) {
 					codI = this.tcodigoInmueble.getText(); 
 					estI = (EstadoInmueble) this.testadoInmueble.getSelectedItem();
+					
+					
+//					----------------------------------------------------------------------------------fecha de carga
+					DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+					String str_fecha = df.format(this.calendarFechaCarga.getDate());
+					Calendar calendar = Calendar.getInstance();
+					calendar.set(Calendar.YEAR, this.calendarFechaCarga.getDate().getYear()+1900);
+					calendar.set(Calendar.DAY_OF_MONTH, this.calendarFechaCarga.getDate().getMonth());
+					calendar.set(Calendar.MONTH, this.calendarFechaCarga.getDate().getDay());
+
+					java.sql.Date fechaCarga = new java.sql.Date(calendar.getTime().getTime());
+					System.out.println(fechaCarga.toString());					
+//					----------------------------------------------------------------------------------
+					
+					
 					
 					if(this.boxLocalidad.getSelectedItem()=="Otra...") {
 						loc = this.otraLocalidad.getText();
 					} else {
 						loc = this.selectedLocalidad;
 					}
-					prov = this.provincia.getText();
+					prov = this.boxProvincia.getSelectedItem().toString();
 					
 					T_inmueble iT = new T_inmueble();
-					inm = new Inmueble(codI, codI, estI, loc, prov, null,
+					inm = new Inmueble(codI, codI, estI, loc, prov, fechaCarga,
 							null, null, null, null, null, null, null,
 							null, null, null, null, null, null, null,
 							null, null, null, null, null, null, null, null, null, null, null);
@@ -319,17 +334,9 @@ public class AltaInmueble_panel extends JPanel {
 //		TODO hacer campo cantidad dormitorios - guardar en db
 //		TODO en DB -> provincia, localidad, barrio, cant dormitorios y precio
 			
-			
-			
-//		System.out.println(this.calendarFechaCarga);
 
-//		System.out.println(calendarFechaCarga.getDayChooser().getDay());
-//		System.out.println(calendarFechaCarga.getMonthChooser().getMonth());
-//		System.out.println(calendarFechaCarga.getYearChooser().getYear());
-//		
-//		this.diaFechaSelected = calendarFechaCarga.getDayChooser().getDay();
-//		this.mesFechaSelected = calendarFechaCarga.getMonthChooser().getMonth();
-//		this.anioFechaSelected = calendarFechaCarga.getYearChooser().getYear();
+//		System.out.println(df.format(this.calendarFechaCarga.getDate()));
+		
 		
 		
 		});
