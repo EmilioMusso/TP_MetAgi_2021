@@ -22,6 +22,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import xp.Ini;
 import xp.db.T_cliente;
 import xp.db.T_propietario;
 import xp.db.T_vendedor;
@@ -186,6 +187,13 @@ public class Cons_Cliente extends JPanel {
 			 	modif.setVisible(true);
 	
 				JButton salir = new JButton("Salir");
+				salir.addActionListener(e1 -> {
+					gbcf.gridx = 0;
+					gbcf.gridy = 0;
+					ventana.setContentPane(new Ini());
+					ventana.pack();
+					ventana.setVisible(true);
+				});
 		    	gbcf.gridx = 0;
 		 		gbcf.gridy = 0;
 		 		ventana.setContentPane(new Cons_Cliente(ventana, gbcf));
@@ -208,6 +216,16 @@ public class Cons_Cliente extends JPanel {
 				mT.delete(idSelected);
 				
 				JButton salir = new JButton("Salir");
+				
+				salir.addActionListener(e2 -> {
+					gbcf.gridx = 0;
+					gbcf.gridy = 0;
+					ventana.setContentPane(new Ini());
+					ventana.pack();
+					ventana.setVisible(true);
+				});
+				
+				
 		    	gbcf.gridx = 0;
 		 		gbcf.gridy = 0;
 		 		ventana.setContentPane(new Cons_Cliente(ventana, gbcf));

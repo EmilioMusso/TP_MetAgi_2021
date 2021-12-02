@@ -11,6 +11,7 @@ import java.util.BitSet;
 
 import javax.swing.*;
 
+import xp.db.T_cliente;
 import xp.db.T_propietario;
 import xp.db.T_vendedor;
 import xp.exceptions.CampoNoAlfabeticoException;
@@ -172,19 +173,15 @@ public class ModifCliente_panel extends JPanel {
 			try {
 				if (!camposVacios()) {
 					if(!camposInvalidos()) {
-						T_vendedor aT = new T_vendedor();
+						T_cliente aT = new T_cliente();
 						aT.delete(id);
 						aT.insert(tnombre.getText(),
 								tapellido.getText(),
 								ttelefono.getText(),
 								tusuario.getText(),
 								tclaveacceso.getText());
-//						Vendedor newVendedor = new Vendedor(tnombre.getText(),
-//						tapellido.getText(),
-//						ttipodoc.getSelectedItem().toString(),
-//						tnrodoc.getText(),
-//						tclaveacceso.getText());
-						VentanaExito ventanaExito = new VentanaExito("Vendedor modificado correctamente.");
+
+						VentanaExito ventanaExito = new VentanaExito("Cliente modificado correctamente.");
 						ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						ventanaExito.setVisible(true);
 						ventana.dispose();	
@@ -192,7 +189,7 @@ public class ModifCliente_panel extends JPanel {
 						JButton salir = new JButton("Salir");
 				    	gbcfAnterior.gridx = 0;
 				    	gbcfAnterior.gridy = 0;
-				 		ventanaAnterior.setContentPane(new Cons_Vendedor(ventana, gbcfAnterior));
+				 		ventanaAnterior.setContentPane(new Cons_Cliente(ventana, gbcfAnterior));
 				 		gbcfAnterior.gridx = 3; 
 				 		gbcfAnterior.gridy = 10;
 				 		gbcfAnterior.insets= new Insets(5,5,5,5);

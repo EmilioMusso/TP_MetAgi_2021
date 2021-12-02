@@ -11,6 +11,7 @@ import java.util.BitSet;
 
 import javax.swing.*;
 
+import xp.db.T_cliente;
 import xp.db.T_propietario;
 import xp.db.T_vendedor;
 import xp.exceptions.CampoNoAlfabeticoException;
@@ -18,6 +19,7 @@ import xp.exceptions.CampoNoNumericoException;
 import xp.exceptions.CamposVaciosException;
 import xp.exceptions.NroDocValidoException;
 import xp.exceptions.PasswordInvalidaException;
+import xp.model.Cliente;
 import xp.utils.FieldValidators;
 
 
@@ -34,8 +36,6 @@ public class AltaCliente_Panel extends JPanel {
 	private JPasswordField tclaveacceso;
 	private JLabel telefono;
 	private JTextField ttelefono;
-	private JLabel nrodoc;
-	private JTextField tnrodoc;
 	
 	private JButton agregar;
 	private JButton salir;
@@ -143,27 +143,29 @@ public class AltaCliente_Panel extends JPanel {
 		this.add(agregar,gbc);
 		
 		
-		/*agregar.addActionListener(e -> {
+		agregar.addActionListener(e -> {
 			try {
 				if (!camposVacios()) {
 					if(!camposInvalidos()) {
-						T_vendedor aT = new T_vendedor();
+						T_cliente aT = new T_cliente();
 						aT.insert(tnombre.getText(),
 								tapellido.getText(),
-								ttipodoc.getSelectedItem().toString(),
-								tnrodoc.getText(),
+								ttelefono.getText(),
+								tusuario.getText(),
 								tclaveacceso.getText());
-//						Vendedor newVendedor = new Vendedor(tnombre.getText(),
-//						tapellido.getText(),
-//						ttipodoc.getSelectedItem().toString(),
-//						tnrodoc.getText(),
+						
+//						Cliente newVendedor = new Cliente(tnombre.getText(),						
+//					    tapellido.getText(),		
+//						tnombre.getText(),
+//						ttelefono.getText(),
+//						tusuario.getText(),
 //						tclaveacceso.getText());
-						VentanaExito ventanaExito = new VentanaExito("Vendedor agregado correctamente.");
+						VentanaExito ventanaExito = new VentanaExito("Cliente agregado correctamente.");
 						ventanaExito.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						ventanaExito.setVisible(true);
 				    	gbcf.gridx = 0;
 				 		gbcf.gridy = 0;
-				    	ventana.setContentPane(new Cons_Vendedor());
+				    	ventana.setContentPane(new Cons_Cliente(ventana,gbcf));
 				    	gbcf.gridx = 3;
 				 		gbcf.gridy = 7;
 				 		gbcf.insets= new Insets(5,5,5,5);
@@ -181,7 +183,7 @@ public class AltaCliente_Panel extends JPanel {
 				v2.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				v2.setVisible(true);
 			}
-		});*/
+		});
 			
 			
 		//this.agregar.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -192,7 +194,7 @@ public class AltaCliente_Panel extends JPanel {
 	private Boolean camposVacios() throws CamposVaciosException { //TODO ver si todos son obligatorios
 		if(tnombre.getText().isEmpty() ||
 				tapellido.getText().isEmpty() ||
-				tnrodoc.getText().isEmpty() ||
+				ttelefono.getText().isEmpty() ||
 				tclaveacceso.getText().isEmpty()) throw new CamposVaciosException("Complete los "
 				+ "campos obligatorios."); //TODO mejorar mensaje
 		return false;
@@ -202,7 +204,7 @@ public class AltaCliente_Panel extends JPanel {
 		try {
 			if(fv.esAlfabetico(tnombre.getText(), "nombre") &&
 					fv.esAlfabetico(tapellido.getText(), "apellido") &&
-					fv.nroDocValido(tnrodoc.getText()) &&
+					fv.esNumerico(ttelefono.getText(),"telefono") &&
 					fv.passwordValida(tclaveacceso.getPassword().toString())) {
 				return false;
 			}
@@ -216,7 +218,7 @@ public class AltaCliente_Panel extends JPanel {
 			v2.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			v2.setVisible(true);
 			return true;
-		} catch (NroDocValidoException e3) {
+		} catch (CampoNoNumericoException e3) {
 			VentanaFallo v3 = new VentanaFallo(e3.getMessage());
 			v3.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			v3.setVisible(true);

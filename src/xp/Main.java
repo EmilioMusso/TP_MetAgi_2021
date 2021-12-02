@@ -28,7 +28,7 @@ import xp.ui.Cons_Inmueble;
 import xp.ui.PanelPropietario;
 import xp.ui.VentanaExito;
 import xp.ui.VentanaFallo;
-import xp.ui.VentanaLogin;
+import xp.ui.Ventana_login;
 
 public class Main {
 	
