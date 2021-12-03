@@ -128,6 +128,10 @@ public class AppSistema {
 		this.tipoUsuario = tipoUsuario;
 	}
 
+	public String getPassword(String text) {
+		return "";
+	}
+
 
 	
 	

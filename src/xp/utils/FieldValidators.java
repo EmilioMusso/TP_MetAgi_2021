@@ -3,10 +3,13 @@ package xp.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JTextField;
+
 import xp.exceptions.CampoNoAlfabeticoException;
 import xp.exceptions.CampoNoNumericoException;
 import xp.exceptions.EmailInvalidoException;
 import xp.exceptions.NroDocValidoException;
+import xp.exceptions.PasswordIncorrectaException;
 import xp.exceptions.PasswordInvalidaException;
 
 public class FieldValidators {
@@ -49,4 +52,9 @@ public class FieldValidators {
         if(!matcher.matches()) throw new EmailInvalidoException("Debe contener ..."); //TODO completar mensaje
         return true;
     }
+
+	public Boolean passwordCorrecta(String contrasenia, String usuarioContrasenia) throws PasswordIncorrectaException {
+		if(contrasenia!=usuarioContrasenia) throw new PasswordIncorrectaException("No existe combinacion Usuario/Contraseña.");
+		return true; //TODO implementar
+	}
 }
