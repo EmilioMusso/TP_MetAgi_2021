@@ -83,16 +83,16 @@ public class T_inmueble {
 			ps.setInt(7, 0); //propietario
 			ps.setString(8, inm.getNumTelefono());
 			ps.setString(9, inm.getCalle());
-			ps.setInt(10, 0);//inm.getPisoDpto());
+			ps.setInt(10, inm.getPisoDpto());
 			ps.setString(11, inm.getOrientacion());
-			ps.setString(12, "");//inm.getTipoInmueble().toString());
+			ps.setString(12, inm.getTipoInmueble().toString());
 			ps.setString(13, inm.getBarrio());
-			ps.setInt(14, 10);//inm.getPrecio());
-			ps.setInt(15, 0);//inm.getFrente());
-			ps.setInt(16, 0);//inm.getFondo());
-			ps.setInt(17, 0);//inm.getSuperficie());
-			ps.setInt(18, 0);//inm.getHabitaciones());
-			ps.setInt(19, 0);//inm.getBanios());
+			ps.setInt(14, inm.getPrecio());
+			ps.setInt(15, inm.getFrente());
+			ps.setInt(16, inm.getFondo());
+			ps.setInt(17, inm.getSuperficie());
+			ps.setInt(18, inm.getHabitaciones());
+			ps.setInt(19, inm.getBanios());
 		
 			ps.setArray(20, con.createArrayOf("BOOLEAN", new String[] {}));//Array de 12
 

@@ -20,6 +20,7 @@ public class Inmueble {
 	private String provincia;
 	private Date fechaCarga;
 	private Propietario propietario;
+	private Integer id_propietario;
 	
 	private String calle;
 	private String numTelefono;
@@ -67,8 +68,8 @@ public class Inmueble {
 		this.fechaCarga = fechaCarga;
 	}
 
-	public Inmueble(Object id, String codigoInmueble, EstadoInmueble estadoInmueble, String localidad, String provincia,
-			Date fechaCarga, Propietario propietario, String calle, String numtelefono, String barrio, Integer precio,
+	public Inmueble(Integer id, String codigoInmueble, EstadoInmueble estadoInmueble, String localidad, String provincia,
+			Date fechaCarga, Integer propietario, String calle, String numtelefono, String barrio, Integer precio,
 			Integer pisodpto, Integer frente, Integer fondo, Integer superficie, String orientacion,
 			TipoInmueble tipoInmueble, Integer habitaciones, Integer banios, Boolean propiedadhorizontal, Boolean patio,
 			Boolean piscina, Boolean cochera, Boolean telefono, Boolean cloacas, Boolean lavadero, Boolean aguacaliente,
@@ -80,7 +81,7 @@ public class Inmueble {
 		this.localidad = localidad;
 		this.provincia = provincia;
 		this.fechaCarga = fechaCarga;
-		this.propietario = propietario;
+		this.id_propietario = propietario;
 		this.calle = calle;
 		this.numTelefono = numtelefono;
 		this.barrio = barrio;

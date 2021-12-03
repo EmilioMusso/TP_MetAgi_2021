@@ -36,8 +36,10 @@ import xp.db.T_inmueble;
 import xp.db.T_vendedor;
 import xp.dto.OpcionalesInmuebleDTO;
 import xp.enums.EstadoInmueble;
+import xp.enums.TipoInmueble;
 import xp.exceptions.CamposVaciosException;
 import xp.model.Inmueble;
+import xp.model.Propietario;
 import xp.utils.FieldValidators;
 
 public class AltaInmueble_panel extends JPanel {
@@ -81,16 +83,18 @@ public class AltaInmueble_panel extends JPanel {
 	
 	private GridBagConstraints gbc;
 	private PanelOpcional panelOpcional;
+	private OpcionalesInmuebleDTO inmuebleDTO;
 	
 	
-	
-	public AltaInmueble_panel(AppSistema appSistema, JButton agregar) { //TODO para usar en task kard
+	public AltaInmueble_panel(JFrame ventana, GridBagConstraints gbcf, AppSistema appSistema,
+			JButton agregar, JButton salir) {
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
-		armarPanel(appSistema, agregar);
+		armarPanel(ventana, gbcf, appSistema, agregar, salir);
 	}
 	
-	public AltaInmueble_panel armarPanel(AppSistema appSistema, JButton agregar) {
+	public AltaInmueble_panel armarPanel(JFrame ventana, GridBagConstraints gbcf,
+			AppSistema appSistema, JButton agregar, JButton salir) {
 		
 		this.tit = new JLabel("Alta de Inmueble");
 		this.codigoInmueble = new JLabel("Codigo del Inmueble");
@@ -241,12 +245,14 @@ public class AltaInmueble_panel extends JPanel {
 		gbc.gridx = 2;
 		gbc.gridy = 6;
 		
-		OpcionalesInmuebleDTO inmuebleDTO = null; //TODO agregar data
+		//TODO data por default
+		inmuebleDTO = new OpcionalesInmuebleDTO("", 0, "", TipoInmueble.C,"",
+				0, 0, 0, "", 0,0,0,false,false,false,false,false,false,false,false,false,false,false,"");		
+		
 		panelOpcional = new PanelOpcional(inmuebleDTO);
 		gbc.gridx = 1;
 		gbc.gridy = 8;
 		this.add(panelOpcional, gbc);
-//		System.out.println("1 -> "+panelOpcional.getData().getCalle());
 		
 		JSplitPane splitPane2 = new JSplitPane();
 		GridBagConstraints gbc_splitPane2 = new GridBagConstraints();
@@ -292,13 +298,12 @@ public class AltaInmueble_panel extends JPanel {
 					calendar.set(Calendar.DAY_OF_MONTH, this.calendarFechaCarga.getDate().getMonth());
 					calendar.set(Calendar.MONTH, this.calendarFechaCarga.getDate().getDay());
 
-					java.sql.Date fechaCarga = new java.sql.Date(calendar.getTime().getTime());
-					System.out.println(fechaCarga.toString());					
+					java.sql.Date fechaCarga = new java.sql.Date(calendar.getTime().getTime());				
 //					----------------------------------------------------------------------------------
 					
 					
 					
-					if(this.boxLocalidad.getSelectedItem()=="Otra...") {
+					if(this.boxLocalidad.getSelectedItem()=="Otra..." || this.boxProvincia.getSelectedItem()!="Santa Fe") {
 						loc = this.otraLocalidad.getText();
 					} else {
 						loc = this.selectedLocalidad;
@@ -306,10 +311,28 @@ public class AltaInmueble_panel extends JPanel {
 					prov = this.boxProvincia.getSelectedItem().toString();
 					
 					T_inmueble iT = new T_inmueble();
-					inm = new Inmueble(codI, codI, estI, loc, prov, fechaCarga,
-							null, null, null, null, null, null, null,
-							null, null, null, null, null, null, null,
-							null, null, null, null, null, null, null, null, null, null, null);
+					inmuebleDTO = panelOpcional.getData();
+					inm = new Inmueble(Integer.parseInt(codI), codI, estI, loc, prov, fechaCarga,
+							0/*propietario*/,inmuebleDTO.getCalle(), inmuebleDTO.getNroTelefono(),
+							inmuebleDTO.getBarrio(), inmuebleDTO.getPrecio(),
+							inmuebleDTO.getPisoDpto(), inmuebleDTO.getFrente(), inmuebleDTO.getFondo(),
+							inmuebleDTO.getSuperficie(), inmuebleDTO.getOrientacion(), inmuebleDTO.getTipoInmueble(),
+							inmuebleDTO.getHabitaciones(), inmuebleDTO.getHabitaciones(), inmuebleDTO.getPropiedadHorizontal(),
+							inmuebleDTO.getPatio(), inmuebleDTO.getPiscina(),
+							inmuebleDTO.getCochera(), inmuebleDTO.getTelefono(), inmuebleDTO.getCloacas(),
+							inmuebleDTO.getLavadero(), inmuebleDTO.getAguaCaliente(), inmuebleDTO.getAguaCorriente(),
+							inmuebleDTO.getGasNatural(), inmuebleDTO.getPavimento(), inmuebleDTO.getObservaciones());
+										
+			    	 ventana.setContentPane(new AltaInmueble_panel(ventana, gbcf, appSistema,agregar, salir));
+			 		 gbcf.gridx = 3;
+			 		 gbcf.gridy = 9;
+			 		 ventana.add(agregar, gbcf);
+			    	 gbcf.gridx = 4;
+			 		 gbcf.gridy = 9;
+			 		 gbcf.insets= new Insets(5,5,5,5);
+			 		 ventana.add(salir,gbcf);
+			    	 ventana.pack();
+			    	 
 					try {
 						iT.insertInmueble(inm);
 						VentanaExito ventanaExito = new VentanaExito("Inmueble agregado correctamente.");
@@ -335,7 +358,6 @@ public class AltaInmueble_panel extends JPanel {
 //		TODO en DB -> provincia, localidad, barrio, cant dormitorios y precio
 			
 
-//		System.out.println(df.format(this.calendarFechaCarga.getDate()));
 		
 		
 		
@@ -350,7 +372,6 @@ public class AltaInmueble_panel extends JPanel {
 				+ "campos obligatorios: Codigo del inmueble.");
 		}
 		if(boxLocalidad.getSelectedItem()=="Otra..." && otraLocalidad.getText().isEmpty()) {
-			System.out.println(tpropietarioselected.getText());
 			throw new CamposVaciosException("Complete los "
 				+ "campos obligatorios: Localidad.");
 		}

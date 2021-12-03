@@ -29,13 +29,17 @@ import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+
 import xp.dto.OpcionalesInmuebleDTO;
 import xp.enums.TipoInmueble;
+
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import java.awt.Cursor;
 
-public class PanelOpcional extends JPanel {
+public class PanelOpcional extends JPanel implements FocusListener {
 	private JTextField tcalle;
 	private JTextField tnumtelefono;
 	private JTextField tbarrio;
@@ -62,12 +66,10 @@ public class PanelOpcional extends JPanel {
 	private JCheckBox pavimento;
 	private JTextArea tobservaciones;
 	
-	private OpcionalesInmuebleDTO dto; 
-
-	/**
-	 * Create the panel.
-	 */
+	private OpcionalesInmuebleDTO dto;
+	
 	public PanelOpcional(OpcionalesInmuebleDTO opcionalesInmuebleDTO) {
+		
 		dto = opcionalesInmuebleDTO;
 		
 		setAutoscrolls(true);
@@ -126,6 +128,7 @@ public class PanelOpcional extends JPanel {
 		
 		tpisodpto = new JTextField();
 		tpisodpto.setColumns(10);
+		tpisodpto.addFocusListener(this);
 		GridBagConstraints gbc_tpisodpto = new GridBagConstraints();
 		gbc_tpisodpto.insets = new Insets(0, 0, 5, 5);
 		gbc_tpisodpto.fill = GridBagConstraints.HORIZONTAL;
@@ -186,6 +189,7 @@ public class PanelOpcional extends JPanel {
 		add(baños, gbc_baños);
 		
 		tbarrio = new JTextField();
+		tbarrio.addFocusListener(this);
 		GridBagConstraints gbc_tbarrio = new GridBagConstraints();
 		gbc_tbarrio.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tbarrio.insets = new Insets(0, 0, 5, 5);
@@ -195,6 +199,7 @@ public class PanelOpcional extends JPanel {
 		tbarrio.setColumns(10);
 		
 		tprecio = new JTextField();
+		tprecio.addFocusListener(this);
 		tprecio.setColumns(10);
 		GridBagConstraints gbc_tprecio = new GridBagConstraints();
 		gbc_tprecio.insets = new Insets(0, 0, 5, 5);
@@ -255,6 +260,7 @@ public class PanelOpcional extends JPanel {
 		add(superficie, gbc_superficie);
 		
 		tnumtelefono = new JTextField();
+		tnumtelefono.addFocusListener(this);
 		GridBagConstraints gbc_tnumtelefono = new GridBagConstraints();
 		gbc_tnumtelefono.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tnumtelefono.insets = new Insets(0, 0, 5, 5);
@@ -264,6 +270,7 @@ public class PanelOpcional extends JPanel {
 		tnumtelefono.setColumns(10);
 		
 		tfrente = new JTextField();
+		tfrente.addFocusListener(this);
 		GridBagConstraints gbc_tfrente = new GridBagConstraints();
 		gbc_tfrente.insets = new Insets(0, 0, 5, 5);
 		gbc_tfrente.fill = GridBagConstraints.HORIZONTAL;
@@ -273,6 +280,7 @@ public class PanelOpcional extends JPanel {
 		tfrente.setColumns(10);
 		
 		tfondo = new JTextField();
+		tfondo.addFocusListener(this);
 		GridBagConstraints gbc_tfondo = new GridBagConstraints();
 		gbc_tfondo.insets = new Insets(0, 0, 5, 5);
 		gbc_tfondo.fill = GridBagConstraints.HORIZONTAL;
@@ -282,6 +290,7 @@ public class PanelOpcional extends JPanel {
 		tfondo.setColumns(10);
 		
 		tsuperficie = new JTextField();
+		tsuperficie.addFocusListener(this);
 		GridBagConstraints gbc_tsuperficie = new GridBagConstraints();
 		gbc_tsuperficie.insets = new Insets(0, 0, 5, 0);
 		gbc_tsuperficie.fill = GridBagConstraints.HORIZONTAL;
@@ -401,6 +410,7 @@ public class PanelOpcional extends JPanel {
 		
 
 		tobservaciones = new JTextArea();
+		tobservaciones.addFocusListener(this); 
 		tobservaciones.setWrapStyleWord(true);
 		tobservaciones.setBorder(UIManager.getBorder("CheckBoxMenuItem.border"));
 		tobservaciones.setRows(4);
@@ -418,6 +428,7 @@ public class PanelOpcional extends JPanel {
 		gbc_tobservaciones.gridy = 14;
 		add(scrollBar, gbc_tobservaciones);
 
+		
 
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
@@ -437,20 +448,25 @@ public class PanelOpcional extends JPanel {
 			}
 		});
 	}
-	
-	public OpcionalesInmuebleDTO getData() {
+    
+	public OpcionalesInmuebleDTO getData() throws NumberFormatException {
 		dto = new OpcionalesInmuebleDTO(tcalle.getText(),
-				(tpisodpto.getText().isBlank()) ? null : Integer.parseInt(tpisodpto.getText()),
+				(tpisodpto.getText().isBlank()) ? 00 : Integer.parseInt(tpisodpto.getText()),
+//				(tpisodpto.getText()=="") ? null : Integer.parseInt(tpisodpto.getText()),
 				boxOrientacion.getSelectedItem().toString(),
 				(TipoInmueble) boxTipoInmueble.getSelectedItem(),
 				tbarrio.getText(),
 				(tprecio.getText().isBlank()) ? 00 : Integer.parseInt(tprecio.getText()),
+//				(tprecio.getText()=="") ? 00 : Integer.parseInt(tprecio.getText()),
 				(Integer)thabitaciones.getValue(),
 				(Integer)tbaños.getValue(),
 				tnumtelefono.getText(),
-				(tfrente.getText().isBlank()) ? null : Integer.parseInt(tfrente.getText()), 
-				(tfondo.getText().isBlank()) ? null : Integer.parseInt(tfondo.getText()),
-				(tpisodpto.getText().isBlank()) ? null : Integer.parseInt(tsuperficie.getText()),
+				(tfrente.getText().isBlank()) ? 00 : Integer.parseInt(tfrente.getText()),
+//				(tfrente.getText()=="") ? null : Integer.parseInt(tfrente.getText()),
+				(tfondo.getText().isBlank()) ? 00 : Integer.parseInt(tfondo.getText()),
+//				(tfondo.getText()=="") ? null : Integer.parseInt(tfondo.getText()),
+				(tpisodpto.getText().isBlank()) ? 00 : Integer.parseInt(tsuperficie.getText()),
+//				(tsuperficie.getText()=="") ? null : Integer.parseInt(tsuperficie.getText()),
 				propiedadhorizontal.isSelected(),
 				patio.isSelected(),
 				piscina.isSelected(),
@@ -462,9 +478,22 @@ public class PanelOpcional extends JPanel {
 				aguacorriente.isSelected(), 
 				gasnatural.isSelected(),
 				pavimento.isSelected(),
-				tobservaciones.getText(),
-				null);
-		
+				tobservaciones.getText());
 		return dto;
 	}
+	
+	public void focusGained(FocusEvent e) {
+		try {
+			this.getData();
+		} catch (NumberFormatException ex) {
+		}
+		
+	}
+	public void focusLost(FocusEvent e) {
+		try {
+			this.getData();
+		} catch (NumberFormatException ex) {
+		}			
+	}
+    
 }

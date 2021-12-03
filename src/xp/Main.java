@@ -23,7 +23,6 @@ import xp.enums.TipoUsuario;
 import xp.ui.AltaCliente_Panel;
 import xp.ui.AltaInmueble_panel;
 import xp.ui.AltaVendedor_panel;
-import xp.ui.Cons_Cliente;
 import xp.ui.Cons_Inmueble;
 import xp.ui.PanelPropietario;
 import xp.ui.VentanaExito;
@@ -144,20 +143,6 @@ public class Main {
 	    	 });
 	     menu3.add(mi13);
 	     
-	     mi3=new JMenuItem("Consultar");  
-	     mi3.addActionListener (e -> {
-	    	 gbcf.gridx = 0;
-	 		 gbcf.gridy = 0;
-	 		 ventana.setContentPane(new Cons_Cliente(ventana, gbcf));
-	    	 gbcf.gridx = 3; 
-	 		 gbcf.gridy = 10;
-	 		 gbcf.insets= new Insets(5,5,5,5);
-//	 		 gbcf.anchor = GridBagConstraints.EAST;
-	 		 ventana.add(salir,gbcf);
-	    	 ventana.pack();
-	    	 });
-    	 menu3.add(mi3);
-	     
 	     
 //			--------------------------------------------------------Inmueble
 	     JMenu menu4;
@@ -167,7 +152,7 @@ public class Main {
 	     
 	     mi14=new JMenuItem("Agregar");
 	     mi14.addActionListener (e -> {
-	    	 ventana.setContentPane(new AltaInmueble_panel(appSistema,agregar));
+	    	 ventana.setContentPane(new AltaInmueble_panel(ventana, gbcf, appSistema,agregar,salir));
 	 		 gbcf.gridx = 3;
 	 		 gbcf.gridy = 9;
 	 		 ventana.add(agregar, gbcf);
@@ -184,16 +169,18 @@ public class Main {
 	     
 	     mi24=new JMenuItem("Consultar Inmuebles");
 	     mi24.addActionListener (e -> {
-	    	 ventana.setContentPane(new Cons_Inmueble());	
-	    	 gbcf.gridx = 3;
-	 		 gbcf.gridy = 9;
+	    	Cons_Inmueble cons = new Cons_Inmueble();
+	    	cons.frame.setVisible(true);
+	    	cons.frame.pack();
+//	    	 ventana.setContentPane(new Cons_Inmueble());	
+//	    	 gbcf.gridx = 3;
+//	 		 gbcf.gridy = 9;
 //	 		 gbcf.insets= new Insets(20,5,20,20);
 //	 		 gbcf.anchor = GridBagConstraints.EAST;
 //	 		 ventana.add(salir,gbcf); 
-	    	 ventana.pack();
+//	    	 ventana.pack();
 	    	 });
 	     menu4.add(mi24);
-		
 //				--------------------------------------------------------Usuario
 	     /*	
 		 * TODO todavia no importa saber los datos del usuario registrado
@@ -244,7 +231,6 @@ public class Main {
 	    	 VentanaExito v1 = new VentanaExito("Se cerro la sesion");
 	    	 v1.setVisible(true);
 	    	 appSistema.setTipoUsuario(TipoUsuario.NO_REGISTRADO);
-	    	 
 	    	 mi15.setVisible(true);
 	    	 mi25.setVisible(false);
 	    	 menu1.setVisible(false);
