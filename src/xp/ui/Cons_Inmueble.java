@@ -286,7 +286,7 @@ public class Cons_Inmueble {
         JScrollPane scrollPane = new JScrollPane(table_1);
         scrollPane.addMouseListener(new MouseAdapter() {
         	public void mouseWheelMoved(MouseEvent e) {
-                System.out.println(e);
+//                System.out.println(e);
             }
         });
         
@@ -341,7 +341,7 @@ public class Cons_Inmueble {
 			int r=0;
 			int s=model.getRowCount();
 			while(r<s) {
-				System.out.println(r);
+//				System.out.println(r);
 				model.removeRow(0);
 				++r;}
 			
@@ -357,7 +357,7 @@ public class Cons_Inmueble {
 	        Object pr = comboPre.getSelectedItem();
 	        
 	        		
-	        System.out.println(pv);		
+//	        System.out.println(pv);		
 	        filtro_rs = aT.buscarFiltro((String) pv, (String) lc, (String) br, (String) tp, (String) dr, (String) pr);
 	        
 	        Object[] fila2= {"","","","","","","","","" };

@@ -53,7 +53,7 @@ public class T_inmueble {
 		ps.setString(5,provincia);
 		ps.setDate(6, null); //fechacarga
 		ps.executeUpdate();
-		System.out.println(ps.toString());
+//		System.out.println(ps.toString());
 		
 		} catch (SQLException e) {
 			throw new SQLException();
@@ -96,7 +96,7 @@ public class T_inmueble {
 		
 			ps.setArray(20, con.createArrayOf("BOOLEAN", new String[] {}));//Array de 12
 
-			System.out.println(ps.toString());
+//			System.out.println(ps.toString());
 			ps.executeUpdate();
 		
 		} catch (SQLException e) {
@@ -121,7 +121,7 @@ public class T_inmueble {
 		try{
 		
 		ps = con.createStatement();
-		System.out.println(id);
+//		System.out.println(id);
 		int nro=ps.executeUpdate("DELETE FROM public.inmueble WHERE Id="+id+"");
 		
 		} catch (SQLException e) {
@@ -258,7 +258,7 @@ public class T_inmueble {
 		if(pr!=null) {filtro = filtro+" AND precio="+"'"+pr+"'";}
 			
 	
-		System.out.println(filtro);
+//		System.out.println(filtro);
 		
 		try{
 		ps = con.prepareStatement(filtro);
