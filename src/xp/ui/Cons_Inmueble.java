@@ -276,7 +276,7 @@ public class Cons_Inmueble {
         table_1.setRowSelectionAllowed(true);
         table_1.setColumnSelectionAllowed(false);
 		
-        // Tamaño de la ventana
+        // Tamaï¿½o de la ventana
         table_1.setPreferredScrollableViewportSize(new Dimension(800, 300));
         table_1.setFillsViewportHeight(true);
 
@@ -303,7 +303,7 @@ public class Cons_Inmueble {
         frame.getContentPane().add(separator, gbc_separator);
         
         //Se agrega el scroll pane al JPanel
-        gbc_table_1.gridx = 0;		//posición
+        gbc_table_1.gridx = 0;		//posiciï¿½n
 		gbc_table_1.gridy = 17;
         frame.getContentPane().add(scrollPane,gbc_table_1);
         
@@ -376,7 +376,16 @@ public class Cons_Inmueble {
 	        }
 		});
 		
-		
+		 JButton btnNewButton_2 = new JButton("Reservar");
+        GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
+        gbc_btnNewButton_2.anchor = GridBagConstraints.WEST;
+        gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 0);
+        gbc_btnNewButton_2.gridx = 2;
+        gbc_btnNewButton_2.gridy = 14;
+        frame.getContentPane().add(btnNewButton_2, gbc_btnNewButton_2);
 	}
+        
+        
+        //aca el reservar que le pase los datos del inmueble id,calle, numero, localidad nada mas y llame a la ventanada generar reserva
 
 }
