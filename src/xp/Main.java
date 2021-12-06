@@ -23,6 +23,7 @@ import xp.enums.TipoUsuario;
 import xp.ui.AltaCliente_Panel;
 import xp.ui.AltaInmueble_panel;
 import xp.ui.AltaVendedor_panel;
+import xp.ui.Cons_Cliente;
 import xp.ui.Cons_Inmueble;
 import xp.ui.PanelPropietario;
 import xp.ui.VentanaExito;
@@ -142,6 +143,21 @@ public class Main {
 	    	 ventana.pack();
 	    	 });
 	     menu3.add(mi13);
+	     
+	     mi3=new JMenuItem("Consultar");  
+	     mi3.addActionListener (e -> {
+	    	 gbcf.gridx = 0;
+	 		 gbcf.gridy = 0;
+	 		 ventana.setContentPane(new Cons_Cliente(ventana, gbcf));
+	    	 gbcf.gridx = 3; 
+	 		 gbcf.gridy = 10;
+	 		 gbcf.insets= new Insets(5,5,5,5);
+
+	 		 ventana.add(salir,gbcf);
+	    	 ventana.pack();
+	    	 });
+    	 menu3.add(mi3);
+	     
 	     
 	     
 //			--------------------------------------------------------Inmueble
