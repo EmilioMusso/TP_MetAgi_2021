@@ -54,33 +54,29 @@ public class AppSistema {
 		localidadesSistema.add(new Localidad("Colastiné Sur"));
 		
 
-		provinciasSistema.add("Santa Fe");
+		provinciasSistema.add("Santa Fe");		
 		provinciasSistema.add("Buenos Aires");
-		
-//		provinciasSistema.add("Buenos Aires", //TODO agregar a DB
-//				"Catamarca",
-//				"Chaco",
-//				"Chubut",
-//				"Cordoba",
-//				"Corrientes",
-//				"Entre Ríos",
-//				"Formosa",
-//				"Jujuy",
-//				"La Pampa",
-//				"La Rioja",
-//				"Mendoza",
-//				"Misiones",
-//				"Neuquén",
-//				"Río Negro",
-//				"Salta",
-//				"San Juan",
-//				"San Luis",
-//				"Santa Cruz",
-//				"Santiago del Estero",
-//				"Tierra del Fuego",
-//				"Tucumán");
-		
-		
+		provinciasSistema.add("Catamarca");
+		provinciasSistema.add("Chaco");
+		provinciasSistema.add("Chubut");
+		provinciasSistema.add("Cordoba");
+		provinciasSistema.add("Corrientes");
+		provinciasSistema.add("Entre Ríos");
+		provinciasSistema.add("Formosa");
+		provinciasSistema.add("Jujuy");
+		provinciasSistema.add("La Pampa");
+		provinciasSistema.add("La Rioja");
+		provinciasSistema.add("Mendoza");
+		provinciasSistema.add("Misiones");
+		provinciasSistema.add("Neuquén");
+		provinciasSistema.add("Río Negro");
+		provinciasSistema.add("Salta");
+		provinciasSistema.add("San Juan");
+		provinciasSistema.add("San Luis");
+		provinciasSistema.add("Santa Cruz");
+		provinciasSistema.add("Santiago del Estero");
+		provinciasSistema.add("Tierra del Fuego");
+		provinciasSistema.add("Tucumán");
 	}
 
 	public ArrayList<Vendedor> getVendedoresSistema() {

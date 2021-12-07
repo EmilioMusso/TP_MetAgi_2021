@@ -60,15 +60,16 @@ public class AltaInmueble_panel extends JPanel {
 	//private JLabel nrodoc;
 	private JComboBox<String> boxProvincia;
 	private JLabel fechaCarga;
+	private java.sql.Date tFechaCarga;
 	
 	private JDateChooser calendarFechaCarga;
-	private Date fechaSelected; //TODO setear por default fecha actual
+	private Date fechaSelected;
 	private Integer diaFechaSelected;
 	private Integer mesFechaSelected;
 	private Integer anioFechaSelected;
 	private String selectedLocalidad;
 	private String selectedProvincia;
-	private String propietarioSelected;
+	private Propietario propietarioSelected;
 	private Inmueble inm; 
 	
 	private String codI;
@@ -245,7 +246,6 @@ public class AltaInmueble_panel extends JPanel {
 		gbc.gridx = 2;
 		gbc.gridy = 6;
 		
-		//TODO data por default
 		inmuebleDTO = new OpcionalesInmuebleDTO("", 0, "", TipoInmueble.C,"",
 				0, 0, 0, "", 0,0,0,false,false,false,false,false,false,false,false,false,false,false,"");		
 		
@@ -273,13 +273,11 @@ public class AltaInmueble_panel extends JPanel {
 		
 		seleccionarPropietario.addActionListener(a -> {
 			JFrame tmpFrame = new JFrame("Seleccionar Propietario");
-			SeleccionarPropietario_Panel sp = new SeleccionarPropietario_Panel(tmpFrame);
+			SeleccionarPropietario_Panel sp = new SeleccionarPropietario_Panel(tmpFrame, this);
 			tmpFrame.setContentPane(sp);
 			tmpFrame.setVisible(true);
 			tmpFrame.pack();
-//			propietarioSelected = sp.getSelected().getNombre(); //TODO agregar metodo
-//			tpropietarioselected.setText(propietarioSelected);
-			msg = (propietarioSelected == null) ? "Ningun propietario seleccionado" : "TEST SELECCIONADO";
+			msg = "Ningun propietario seleccionado";
 			tpropietarioselected.setText(msg);
 		});
 		
@@ -298,7 +296,7 @@ public class AltaInmueble_panel extends JPanel {
 					calendar.set(Calendar.DAY_OF_MONTH, this.calendarFechaCarga.getDate().getMonth());
 					calendar.set(Calendar.MONTH, this.calendarFechaCarga.getDate().getDay());
 
-					java.sql.Date fechaCarga = new java.sql.Date(calendar.getTime().getTime());				
+					tFechaCarga = new java.sql.Date(calendar.getTime().getTime());				
 //					----------------------------------------------------------------------------------
 					
 					
@@ -312,8 +310,8 @@ public class AltaInmueble_panel extends JPanel {
 					
 					T_inmueble iT = new T_inmueble();
 					inmuebleDTO = panelOpcional.getData();
-					inm = new Inmueble(Integer.parseInt(codI), codI, estI, loc, prov, fechaCarga,
-							0/*propietario*/,inmuebleDTO.getCalle(), inmuebleDTO.getNroTelefono(),
+					inm = new Inmueble(Integer.parseInt(codI), codI, estI, loc, prov, tFechaCarga,
+							propietarioSelected.getId(),inmuebleDTO.getCalle(), inmuebleDTO.getNroTelefono(),
 							inmuebleDTO.getBarrio(), inmuebleDTO.getPrecio(),
 							inmuebleDTO.getPisoDpto(), inmuebleDTO.getFrente(), inmuebleDTO.getFondo(),
 							inmuebleDTO.getSuperficie(), inmuebleDTO.getOrientacion(), inmuebleDTO.getTipoInmueble(),
@@ -352,15 +350,6 @@ public class AltaInmueble_panel extends JPanel {
 				v1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				v1.setVisible(true);
 			}
-
-//		TODO levantar valor date del calendario
-//		TODO hacer campo cantidad dormitorios - guardar en db
-//		TODO en DB -> provincia, localidad, barrio, cant dormitorios y precio
-			
-
-		
-		
-		
 		});
 	
 		return this;
@@ -375,12 +364,18 @@ public class AltaInmueble_panel extends JPanel {
 			throw new CamposVaciosException("Complete los "
 				+ "campos obligatorios: Localidad.");
 		}
-//		if(propietarioSelected==null) {
-//			throw new CamposVaciosException("Complete los "
-//				+ "campos obligatorios: Propietario.");
-//		}
+		if(propietarioSelected==null) {
+			throw new CamposVaciosException("Complete los "
+				+ "campos obligatorios: Propietario.");
+		}
 		
 		
 		return false;
+	}
+	
+	public void cambiarNombrePropietario(Propietario p1) {
+		propietarioSelected = p1;
+		msg = (propietarioSelected == null) ? "Ningun propietario seleccionado" : propietarioSelected.nombreToString();
+		tpropietarioselected.setText(msg);
 	}
 }

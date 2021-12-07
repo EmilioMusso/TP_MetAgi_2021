@@ -47,10 +47,35 @@ public class Propietario {
 		this.id = (Integer) id;
 	}
 
+	public String nombreToString() {
+		return apellido +", "+ nombre;
+	}
+	
 	@Override
 	public String toString() {
 		return "Propietario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + "]";
 	}
+
+	public String getTipoDoc() {
+		return tipoDoc;
+	}
+
+	public void setTipoDoc(String tipoDoc) {
+		this.tipoDoc = tipoDoc;
+	}
+
+	public String getNumDoc() {
+		return numDoc;
+	}
+
+	public void setNumDoc(String numDoc) {
+		this.numDoc = numDoc;
+	}
+
+	public Integer getId() {
+		return this.id;
+	}
+	
 	
 
 	

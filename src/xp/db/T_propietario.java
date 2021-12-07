@@ -13,6 +13,7 @@ import xp.model.Propietario;
 public class T_propietario {
 	private static final String ins = "INSERT INTO public.propietario(id,nombre,apellido,tipdoc,numdoc,calle,numdom,provincia,localidad,telefono,email) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String bus = "SELECT * FROM public.propietario WHERE nombre=?";
+	private static final String busid = "SELECT * FROM public.propietario WHERE id=?";
 	private static final String tod = "SELECT * FROM public.propietario";
 	private static final String next_id = "SELECT nextval('public.seq_id') as num";
 	private static final String del = "DELETE FROM public.propietario WHERE Id=?";
@@ -20,7 +21,6 @@ public class T_propietario {
 	
 	public T_propietario() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	
@@ -209,12 +209,57 @@ public class T_propietario {
 		
 		con = ConnectionMA.get();
 		try{
-		ps = con.prepareStatement(bus);
-		ps.setString(1,nombre);
-		rs = ps.executeQuery();
+			ps = con.prepareStatement(bus);
+			ps.setString(1,nombre);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) { 
+				lis.add(rs.getString(2));}
+				
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			}
+		}
+	
+	public static Propietario buscarPorId(Integer id) {
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		ArrayList<Propietario> propietarios = new ArrayList<Propietario>();
 		
-		while(rs.next()) { 
-			lis.add(rs.getString(2));}
+		con = ConnectionMA.get();
+		try{
+			ps = con.prepareStatement(busid);
+			ps.setInt(1,id);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Propietario p = new Propietario(Integer.parseInt(rs.getString("Id")),
+						rs.getString("nombre"),
+						rs.getString("apellido"),
+						rs.getString("tipdoc"),
+						rs.getString("numdoc"),
+						rs.getString("calle"),
+						rs.getString("numdom"),
+						rs.getString("provincia"),
+						rs.getString("localidad"),
+						rs.getString("telefono"),
+						rs.getString("email"));
+				
+				propietarios.add(p);
+			}
+			
+			return propietarios.get(0);
 				
 		}catch (SQLException e) {e.printStackTrace();
 		}finally {
@@ -229,7 +274,8 @@ public class T_propietario {
 				catch (SQLException e) {e.printStackTrace();}
 			
 			}
-		}
+		return null;
+	}
 	
 	public Integer nextId() {
 		Integer newId = -1;
@@ -257,6 +303,8 @@ public class T_propietario {
 			}
 		return newId;
 	}
+
+
 }
 		
 		

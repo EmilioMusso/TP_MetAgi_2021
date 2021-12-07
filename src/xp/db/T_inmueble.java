@@ -68,7 +68,7 @@ public class T_inmueble {
 			}
 		}
 	
-	public void insertInmueble(Inmueble inm) throws SQLException { //TODO implementar propietario y fecha
+	public void insertInmueble(Inmueble inm) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =  null;
 		con = ConnectionMA.get();
@@ -80,7 +80,7 @@ public class T_inmueble {
 			ps.setString(4,inm.getLocalidad());
 			ps.setString(5,inm.getProvincia());
 			ps.setDate(6, (java.sql.Date) inm.getFechaCarga()); //fechacarga
-			ps.setInt(7, 0); //propietario
+			ps.setInt(7, inm.getId_propietario());
 			ps.setString(8, inm.getNumTelefono());
 			ps.setString(9, inm.getCalle());
 			ps.setInt(10, inm.getPisoDpto());

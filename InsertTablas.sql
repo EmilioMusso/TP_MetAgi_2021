@@ -1,6 +1,7 @@
 INSERT INTO public.propietario
 	VALUES  (345,'Carlos','Garcia','DNI','30433539','4 de Enero','2300','','','','carlos@garcia.com'),
-		(346,'Carlos','Gomez','LE','30433539','Hernandarias','2300','','','','gomez@gmail.com');
+		(346,'Carla','Gomez','LE','30433539','Hernandarias','2300','','','','gomez@gmail.com'),
+		(350,'Jorge','Drexler','DNI','30103522','Rambla','2000','','','','jdrx@gmail.com');
 
 INSERT INTO public.vendedor
 	VALUES  (001, 'Bill', 'Gates', '12123456', 'unaClave'),

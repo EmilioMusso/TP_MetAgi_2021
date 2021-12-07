@@ -56,7 +56,7 @@ public class SeleccionarPropietario_Panel extends JPanel {
 	private Propietario propietarioSelected;
 	
 	
-	public SeleccionarPropietario_Panel(JFrame tmpFrame) {
+	public SeleccionarPropietario_Panel(JFrame tmpFrame, AltaInmueble_panel panelPrev) {
         		
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
@@ -164,16 +164,20 @@ public class SeleccionarPropietario_Panel extends JPanel {
     	this.add(seleccionar,gbc);
     	
     	seleccionar.addActionListener(e -> {
-            propietarioSelected = new Propietario(); //TODO eliminar cuando se tenga la busqueda
-//          propietarioSelected = T_propietario.buscarPropietario(id); //TODO buscar propietario por id
-            tmpFrame.dispose();
+//            System.out.println(T_propietario.buscarPorId(Integer.parseInt((String) id)).nombreToString());
+//            System.out.println(propietarioSelected);	
+            if(id!=null) {
+            	propietarioSelected = T_propietario.buscarPorId(Integer.parseInt((String) id));
+            	panelPrev.cambiarNombrePropietario(propietarioSelected);
+                tmpFrame.dispose();
+            }
 		});
 
     }
 	
 	
-	public Propietario getSelected() {
-		return propietarioSelected;
+	public String getSelected() {
+		return propietarioSelected.nombreToString();
 	}	
  
     private void printDebugData(JTable table) {
@@ -191,6 +195,4 @@ public class SeleccionarPropietario_Panel extends JPanel {
         }
         System.out.println("--------------------------");
     }
-    
-	
 }

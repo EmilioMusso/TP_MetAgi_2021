@@ -354,5 +354,15 @@ public class Inmueble {
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
+
+	public Integer getId_propietario() {
+		return id_propietario;
+	}
+
+	public void setId_propietario(Integer id_propietario) {
+		this.id_propietario = id_propietario;
+	}
+	
+	
 	
 }
