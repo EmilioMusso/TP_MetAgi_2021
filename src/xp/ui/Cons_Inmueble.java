@@ -18,12 +18,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-
+import xp.Ini;
+import xp.db.T_cliente;
 import xp.db.T_inmueble;
 import xp.db.T_propietario;
 import javax.swing.JSeparator;
@@ -33,6 +36,14 @@ public class Cons_Inmueble {
 	public JFrame frame;
 	private JTable table_1;
 
+	//los uso para reservar
+	   private Object idSelected;
+       private String codigoSelected;
+       private String estadoSelected;
+   	//private String calleSelected;
+   	//private String numeroSelected;
+   	private String localidadSelected;
+   	private String provinciaSelected;
 	/**
 	 * Launch the application.
 	 */
@@ -238,7 +249,8 @@ public class Cons_Inmueble {
 		gbc_table_1.gridy = 17;
 //		frame.getContentPane().add(table_1, gbc_table_1);
 		        
-
+		
+        
         // Crea las columnas 
         model.addColumn("Id"); 
         model.addColumn("Cod_inmueble"); 
@@ -376,6 +388,7 @@ public class Cons_Inmueble {
 	        }
 		});
 		
+		//----------------------------------- RESERVA -------------------------------------
 		 JButton btnNewButton_2 = new JButton("Reservar");
         GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
         gbc_btnNewButton_2.anchor = GridBagConstraints.WEST;
@@ -383,9 +396,55 @@ public class Cons_Inmueble {
         gbc_btnNewButton_2.gridx = 2;
         gbc_btnNewButton_2.gridy = 14;
         frame.getContentPane().add(btnNewButton_2, gbc_btnNewButton_2);
+        
+     
+  
+        
+        
+     // Modo de seleccion
+        table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table_1.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+            	JTable table = (JTable)e.getSource();
+                int row = table.rowAtPoint(e.getPoint());
+                int column = table.columnAtPoint(e.getPoint());
+                
+                idSelected = table.getValueAt(row, 0);
+                //calleSelected =  table.getValueAt(row, 1).toString();
+            	//Selected =  table.getValueAt(row, 2).toString();
+            	codigoSelected =  table.getValueAt(row, 1).toString(); //le digo que guarde el codigo donde selecciona en la tabla
+            	estadoSelected =  table.getValueAt(row, 2).toString(); //le digo que guarde el estado donde selecciona en la tabla
+            	localidadSelected =  table.getValueAt(row, 3).toString(); //le digo que guarde la localidad donde selecciona en la tabla
+            	provinciaSelected =  table.getValueAt(row, 4).toString(); //le digo que guarde la provincia donde selecciona en la tabla
+//	            	System.out.println("Valor de celda: " + table.getValueAt(row, column));
+//	            	System.out.println("Id: " + table.getValueAt(row, 0));
+            	
+            }
+        });
+        
+        btnNewButton_2.addActionListener(e -> {
+   	 		if(idSelected == null) {
+	   	 		VentanaFallo v = new VentanaFallo("Por favor seleccione "
+	   	 				+ "un inmueble a reservar.");
+				v.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				v.setVisible(true);   	 		
+   	 		} else {
+   	 			// se fija que el inmueble no este reservado
+   	 			if(estadoSelected.equals( "RESERVADO")) {
+   	 			VentanaFallo v = new VentanaFallo("Por favor seleccione "
+	   	 				+ "un inmueble que no este reservado.");
+				v.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				v.setVisible(true);   	 		
+   	 			}
+   	 			else { 
+   	 			GenerarReserva reserva = new GenerarReserva(idSelected,codigoSelected,localidadSelected,provinciaSelected);
+   	 			//lamar a la ventana reserva y pasarle el id, calle,numero y localidad	
+   	 				 		
+   	 				
+				
+   	 			   }
+   	 		}
+		 });
 	}
-        
-        
-        //aca el reservar que le pase los datos del inmueble id,calle, numero, localidad nada mas y llame a la ventanada generar reserva
-
+        //aca el reservar que le pase los datos del inmueble id,calle, numero, localidad nada mas y llame a la ventanada generar reserva~
 }

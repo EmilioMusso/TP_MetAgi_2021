@@ -13,7 +13,8 @@ public class GenerarReserva extends javax.swing.JFrame {
     /**
      * Creates new form GenerarReserva
      */
-    public GenerarReserva() {
+	
+    public GenerarReserva(Object idSelected,String codigo,String localidad,String provincia) {
         initComponents();
     }
 
@@ -126,7 +127,7 @@ public class GenerarReserva extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GenerarReserva().setVisible(true);
+              //  new GenerarReserva().setVisible(true);
             }
         });
     }
