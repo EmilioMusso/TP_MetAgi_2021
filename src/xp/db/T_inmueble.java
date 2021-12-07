@@ -94,7 +94,19 @@ public class T_inmueble {
 			ps.setInt(18, inm.getHabitaciones());
 			ps.setInt(19, inm.getBanios());
 		
-			ps.setArray(20, con.createArrayOf("BOOLEAN", new String[] {}));//Array de 12
+			ps.setArray(20, con.createArrayOf("BOOLEAN", new Boolean[] {
+					inm.getPropiedadhorizontal(),
+					inm.getPatio(),
+					inm.getPiscina(),
+					inm.getCochera(),
+					inm.getTelefono(),
+					inm.getCloacas(),
+					inm.getLavadero(),
+					inm.getAguacaliente(),
+					inm.getAguacorriente(),
+					inm.getGasnatural(),
+					inm.getPavimento()
+			}));
 
 //			System.out.println(ps.toString());
 			ps.executeUpdate();

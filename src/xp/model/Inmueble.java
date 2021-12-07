@@ -362,6 +362,10 @@ public class Inmueble {
 	public void setId_propietario(Integer id_propietario) {
 		this.id_propietario = id_propietario;
 	}
+
+	public Boolean getTelefono() {
+		return telefono;
+	}
 	
 	
 	
