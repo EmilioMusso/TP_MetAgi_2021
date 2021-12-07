@@ -19,7 +19,7 @@ public class ModifProp_ventana extends JFrame {
 	public ModifProp_ventana(Object id, String nombre, String apellido, String numdoc, String calle, String numdom, String provincia, String localidad, String telefono, String email) {
 		super();
 		
-		this.setContentPane(new ModifProp_panel().armarPanel(id, nombre, apellido, numdoc, calle, numdom, provincia, localidad, telefono, email));
+		this.setContentPane(new ModifProp_panel().armarPanel(id, nombre, apellido, numdoc, calle, numdom, provincia, localidad, telefono, email, email));
 		//this.setContentPane(Pan); 
 		this.setVisible(true);
 		this.pack();
