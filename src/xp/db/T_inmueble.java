@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+import xp.enums.EstadoInmueble;
+import xp.enums.TipoInmueble;
 import xp.model.Inmueble;
 import xp.model.Vendedor;
 
@@ -212,6 +214,109 @@ public class T_inmueble {
 		return fila;
 		}
 	
+	public ArrayList<Inmueble> buscar_todos() {
+		//genera una lista con todos los registros de una tabla
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		con = ConnectionMA.get();
+		ArrayList<Inmueble> inmuebles = new ArrayList<Inmueble>();
+		
+		try{
+		ps = con.prepareStatement(tod);
+		rs = ps.executeQuery();
+		Inmueble inm1;
+		
+		while(rs.next()) {
+			inm1 = null;
+			ArrayList<Boolean> arrayBooleans = new ArrayList<Boolean>();
+			rs.getArray("arrayBooleans");
+			
+			EstadoInmueble estado;
+			switch(rs.getString("estadoInmueble")) {
+			case "RESERVADO":
+				estado = EstadoInmueble.RESERVADO;
+				break;
+			case "DISPONIBLE":
+				estado = EstadoInmueble.DISPONIBLE;
+				break;
+			default:
+				estado = EstadoInmueble.VENDIDO;
+			}
+			
+			TipoInmueble tipoInmueble;
+			switch(rs.getString("tipoinmueble")) {
+			case "L":
+				tipoInmueble = TipoInmueble.L;
+				break;
+			case "C":
+				tipoInmueble = TipoInmueble.C;
+				break;
+			case "D":
+				tipoInmueble = TipoInmueble.D;
+				break;
+			case "G":
+				tipoInmueble = TipoInmueble.G;
+				break;
+			case "Q":
+				tipoInmueble = TipoInmueble.Q;
+				break;
+			default:
+				tipoInmueble = TipoInmueble.T;
+			}
+			
+			
+			inm1 = new Inmueble(
+					rs.getInt("id"),
+					rs.getString("codigoInmueble"),
+					estado,
+					rs.getString("localidad"),
+					rs.getString("provincia"),
+					rs.getDate("fechaCarga"),
+					rs.getInt("id_propietario"),
+					rs.getString("calle"),
+					rs.getString("numtelefono"),
+					rs.getString("barrio"),
+					rs.getInt("precio"),
+					rs.getInt("pisodpto"),
+					rs.getInt("frente"),
+					rs.getInt("fondo"),
+					rs.getInt("superficie"),
+					rs.getString("orientacion"),
+					tipoInmueble,
+					rs.getInt("habitaciones"),
+					rs.getInt("banios"),
+					null, null,
+					null, null,
+					null, null,
+					null, null,
+					null, null,
+					null,null);
+//			inmuebles.add();
+//			fila.add(rs.getString("codigoInmueble"));
+//			fila.add(rs.getString("estadoInmueble"));
+//			fila.add(rs.getString("localidad"));	
+//			fila.add(rs.getString("provincia"));	
+//			fila.add(rs.getDate("fechaCarga"));
+			
+			inmuebles.add(inm1);
+		}}
+				
+		catch (SQLException e) {e.printStackTrace();
+		}finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			
+			}
+		return inmuebles;
+		}
 	public ArrayList<String> buscarS() {
 		//genera una lista con todos los registros de una tabla
 		Connection con = null;

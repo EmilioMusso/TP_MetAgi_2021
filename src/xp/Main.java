@@ -23,6 +23,7 @@ import xp.enums.TipoUsuario;
 import xp.ui.AltaCliente_Panel;
 import xp.ui.AltaInmueble_panel;
 import xp.ui.AltaVendedor_panel;
+import xp.ui.CatalogoInmuebles;
 import xp.ui.Cons_Cliente;
 import xp.ui.Cons_Inmueble;
 import xp.ui.PanelPropietario;
@@ -197,6 +198,16 @@ public class Main {
 //	    	 ventana.pack();
 	    	 });
 	     menu4.add(mi24);
+	     
+	     mi34=new JMenuItem("Catalogo Inmuebles");
+	     mi34.addActionListener (e -> {
+	    	CatalogoInmuebles catalogoFrame = new CatalogoInmuebles();
+	    	catalogoFrame.setVisible(true);
+	     });
+	     menu4.add(mi34);
+	     
+	     
+	     
 //				--------------------------------------------------------Usuario
 	     /*	
 		 * TODO todavia no importa saber los datos del usuario registrado

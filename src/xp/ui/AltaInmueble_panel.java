@@ -321,15 +321,16 @@ public class AltaInmueble_panel extends JPanel {
 							inmuebleDTO.getLavadero(), inmuebleDTO.getAguaCaliente(), inmuebleDTO.getAguaCorriente(),
 							inmuebleDTO.getGasNatural(), inmuebleDTO.getPavimento(), inmuebleDTO.getObservaciones());
 										
-			    	 ventana.setContentPane(new AltaInmueble_panel(ventana, gbcf, appSistema,agregar, salir));
-			 		 gbcf.gridx = 3;
-			 		 gbcf.gridy = 9;
-			 		 ventana.add(agregar, gbcf);
-			    	 gbcf.gridx = 4;
-			 		 gbcf.gridy = 9;
-			 		 gbcf.insets= new Insets(5,5,5,5);
-			 		 ventana.add(salir,gbcf);
-			    	 ventana.pack();
+//			    	 ventana.setContentPane(new AltaInmueble_panel(ventana, gbcf, appSistema,agregar, salir));
+//			 		 gbcf.gridx = 3;
+//			 		 gbcf.gridy = 9;
+//			 		 ventana.add(agregar, gbcf);
+//			    	 gbcf.gridx = 4;
+//			 		 gbcf.gridy = 9;
+//			 		 gbcf.insets= new Insets(5,5,5,5);
+//			 		 ventana.add(salir,gbcf);
+//			    	 ventana.pack();
+					resetearCampos();
 			    	 
 					try {
 						iT.insertInmueble(inm);
@@ -355,6 +356,10 @@ public class AltaInmueble_panel extends JPanel {
 		return this;
 	}
 	
+	private void resetearCampos() {
+		tcodigoInmueble.setText("");		
+	}
+
 	private Boolean camposVacios() throws CamposVaciosException {
 		if(tcodigoInmueble.getText().isEmpty()) {
 			throw new CamposVaciosException("Complete los "

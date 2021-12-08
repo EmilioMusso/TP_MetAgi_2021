@@ -48,6 +48,12 @@ public class Inmueble {
 	private Boolean pavimento;
 	private String observaciones;
 	
+	
+	
+	public Inmueble() {
+		super();
+	}
+
 	public Inmueble(String codigoInmueble,EstadoInmueble estadoInmueble, String localidad,String provincia,Date fechaCarga) {
 		super();
 	
@@ -106,6 +112,54 @@ public class Inmueble {
 		this.gasnatural = gasnatural;
 		this.pavimento = pavimento;
 		this.observaciones = observaciones;
+	}
+	
+	public String getDescripcion() {
+		//Se genera una descripcion del inmueble en base a sus caracteristicas
+		// L/Local, C/casa, D/departamento, T/terreno, Q/quinta, G/galpón
+		String descripcion="";
+		
+		switch(this.tipoInmueble) {
+		case L:
+			descripcion+="Local";
+			descripcion+=" en "+this.getLocalidad()+", "+this.getProvincia();
+			break;
+		case C:
+			descripcion+="Casa";
+			if(this.getPiscina()!=null)
+				if(this.getPiscina())
+					descripcion+=" con piscina";
+			descripcion+=" en "+this.getLocalidad()+", "+this.getProvincia();
+			break;
+		case D:
+			descripcion+="Departamento";
+			if(this.getHabitaciones()>0)
+				descripcion+=" "+this.getHabitaciones()+" habitacion(es)";
+			descripcion+=" en "+this.getLocalidad()+", "+this.getProvincia();
+			break;
+		case T:
+			descripcion+="Terreno";
+			if(this.getSuperficie()>0)
+				descripcion+=" "+this.getSuperficie()+" (m2) de superficie";
+			descripcion+=" en "+this.getLocalidad()+", "+this.getProvincia();
+			break;
+		case Q:
+			descripcion+="Quinta";
+			descripcion+=" en "+this.getLocalidad()+", "+this.getProvincia();
+			break;
+		case G:
+			descripcion+="Galpon";
+			descripcion+=" en "+this.getLocalidad()+", "+this.getProvincia();
+			break;
+		}
+		return descripcion;
+	}
+	
+	public String getDetalles() {
+		String detalles="DETALES:";
+		
+		
+		return detalles;
 	}
 
 	public Object getId() {
@@ -365,8 +419,5 @@ public class Inmueble {
 
 	public Boolean getTelefono() {
 		return telefono;
-	}
-	
-	
-	
+	}	
 }
