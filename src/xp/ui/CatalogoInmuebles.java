@@ -29,10 +29,11 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 
 public class CatalogoInmuebles extends JFrame {
-
+	
 	private Integer cant_inmuebles;
 
 	public CatalogoInmuebles() {
+		this.setIconImage((new ImageIcon("img/HouseImg.png")).getImage());
 		setBounds(new Rectangle(10, 10, 0, 0));
 		
 //		----------------------------------------------------------------------------------obtencion inmuebles		

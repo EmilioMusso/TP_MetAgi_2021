@@ -19,6 +19,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -41,6 +42,7 @@ public class Cons_Inmueble {
 			public void run() {
 				try {
 					Cons_Inmueble window = new Cons_Inmueble();
+					window.frame.setIconImage((new ImageIcon("img/HouseImg.png")).getImage());
 					window.frame.setVisible(true);
 					window.frame.pack();
 				} catch (Exception e) {

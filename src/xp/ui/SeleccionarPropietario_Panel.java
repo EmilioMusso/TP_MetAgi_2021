@@ -14,6 +14,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -57,7 +58,7 @@ public class SeleccionarPropietario_Panel extends JPanel {
 	
 	
 	public SeleccionarPropietario_Panel(JFrame tmpFrame, AltaInmueble_panel panelPrev) {
-        		
+		tmpFrame.setIconImage((new ImageIcon("img/HouseImg.png")).getImage());
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
 		

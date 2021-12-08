@@ -1,6 +1,7 @@
 package xp;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -36,19 +37,12 @@ public class Main {
 	public static void main(String[] args) {
 		
 		//FRAME
-		JFrame ventana = new JFrame("Sistema de compra y venta de INMUEBLES");
+		JFrame ventana = new JFrame("Sistema de compra y venta de inmuebles");
+		ventana.setIconImage((new ImageIcon("img/HouseImg.png")).getImage());
 		ventana.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		
-//		AppSistema appSistema = new AppSistema();
-		
-		//ventana.setTitle ("");
-		//ventana.setSize (800,400);
-//		JLabel background= new JLabel();
-//		background.setIcon(new ImageIcon("C:\\01.jpg"));
-//        ventana.add(background);
-		
 		JButton salir = new JButton("Salir");
-		JButton agregar = new JButton("Agregar"); //Usado para inmueble
+		JButton agregar = new JButton("Agregar");
 		
 		GridBagConstraints gbcf = new GridBagConstraints();
 		ventana.setLayout(new GridBagLayout());
@@ -202,6 +196,7 @@ public class Main {
 	     mi34=new JMenuItem("Catalogo Inmuebles");
 	     mi34.addActionListener (e -> {
 	    	CatalogoInmuebles catalogoFrame = new CatalogoInmuebles();
+	    	catalogoFrame.setTitle("CATALOGO");
 	    	catalogoFrame.setVisible(true);
 	     });
 	     menu4.add(mi34);
@@ -233,6 +228,7 @@ public class Main {
 	    	 menu2.setVisible(false);
 	    	 menu3.setVisible(false);
 	    	 mi14.setVisible(false);
+	    	 mi24.setVisible(false);
 	     } else if(appSistema.getTipoUsuario() == TipoUsuario.SUPER_USUARIO) {
 	    	 mi15.setVisible(false);
 	    	 mi25.setVisible(true);
@@ -240,6 +236,7 @@ public class Main {
 	    	 menu2.setVisible(true);
 	    	 menu3.setVisible(true);
 	    	 mi14.setVisible(true);
+	    	 mi24.setVisible(true);
 	     }
 	   
 	     mi15.addActionListener (e -> {
@@ -253,6 +250,7 @@ public class Main {
 	    	 menu2.setVisible(true);
 	    	 menu3.setVisible(true);
 	    	 mi14.setVisible(true);
+	    	 mi24.setVisible(true);
 	     });
 	     mi25.addActionListener (e -> {
 	    	 VentanaExito v1 = new VentanaExito("Se cerro la sesion");
@@ -264,6 +262,7 @@ public class Main {
 	    	 menu2.setVisible(false);
 	    	 menu3.setVisible(false);
 	    	 mi14.setVisible(false);
+	    	 mi24.setVisible(false);
 	     });
 	     
 	    //PANEL

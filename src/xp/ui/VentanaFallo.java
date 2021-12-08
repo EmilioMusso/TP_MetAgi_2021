@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Color;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -25,6 +26,7 @@ public class VentanaFallo extends JDialog {
 	 * Create the dialog.
 	 */
 	public VentanaFallo(String mensaje) {
+		this.setIconImage((new ImageIcon("img/HouseImg.png")).getImage());
 		setBounds(100, 100, 450, 141);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
