@@ -32,7 +32,8 @@ public class T_inmueble {
 	private static final String tipo = "SELECT DISTINCT tipoInmueble FROM public.inmueble";
 	private static final String hab = "SELECT DISTINCT habitaciones FROM public.inmueble";
 	private static final String prec = "SELECT DISTINCT precio FROM public.inmueble";
-	
+	private static final String codi = "SELECT DISTINCT codigoInmueble FROM public.inmueble";
+	private static final String update = "UPDATE public.inmueble SET estadoInmueble='RESERVADO' WHERE Id=?";
 	
 	public T_inmueble() {	}
 	
@@ -526,6 +527,60 @@ public class T_inmueble {
 			
 			}
 		return nombres;
+		}
+	
+	public ArrayList<String> buscar_codigo() {
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		con = ConnectionMA.get();
+		ArrayList<String> nombres = new ArrayList<String>();
+		
+		try{
+		ps = con.prepareStatement(codi);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			nombres.add(rs.getString("codigoInmueble"));
+			
+		}}
+				
+		catch (SQLException e) {e.printStackTrace();
+		}finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			
+			}
+		return nombres;
+		}
+	
+	public void update(Object id){
+		Connection con = null;
+		Statement ps =  null;
+		con = ConnectionMA.get();
+		try{
+		
+		ps = con.createStatement();
+//		System.out.println(id);
+		int nro=ps.executeUpdate("UPDATE public.inmueble SET estadoInmueble='RESERVADO' WHERE Id="+id+"");
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			}
 		}
 	
 }

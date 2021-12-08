@@ -4,19 +4,36 @@
  */
 package xp.ui;
 
+import java.util.ArrayList;
+
+import xp.db.T_cliente;
+import xp.db.T_inmueble;
+
 /**
  *
  * @author Lucia
  */
 public class GenerarReserva extends javax.swing.JFrame {
 
-    /**
+	
+    private Object codigoI;
+	/**
      * Creates new form GenerarReserva
      */
 	
     public GenerarReserva(Object idSelected,String codigo,String localidad,String provincia) {
         initComponents();
+        System.out.println("id selected -> "+idSelected);
+        System.out.println("codigo -> "+codigo);
+        System.out.println("localidad -> "+localidad);
+        System.out.println("provincia -> "+provincia);
+        
+        
+         
+        codigoI=codigo;
     }
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,16 +46,31 @@ public class GenerarReserva extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jComboBoxCliente = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxInmueble = new javax.swing.JComboBox<>(); //combo box codigo inmueble
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-
+        
+        
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBoxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        
+        T_cliente Ti3 = new T_cliente();
+		ArrayList<String> i3_rs = new ArrayList<String>();
+	    i3_rs= Ti3.buscar_c();
+	    for (String nom: i3_rs) {
+	    	jComboBoxCliente.addItem(nom);}
+	    jComboBoxCliente.setSelectedItem(null);
+       // jComboBoxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        
+        T_inmueble Ti2 = new T_inmueble();
+		ArrayList<String> i2_rs = new ArrayList<String>();
+	    i2_rs= Ti2.buscar_codigo();
+	    for (String nom: i2_rs) {
+	    	jComboBoxInmueble.addItem(nom);}
+	    jComboBoxInmueble.setSelectedItem("un numero"); //mostrar el que llega codigo como hago ?
+     //   jComboBoxInmueble.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setText("Reserva Inmueble");
@@ -62,7 +94,7 @@ public class GenerarReserva extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jComboBox1, 0, 293, Short.MAX_VALUE)
+                                .addComponent(jComboBoxInmueble, 0, 293, Short.MAX_VALUE)
                                 .addComponent(jComboBoxCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel3))))
                 .addContainerGap(83, Short.MAX_VALUE))
@@ -75,7 +107,7 @@ public class GenerarReserva extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxInmueble, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -133,7 +165,7 @@ public class GenerarReserva extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxInmueble;
     private javax.swing.JComboBox<String> jComboBoxCliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

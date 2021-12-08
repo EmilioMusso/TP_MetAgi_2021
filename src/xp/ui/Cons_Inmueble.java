@@ -29,6 +29,8 @@ import xp.Ini;
 import xp.db.T_cliente;
 import xp.db.T_inmueble;
 import xp.db.T_propietario;
+import xp.exceptions.CamposVaciosException;
+
 import javax.swing.JSeparator;
 
 public class Cons_Inmueble {
@@ -423,28 +425,29 @@ public class Cons_Inmueble {
         });
         
         btnNewButton_2.addActionListener(e -> {
-   	 		if(idSelected == null) {
-	   	 		VentanaFallo v = new VentanaFallo("Por favor seleccione "
-	   	 				+ "un inmueble a reservar.");
-				v.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				v.setVisible(true);   	 		
-   	 		} else {
-   	 			// se fija que el inmueble no este reservado
-   	 			if(estadoSelected.equals( "RESERVADO")) {
-   	 			VentanaFallo v = new VentanaFallo("Por favor seleccione "
-	   	 				+ "un inmueble que no este reservado.");
-				v.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				v.setVisible(true);   	 		
-   	 			}
-   	 			else { 
-   	 			GenerarReserva reserva = new GenerarReserva(idSelected,codigoSelected,localidadSelected,provinciaSelected);
-   	 			//lamar a la ventana reserva y pasarle el id, calle,numero y localidad	
-   	 				 		
-   	 				
-				
-   	 			   }
-   	 		}
+			try {
+				if(idSelected == null) {
+					throw new CamposVaciosException("Por favor seleccione un inmueble a reservar.");
+										}
+				else {
+					if(estadoSelected.equals("RESERVADO")) {
+					throw new CamposVaciosException("Por favor seleccione un inmueble que no este reservado.");
+														}
+					else {
+				T_inmueble tinmueble = new T_inmueble();
+				tinmueble.update(idSelected);
+				GenerarReserva reserva = new GenerarReserva(idSelected,codigoSelected,localidadSelected,provinciaSelected);
+				reserva.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				reserva.setVisible(true);
+						}
+					}
+			} catch (CamposVaciosException e1) {
+				VentanaFallo v1 = new VentanaFallo(e1.getMessage());
+				v1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				v1.setVisible(true);
+			}
 		 });
 	}
-        //aca el reservar que le pase los datos del inmueble id,calle, numero, localidad nada mas y llame a la ventanada generar reserva~
+        //aca el reservar que le pase los datos del inmueble id,calle, numero, localidad nada mas
+		//y llame a la ventanada generar reserva
 }
