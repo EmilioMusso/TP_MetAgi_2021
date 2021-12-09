@@ -86,7 +86,11 @@ public class GenerarReserva extends javax.swing.JFrame {
         etPrecio.setText("$XX");
 
         btnPdf.setText("Generar Comprobante");
-
+        
+        btnPdf.addActionListener(e -> {
+        	private JasperPrint jprint;
+        	
+        });
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
