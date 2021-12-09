@@ -11,6 +11,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
@@ -24,6 +25,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import com.lowagie.text.DocumentException;
 
 import xp.Ini;
 import xp.db.T_cliente;
@@ -46,6 +49,8 @@ public class Cons_Inmueble {
    	//private String numeroSelected;
    	private String localidadSelected;
    	private String provinciaSelected;
+	private String barrioSelected;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -418,6 +423,7 @@ public class Cons_Inmueble {
             	estadoSelected =  table.getValueAt(row, 2).toString(); //le digo que guarde el estado donde selecciona en la tabla
             	localidadSelected =  table.getValueAt(row, 3).toString(); //le digo que guarde la localidad donde selecciona en la tabla
             	provinciaSelected =  table.getValueAt(row, 4).toString(); //le digo que guarde la provincia donde selecciona en la tabla
+            	barrioSelected =  table.getValueAt(row, 5).toString(); //le digo que guarde la provincia donde selecciona en la tabla
 //	            	System.out.println("Valor de celda: " + table.getValueAt(row, column));
 //	            	System.out.println("Id: " + table.getValueAt(row, 0));
             	
@@ -434,14 +440,13 @@ public class Cons_Inmueble {
 					throw new CamposVaciosException("Por favor seleccione un inmueble que no este reservado.");
 														}
 					else {
-				T_inmueble tinmueble = new T_inmueble();
-				tinmueble.update(idSelected);
-				GenerarReserva reserva = new GenerarReserva(idSelected,codigoSelected,localidadSelected,provinciaSelected);
+				
+				GenerarReserva reserva = new GenerarReserva(idSelected,codigoSelected,localidadSelected,provinciaSelected,barrioSelected);
 				reserva.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				reserva.setVisible(true);
 						}
 					}
-			} catch (CamposVaciosException e1) {
+			} catch (CamposVaciosException | FileNotFoundException | DocumentException e1) {
 				VentanaFallo v1 = new VentanaFallo(e1.getMessage());
 				v1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				v1.setVisible(true);

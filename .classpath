@@ -20,5 +20,16 @@
 	<classpathentry kind="lib" path="img/postgresql-42.2.24.jar"/>
 	<classpathentry kind="lib" path="img/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="img/junit-4.6.jar"/>
+	<classpathentry kind="lib" path="D:/UTN/Metodologias agiles/itext-2.1.0.jar"/>
+	<classpathentry kind="lib" path="D:/UTN/Metodologias agiles/bcmail-jdk14-136.jar"/>
+	<classpathentry kind="lib" path="D:/UTN/Metodologias agiles/bcprov-jdk14-136.jar"/>
+	<classpathentry kind="lib" path="D:/UTN/Metodologias agiles/commons-beanutils-1.8.0.jar"/>
+	<classpathentry kind="lib" path="D:/UTN/Metodologias agiles/commons-collections-2.1.jar"/>
+	<classpathentry kind="lib" path="D:/UTN/Metodologias agiles/commons-digester-1.7.jar"/>
+	<classpathentry kind="lib" path="D:/UTN/Metodologias agiles/commons-logging-1.0.2.jar"/>
+	<classpathentry kind="lib" path="D:/UTN/Metodologias agiles/jasperreports-3.5.3.jar"/>
+	<classpathentry kind="lib" path="D:/UTN/Metodologias agiles/jcommon-1.0.15.jar"/>
+	<classpathentry kind="lib" path="D:/UTN/Metodologias agiles/jdtcore-3.1.0.jar"/>
+	<classpathentry kind="lib" path="D:/UTN/Metodologias agiles/jfreechart-1.0.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
