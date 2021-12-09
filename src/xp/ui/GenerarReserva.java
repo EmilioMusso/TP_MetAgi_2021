@@ -5,7 +5,6 @@
 package xp.ui;
 
 import java.util.ArrayList;
-
 import xp.db.T_cliente;
 import xp.db.T_inmueble;
 
@@ -88,7 +87,7 @@ public class GenerarReserva extends javax.swing.JFrame {
         btnPdf.setText("Generar Comprobante");
         
         btnPdf.addActionListener(e -> {
-        	private JasperPrint jprint;
+        	
         	
         });
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
