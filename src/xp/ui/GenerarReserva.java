@@ -23,15 +23,11 @@ public class GenerarReserva extends javax.swing.JFrame {
      */
 	
     public GenerarReserva(Object idSelected,String codigo,String localidad,String provincia) {
-        initComponents();
-        System.out.println("id selected -> "+idSelected);
-        System.out.println("codigo -> "+codigo);
-        System.out.println("localidad -> "+localidad);
-        System.out.println("provincia -> "+provincia);
-        
-        
-         
-        codigoI=codigo;
+        initComponents(String codigo);
+//      System.out.println("id selected -> "+idSelected);
+//      System.out.println("codigo -> "+codigo);
+//      System.out.println("localidad -> "+localidad);
+//      System.out.println("provincia -> "+provincia);
     }
     
    
@@ -43,7 +39,7 @@ public class GenerarReserva extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(String codigoI) {
 
         jPanel1 = new javax.swing.JPanel();
         jComboBoxCliente = new javax.swing.JComboBox<>();
