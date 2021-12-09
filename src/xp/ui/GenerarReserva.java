@@ -23,11 +23,8 @@ public class GenerarReserva extends javax.swing.JFrame {
      */
 	
     public GenerarReserva(Object idSelected,String codigo,String localidad,String provincia) {
-        initComponents(String codigo);
-//      System.out.println("id selected -> "+idSelected);
-//      System.out.println("codigo -> "+codigo);
-//      System.out.println("localidad -> "+localidad);
-//      System.out.println("provincia -> "+provincia);
+        initComponents(codigo);
+
     }
     
    
@@ -57,9 +54,7 @@ public class GenerarReserva extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        //cbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        //cbInmueble.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+  
 
         T_cliente Ti3 = new T_cliente();
 		ArrayList<String> i3_rs = new ArrayList<String>();
@@ -67,7 +62,7 @@ public class GenerarReserva extends javax.swing.JFrame {
 	    for (String nom: i3_rs) {
 	    	jComboBoxCliente.addItem(nom);}
 	    jComboBoxCliente.setSelectedItem(null);
-       // jComboBoxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+    
 
         T_inmueble Ti2 = new T_inmueble();
 		ArrayList<String> i2_rs = new ArrayList<String>();
@@ -75,10 +70,9 @@ public class GenerarReserva extends javax.swing.JFrame {
 	    for (String nom: i2_rs) {
 	    	jComboBoxInmueble.addItem(nom);
 	    	}
-	    jComboBoxInmueble.setSelectedItem(codigoI); //mostrar el que llega codigo como hago ?
-     //   jComboBoxInmueble.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+	    jComboBoxInmueble.setSelectedItem(codigoI);
         
-        lReserva.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lReserva.setFont(new java.awt.Font("Tahoma", 0, 16)); 
         lReserva.setForeground(new java.awt.Color(0, 0, 255));
         lReserva.setText("Reserva Inmueble");
         lReserva.setToolTipText("");
