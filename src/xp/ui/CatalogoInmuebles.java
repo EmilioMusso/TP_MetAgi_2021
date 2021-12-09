@@ -46,7 +46,6 @@ public class CatalogoInmuebles extends JFrame {
 				.collect(Collectors.toList());
 		
 		cant_inmuebles = inmuebles2.size();
-//		System.out.println(inmuebles2+" - "+cant_inmuebles);
 //		----------------------------------------------------------------------------------
 		
 		setBounds(100, 100, 808, 700);
@@ -64,30 +63,50 @@ public class CatalogoInmuebles extends JFrame {
 		scrollPane.setViewportView(panel2);
 		Integer rows = cant_inmuebles;
 		panel2.setLayout(new GridLayout(rows/2+1, 2, 0, 0));
+
+		Integer num_casa=1, num_dpto=1, num_local=1, num_terreno=1, num_galpon=1;
 		
 		InmueblePanel inmuebleGeneralPanel1;
 		for(int i=0; i<cant_inmuebles; i++) {
 			Inmueble inmuebleActual = inmuebles2.get(i);
 			ImageIcon img=null;
-//			ImageIcon img = new ImageIcon("C:\\Users\\Public\\Documents\\TP_MetAgi_2021\\img\\LaptopImg128px.png");
+
 			switch(inmuebleActual.getTipoInmueble()) {
 			case L:
-				img = new ImageIcon("img/LaptopImg128px.png");
+//				img = new ImageIcon("img/LaptopImg128px.png");
+				img = new ImageIcon("img/loc0"+num_local+".jpg");
+				num_local+=1;
+				if(num_local==4) num_local=1;
 				break;
 			case C:
-				img = new ImageIcon("img/HouseImg.png");
+//				img = new ImageIcon("img/HouseImg.png");
+				img = new ImageIcon("img/casa0"+num_casa+".jpg");
+				num_casa+=1;
+				if(num_casa==4) num_casa=1;
 				break;
 			case Q:
-				img = new ImageIcon("img/QuintaImg.png");
+//				img = new ImageIcon("img/QuintaImg.png");
+				img = new ImageIcon("img/casa0"+num_casa+".jpg");
+				num_casa+=1;
+				if(num_casa==4) num_casa=1;
 				break;
 			case D:
-				img = new ImageIcon("img/DepartamentoImg.png");
+//				img = new ImageIcon("img/DepartamentoImg.png");
+				img = new ImageIcon("img/dpto0"+num_dpto+".jpg");
+				num_dpto+=1;
+				if(num_dpto==3) num_dpto=1;
 				break;
 			case G:
-				img = new ImageIcon("img/HouseImg.png");
+//				img = new ImageIcon("img/HouseImg.png");
+				img = new ImageIcon("img/galp0"+num_galpon+".jpg");
+				num_galpon+=1;
+				if(num_galpon==3) num_galpon=1;
 				break;
 			case T:
-				img = new ImageIcon("img/TerrenoImg.png");
+//				img = new ImageIcon("img/TerrenoImg.png");
+				img = new ImageIcon("img/terr0"+num_terreno+".jpg");
+				num_terreno+=1;
+				if(num_terreno==3) num_terreno=1;
 				break;
 			default:
 			}

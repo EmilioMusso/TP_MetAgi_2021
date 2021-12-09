@@ -75,6 +75,16 @@ public class Propietario {
 	public Integer getId() {
 		return this.id;
 	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	
 	
 	
 

@@ -465,7 +465,7 @@ public class PanelOpcional extends JPanel implements FocusListener {
 //				(tfrente.getText()=="") ? null : Integer.parseInt(tfrente.getText()),
 				(tfondo.getText().isBlank()) ? 00 : Integer.parseInt(tfondo.getText()),
 //				(tfondo.getText()=="") ? null : Integer.parseInt(tfondo.getText()),
-				(tpisodpto.getText().isBlank()) ? 00 : Integer.parseInt(tsuperficie.getText()),
+				(tsuperficie.getText().isBlank()) ? 00 : Integer.parseInt(tsuperficie.getText()),
 //				(tsuperficie.getText()=="") ? null : Integer.parseInt(tsuperficie.getText()),
 				propiedadhorizontal.isSelected(),
 				patio.isSelected(),

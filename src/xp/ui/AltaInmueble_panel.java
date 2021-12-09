@@ -310,6 +310,7 @@ public class AltaInmueble_panel extends JPanel {
 					
 					T_inmueble iT = new T_inmueble();
 					inmuebleDTO = panelOpcional.getData();
+					System.out.println(inmuebleDTO.getSuperficie());
 					inm = new Inmueble(Integer.parseInt(codI), codI, estI, loc, prov, tFechaCarga,
 							propietarioSelected.getId(),inmuebleDTO.getCalle(), inmuebleDTO.getNroTelefono(),
 							inmuebleDTO.getBarrio(), inmuebleDTO.getPrecio(),

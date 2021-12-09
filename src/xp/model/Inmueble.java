@@ -1,6 +1,8 @@
 package xp.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -51,7 +53,35 @@ public class Inmueble {
 	
 	
 	public Inmueble() {
-		super();
+		this.estadoInmueble = EstadoInmueble.DISPONIBLE;
+		this.localidad = "";
+		this.provincia = "";
+		this.fechaCarga = null;
+		this.id_propietario = 0;
+		this.calle = "";
+		this.numTelefono = "";
+		this.barrio = "";
+		this.precio = 0;
+		this.pisoDpto = 0;
+		this.frente = 0;
+		this.fondo = 0;
+		this.superficie = 0;
+//		this.orientacion = orientacion;
+		this.tipoInmueble = TipoInmueble.L;
+		this.habitaciones = 1;
+		this.banios = 1;
+		this.propiedadhorizontal = false;
+		this.patio = false;
+		this.piscina = false;
+		this.cochera = false;
+		this.telefono = false;
+		this.cloacas = false;
+		this.lavadero = false;
+		this.aguacaliente = false;
+		this.aguacorriente = false;
+		this.gasnatural = false;
+		this.pavimento = false;
+		this.observaciones = "";
 	}
 
 	public Inmueble(String codigoInmueble,EstadoInmueble estadoInmueble, String localidad,String provincia,Date fechaCarga) {
@@ -80,7 +110,7 @@ public class Inmueble {
 			TipoInmueble tipoInmueble, Integer habitaciones, Integer banios, Boolean propiedadhorizontal, Boolean patio,
 			Boolean piscina, Boolean cochera, Boolean telefono, Boolean cloacas, Boolean lavadero, Boolean aguacaliente,
 			Boolean aguacorriente, Boolean gasnatural, Boolean pavimento, String observaciones) {
-		super();
+		this();
 		this.id = id;
 		this.codigoInmueble = codigoInmueble;
 		this.estadoInmueble = estadoInmueble;
@@ -156,9 +186,73 @@ public class Inmueble {
 	}
 	
 	public String getDetalles() {
-		String detalles="DETALES:";
+		String detalles="";
+		String comodidades = seleccionarComodidadesPrincipales(this);
+		Boolean poseeComodidades = comodidades!="";
 		
-		
+		switch(this.tipoInmueble) {
+		case L:
+			detalles+="  - "+this.getBanios()+" baños.\n"
+					+ "  - Barrio "+this.getBarrio()+".\n";
+			if(poseeComodidades) {
+				detalles+="  - Posee "+comodidades+".\n";
+			}
+			detalles+="  - Telefono "+this.getNumTelefono()+".\n"
+					+ "  - Precio $"+this.getPrecio()+".\n";
+			break;
+			
+			
+		case C:
+			detalles+="  - "+this.getBanios()+" baños.\n"
+					+ "  - "+this.getHabitaciones()+" habitaciones.\n"
+					+ "  - Superficie de "+this.getSuperficie()+" (m2).\n"
+					+ "  - Barrio "+this.getBarrio()+".\n";
+			if(poseeComodidades) {
+				detalles+="  - Posee "+comodidades+".\n";
+			}
+			detalles+="  - Telefono "+this.getNumTelefono()+".\n"
+					+ "  - Precio $"+this.getPrecio()+".\n";
+			break;
+			
+			
+		case D:
+			detalles+="  - "+this.getBanios()+" baños.\n"
+					+ "  - "+this.getHabitaciones()+" habitaciones.\n"
+					+ "  - Barrio "+this.getBarrio()+".\n";
+			if(poseeComodidades) {
+				detalles+="  - Posee "+comodidades+".\n";
+			}
+			detalles+="  - Telefono "+this.getNumTelefono()+".\n"
+					+ "  - Precio $"+this.getPrecio()+".\n";
+			break;
+			
+			
+		case T:
+			detalles+="  - Barrio "+this.getBarrio()+".\n"
+					+ "  - Telefono "+this.getNumTelefono()+".\n"
+					+ "  - Precio $"+this.getPrecio()+".\n";
+			break;
+			
+			
+		case Q:
+			detalles+="  - "+this.getBanios()+" baños.\n"
+					+ "  - "+this.getHabitaciones()+" habitaciones.\n"
+					+ "  - Superficie de "+this.getSuperficie()+" (m2).\n"
+					+ "  - Barrio "+this.getBarrio()+".\n";
+			if(poseeComodidades) {
+				detalles+="  - Posee "+comodidades+".\n";
+			}
+			detalles+="  - Telefono "+this.getNumTelefono()+".\n"
+					+ "  - Precio $"+this.getPrecio()+".\n";
+			break;
+			
+			
+		case G:
+			detalles+="  - Barrio "+this.getBarrio()+".\n"
+					+ "  - Telefono "+this.getNumTelefono()+".\n"
+					+ "  - Precio $"+this.getPrecio()+".\n";
+			break;
+		}
 		return detalles;
 	}
 
@@ -419,5 +513,29 @@ public class Inmueble {
 
 	public Boolean getTelefono() {
 		return telefono;
-	}	
+	}
+	
+	
+	private String seleccionarComodidadesPrincipales(Inmueble inmueble) {
+		//Se eligen 3 comodidades que posea por orden de prioridad
+		ArrayList<String> lista = new ArrayList<String>();
+		if(this.getPiscina())			lista.add("piscina");
+		if(this.getPatio())				lista.add("patio");
+		if(this.getCochera())			lista.add("cochera");
+		if(this.getAguacaliente())		lista.add("agua caliente");
+		if(this.getTelefono())			lista.add("telefono");
+		if(this.getCloacas())			lista.add("cloacas");
+		if(this.getLavadero())			lista.add("lavadero");
+		if(this.getAguacorriente())		lista.add("agua corriente");
+		if(this.getGasnatural())		lista.add("gas natural");
+		if(this.getPavimento())			lista.add("pavimento");
+		
+		if(lista.size()==1)
+			return lista.get(0);
+		if(lista.size()==2)
+			return lista.get(0)+" y "+lista.get(1);
+		if(lista.size()==3)
+			return lista.get(0)+", "+lista.get(1)+" y "+lista.get(2);
+		return "";
+	}
 }

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import xp.enums.EstadoInmueble;
 import xp.enums.TipoInmueble;
@@ -229,8 +230,17 @@ public class T_inmueble {
 		
 		while(rs.next()) {
 			inm1 = null;
-			ArrayList<Boolean> arrayBooleans = new ArrayList<Boolean>();
-			rs.getArray("arrayBooleans");
+			
+			List<Boolean> listBooleans = new ArrayList<>();
+			Array arrayBooleans = (Array)rs.getArray("arrayBooleans");
+			Boolean[] arr = (Boolean[]) arrayBooleans.getArray();
+			
+//			System.out.println("---------------");
+			for(Boolean value: arr) {
+//				System.out.println(value);
+				listBooleans.add(value);
+			}
+			
 			
 			EstadoInmueble estado;
 			switch(rs.getString("estadoInmueble")) {
@@ -286,12 +296,12 @@ public class T_inmueble {
 					tipoInmueble,
 					rs.getInt("habitaciones"),
 					rs.getInt("banios"),
-					null, null,
-					null, null,
-					null, null,
-					null, null,
-					null, null,
-					null,null);
+					listBooleans.get(0), listBooleans.get(1),
+					listBooleans.get(2), listBooleans.get(3),
+					listBooleans.get(4), listBooleans.get(5),
+					listBooleans.get(6), listBooleans.get(7),
+					listBooleans.get(8), listBooleans.get(9),
+					listBooleans.get(10), "");
 //			inmuebles.add();
 //			fila.add(rs.getString("codigoInmueble"));
 //			fila.add(rs.getString("estadoInmueble"));
