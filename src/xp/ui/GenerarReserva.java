@@ -17,6 +17,7 @@ public class GenerarReserva extends javax.swing.JFrame {
 
 	
     private Object codigoI;
+    public String precioR;
 	/**
      * Creates new form GenerarReserva
      */
@@ -52,6 +53,10 @@ public class GenerarReserva extends javax.swing.JFrame {
         lCliente = new javax.swing.JLabel();
         lprecio = new javax.swing.JLabel();
         etPrecio = new javax.swing.JTextField();
+        precioR=etPrecio.getSelectedText(); //guardo el precio que ingresa
+        
+        System.out.println("precio -> "+precioR);
+        
         btnPdf = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -72,8 +77,9 @@ public class GenerarReserva extends javax.swing.JFrame {
 		ArrayList<String> i2_rs = new ArrayList<String>();
 	    i2_rs= Ti2.buscar_codigo();
 	    for (String nom: i2_rs) {
-	    	jComboBoxInmueble.addItem(nom);}
-	    jComboBoxInmueble.setSelectedItem("un numero"); //mostrar el que llega codigo como hago ?
+	    	jComboBoxInmueble.addItem(nom);
+	    	}
+	    jComboBoxInmueble.setSelectedItem(codigoI); //mostrar el que llega codigo como hago ?
      //   jComboBoxInmueble.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         
         lReserva.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
