@@ -45,8 +45,8 @@ public class GenerarReserva extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        cbCliente = new javax.swing.JComboBox<>();
-        cbInmueble = new javax.swing.JComboBox<>();
+        jComboBoxCliente = new javax.swing.JComboBox<>();
+        jComboBoxInmueble = new javax.swing.JComboBox<>();
         lReserva = new javax.swing.JLabel();
         lInmueble = new javax.swing.JLabel();
         lCliente = new javax.swing.JLabel();
@@ -56,10 +56,26 @@ public class GenerarReserva extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        cbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        //cbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        cbInmueble.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        //cbInmueble.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        T_cliente Ti3 = new T_cliente();
+		ArrayList<String> i3_rs = new ArrayList<String>();
+	    i3_rs= Ti3.buscar_c();
+	    for (String nom: i3_rs) {
+	    	jComboBoxCliente.addItem(nom);}
+	    jComboBoxCliente.setSelectedItem(null);
+       // jComboBoxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        T_inmueble Ti2 = new T_inmueble();
+		ArrayList<String> i2_rs = new ArrayList<String>();
+	    i2_rs= Ti2.buscar_codigo();
+	    for (String nom: i2_rs) {
+	    	jComboBoxInmueble.addItem(nom);}
+	    jComboBoxInmueble.setSelectedItem("un numero"); //mostrar el que llega codigo como hago ?
+     //   jComboBoxInmueble.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        
         lReserva.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lReserva.setForeground(new java.awt.Color(0, 0, 255));
         lReserva.setText("Reserva Inmueble");
@@ -71,7 +87,7 @@ public class GenerarReserva extends javax.swing.JFrame {
 
         lprecio.setText("Ingrese Importe");
 
-        etPrecio.setText("$");
+        etPrecio.setText("$XX");
 
         btnPdf.setText("Generar Comprobante");
 
@@ -86,8 +102,8 @@ public class GenerarReserva extends javax.swing.JFrame {
                     .addComponent(lprecio)
                     .addComponent(lInmueble)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(cbInmueble, 0, 293, Short.MAX_VALUE)
-                        .addComponent(cbCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jComboBoxInmueble, 0, 293, Short.MAX_VALUE)
+                        .addComponent(jComboBoxCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(lCliente))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -108,11 +124,11 @@ public class GenerarReserva extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(lInmueble)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbInmueble, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxInmueble, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
                 .addComponent(lCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lprecio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -173,8 +189,8 @@ public class GenerarReserva extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPdf;
-    private javax.swing.JComboBox<String> cbCliente;
-    private javax.swing.JComboBox<String> cbInmueble;
+    private javax.swing.JComboBox<String> jComboBoxCliente;
+    private javax.swing.JComboBox<String> jComboBoxInmueble;
     private javax.swing.JTextField etPrecio;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lCliente;
