@@ -36,7 +36,7 @@ import xp.exceptions.CamposVaciosException;
 
 import javax.swing.JSeparator;
 
-public class Cons_Inmueble {
+public class Cons_Inmueble extends javax.swing.JFrame {
 
 	public JFrame frame;
 	private JTable table_1;
@@ -397,7 +397,7 @@ public class Cons_Inmueble {
 		});
 		
 		//----------------------------------- RESERVA -------------------------------------
-		 JButton btnNewButton_2 = new JButton("Reservar");
+		JButton btnNewButton_2 = new JButton("Reservar");
         GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
         gbc_btnNewButton_2.anchor = GridBagConstraints.WEST;
         gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 0);
@@ -410,40 +410,39 @@ public class Cons_Inmueble {
         
         
      // Modo de seleccion
+        
         table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table_1.addMouseListener(new MouseAdapter() {
+        table_1.addMouseListener(new MouseAdapter() { //dentro de la tabla, cuando se posiciona sobre el inmueble, lo toma
             public void mouseClicked(MouseEvent e) {
             	JTable table = (JTable)e.getSource();
                 int row = table.rowAtPoint(e.getPoint());
                 int column = table.columnAtPoint(e.getPoint());
                 
                 idSelected = table.getValueAt(row, 0);
-                //calleSelected =  table.getValueAt(row, 1).toString();
-            	//Selected =  table.getValueAt(row, 2).toString();
             	codigoSelected =  table.getValueAt(row, 1).toString(); //le digo que guarde el codigo donde selecciona en la tabla
             	estadoSelected =  table.getValueAt(row, 2).toString(); //le digo que guarde el estado donde selecciona en la tabla
             	localidadSelected =  table.getValueAt(row, 3).toString(); //le digo que guarde la localidad donde selecciona en la tabla
             	provinciaSelected =  table.getValueAt(row, 4).toString(); //le digo que guarde la provincia donde selecciona en la tabla
             	barrioSelected =  table.getValueAt(row, 5).toString(); //le digo que guarde la provincia donde selecciona en la tabla
-//	            	System.out.println("Valor de celda: " + table.getValueAt(row, column));
-//	            	System.out.println("Id: " + table.getValueAt(row, 0));
+
             	
             }
         });
         
         btnNewButton_2.addActionListener(e -> {
 			try {
-				if(idSelected == null) {
+				if(idSelected == null) { //si no selecciono ninguno, y selecciona el boton reservar
 					throw new CamposVaciosException("Por favor seleccione un inmueble a reservar.");
 										}
 				else {
-					if(estadoSelected.equals("RESERVADO")) {
+					if(estadoSelected.equals("RESERVADO") || estadoSelected.equals("VENDIDO")) { //si el estado del inmueble, se encuentra reservado ya
 					throw new CamposVaciosException("Por favor seleccione un inmueble que no este reservado.");
 														}
-					else {
+					else { 
 				
-				GenerarReserva reserva = new GenerarReserva(idSelected,codigoSelected,localidadSelected,provinciaSelected,barrioSelected);
-				reserva.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				GenerarReserva reserva = new GenerarReserva(idSelected,codigoSelected,localidadSelected,provinciaSelected,barrioSelected); //crea una instancia y 
+				//le pasa los datos seleccionados
+				reserva.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); //abre la nueva ventana del tipo GenerarReserva
 				reserva.setVisible(true);
 						}
 					
@@ -455,6 +454,9 @@ public class Cons_Inmueble {
 			}
 		 });
         
+        
+      //----------------------------------- VENTA -------------------------------------
+        
         JButton btnvender = new JButton("Vender");
 		btnvender.setFont(new Font("Tahoma", Font.BOLD, 14));
 		GridBagConstraints gbc_btnNewButton1 = new GridBagConstraints();
@@ -465,31 +467,32 @@ public class Cons_Inmueble {
 		frame.getContentPane().add(btnvender, gbc_btnNewButton1);
 		
 		btnvender.addActionListener(e -> {
-				try {
-					if(idSelected == null) {
-						throw new CamposVaciosException("Por favor seleccione un inmueble a vender.");
-											}
-					else {
-						if(estadoSelected.equals("VENDIDO")) {
-						throw new CamposVaciosException("Por favor seleccione un inmueble que no este reservado.");
-															}
-						else {
-					
-					GenerarVenta venta = new GenerarVenta(idSelected,codigoSelected,localidadSelected,provinciaSelected,barrioSelected);
-					venta.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); //y aca
-					venta.setVisible(true);
-							}
-						
+			
+			try {
+				if(idSelected == null) { //si no selecciono ninguno, y selecciona el boton reservar
+					throw new CamposVaciosException("Por favor seleccione un inmueble a reservar.");
+										}
+				else {
+					if(estadoSelected.equals("VENDIDO")) { //si el estado del inmueble, se encuentra reservado ya
+					throw new CamposVaciosException("Por favor seleccione un inmueble que no este vendido.");
+														}
+					else { 
+				
+				GenerarVenta venta = new GenerarVenta(idSelected,codigoSelected,localidadSelected,provinciaSelected,barrioSelected); //crea una instancia y 
+				//le pasa los datos seleccionados
+				venta.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); //abre la nueva ventana del tipo GenerarReserva
+				venta.setVisible(true);
 						}
-				} catch (CamposVaciosException | FileNotFoundException | DocumentException e1) {
-					VentanaFallo v1 = new VentanaFallo(e1.getMessage());
-					v1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					v1.setVisible(true);
-				}
-			 });
-	}
+					
+					}
+			} catch (CamposVaciosException | FileNotFoundException | DocumentException e1) {
+				VentanaFallo v1 = new VentanaFallo(e1.getMessage());
+				v1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				v1.setVisible(true);
+			}
+		 });
         //aca el reservar que le pase los datos del inmueble id,calle, numero, localidad nada mas
 		//y llame a la ventanada generar reserva
 	//--------------------------------------------------------- VENTA ----------------------------------------------------------
 	
-}
+	}}

@@ -48,32 +48,32 @@ public class GenerarReserva extends javax.swing.JFrame {
     public static void crearPDF(Reserva reserva) throws DocumentException, IOException, Exception {
 		Document documento = new Document();
 		
-		
+		//que la salida llame asi al archivo que genera
 		FileOutputStream fichero = new FileOutputStream("comprobante.pdf");
 		PdfWriter.getInstance(documento, fichero);
-		
+		//empieza a escribir el documento
 		documento.open();
-		
+		//le pone de cabecera la imagen definida en lo general
 		Image img = Image.getInstance(LOGO);
-		img.setAlignment(img.ALIGN_CENTER);
-		 documento.add(img);
+		img.setAlignment(img.ALIGN_CENTER); //la alinea en el centro
+		 documento.add(img);//la agrega
 		
+		//creo un nuevo parrafo para el titulo 
 		Paragraph titulo = new Paragraph("Comprobante de reserva \n \n ",
-				FontFactory.getFont("arial",22,
+				FontFactory.getFont("arial",22, // le seteo el tipo de letra y el tamaño
 				Font.BOLD));
-		titulo.setAlignment(titulo.ALIGN_CENTER);
-		documento.add(titulo);
+		titulo.setAlignment(titulo.ALIGN_CENTER); //tambien la alineo en el cnetro
+		documento.add(titulo); // se lo agrego al doc
 		documento.add(new Paragraph("Id inmueble: " + reserva.getIdI()));
     	documento.add(new Paragraph("Barrio: " + reserva.getCalleI()));
     	documento.add(new Paragraph("Localidad: " + reserva.getLocalidadI()));
     	documento.add(new Paragraph("Cliente numero: " + reserva.getIdCliente()));
     	documento.add(new Paragraph("Precio de reserva: " + reserva.getPrecio()));
     	
-    	Paragraph fecha = new Paragraph("\n \n \n \n \n Recuerde que pasados los 15 días a partir de la fecha de reserva "+ reserva.getFecha()+ ", la misma vencerá " );
+    	Paragraph fecha = new Paragraph("\n \n \n \n \n Recuerde que pasados los 15 días a partir de la fecha de reserva "
+    	+ reserva.getFecha()+ ", la misma vencerá " );
     	documento.add(fecha);
     	fecha.setAlignment(Element.ALIGN_RIGHT);
-		
-		
 		
 		
 		documento.close();
@@ -86,6 +86,7 @@ public class GenerarReserva extends javax.swing.JFrame {
 	 * @throws FileNotFoundException 
      */
 	
+    //la clase generar reserva, recibe los atributos del inmueble al cual se quiere iniciar la reserva
     public GenerarReserva(Object idSelected,String codigo,String localidad,String provincia,String barrio) throws FileNotFoundException, DocumentException {
         initComponents(idSelected,codigo,localidad,provincia,barrio);
 
@@ -120,7 +121,8 @@ public class GenerarReserva extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
   
-
+        //crea una instancia de bd cliente para traerme los ids	
+        //y colocarlos en el combobox del genera reserva
         T_cliente Ti3 = new T_cliente();
 		ArrayList<String> i3_rs = new ArrayList<String>();
 	    i3_rs= Ti3.buscar_c();
@@ -128,13 +130,15 @@ public class GenerarReserva extends javax.swing.JFrame {
 	    	jComboBoxCliente.addItem(nom);}
 	    jComboBoxCliente.setSelectedItem(null);
     
-
+	    
         T_inmueble Ti2 = new T_inmueble();
 		ArrayList<String> i2_rs = new ArrayList<String>();
 	    i2_rs= Ti2.buscar_codigo();
 	    for (String nom: i2_rs) {
 	    	jComboBoxInmueble.addItem(nom);
 	    	}
+	    //setea de entrada el codigo que recibe desde que
+	    //se seleciono el inmueble a reservar
 	    jComboBoxInmueble.setSelectedItem(codigo);
         
         lReserva.setFont(new java.awt.Font("Tahoma", 0, 16)); 
@@ -156,25 +160,32 @@ public class GenerarReserva extends javax.swing.JFrame {
         
         
         
- 
-        btnPdf.addActionListener(e -> {
+        //al presionar el boton generar comprobante
+        btnPdf.addActionListener(e -> { 
         	String precioR;
             String cliente;
             
-        	cliente=(String)jComboBoxCliente.getSelectedItem(); //no me lo guarda
-            precioR=etPrecio.getText(); //no me lo guarda
+            //guarda el valor que se selecciono en el combobox
+        	cliente=(String)jComboBoxCliente.getSelectedItem(); 
+        	//guarda lo que se ingreso como monton
+            precioR=etPrecio.getText(); 
             
+            //crea una instancia de la clase reserva y
+            //le setea los valores ingresados/selecionados
             Reserva reserva = new Reserva();
             reserva.setIdCliente(cliente);
             reserva.setCalleI(barrio);
             reserva.setIdI((String) idSelected);
             reserva.setLocalidadI(localidad);
             reserva.setPrecio(precioR);
+            reserva.setFecha(LocalDate.now());
+            //se cierrar la ventana de generar reserva
             this.dispose();
           
-            reserva.setFecha(LocalDate.now());
+            
         	try {
-				crearPDF(reserva);
+        		//se llama al metodo
+				crearPDF(reserva); 
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -188,7 +199,8 @@ public class GenerarReserva extends javax.swing.JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-        	
+        	//luego de generar el pdf se cambia el estado
+        	//del inmueble
         	T_inmueble tinmueble = new T_inmueble();
 			tinmueble.update(idSelected);
         	
