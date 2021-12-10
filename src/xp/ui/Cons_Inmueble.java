@@ -454,7 +454,42 @@ public class Cons_Inmueble {
 				v1.setVisible(true);
 			}
 		 });
+        
+        JButton btnvender = new JButton("Vender");
+		btnvender.setFont(new Font("Tahoma", Font.BOLD, 14));
+		GridBagConstraints gbc_btnNewButton1 = new GridBagConstraints();
+		gbc_btnNewButton1.anchor = GridBagConstraints.EAST;
+		gbc_btnNewButton1.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton1.gridx = 1;
+		gbc_btnNewButton1.gridy = 14;
+		frame.getContentPane().add(btnvender, gbc_btnNewButton1);
+		
+		btnvender.addActionListener(e -> {
+				try {
+					if(idSelected == null) {
+						throw new CamposVaciosException("Por favor seleccione un inmueble a vender.");
+											}
+					else {
+						if(estadoSelected.equals("VENDIDO")) {
+						throw new CamposVaciosException("Por favor seleccione un inmueble que no este reservado.");
+															}
+						else {
+					
+					GenerarVenta venta = new GenerarVenta(idSelected,codigoSelected,localidadSelected,provinciaSelected,barrioSelected);
+					venta.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); //y aca
+					venta.setVisible(true);
+							}
+						
+						}
+				} catch (CamposVaciosException | FileNotFoundException | DocumentException e1) {
+					VentanaFallo v1 = new VentanaFallo(e1.getMessage());
+					v1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					v1.setVisible(true);
+				}
+			 });
 	}
         //aca el reservar que le pase los datos del inmueble id,calle, numero, localidad nada mas
 		//y llame a la ventanada generar reserva
+	//--------------------------------------------------------- VENTA ----------------------------------------------------------
+	
 }

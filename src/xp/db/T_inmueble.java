@@ -37,6 +37,7 @@ public class T_inmueble {
 	private static final String prec = "SELECT DISTINCT precio FROM public.inmueble";
 	private static final String codi = "SELECT DISTINCT codigoInmueble FROM public.inmueble";
 	private static final String update = "UPDATE public.inmueble SET estadoInmueble='RESERVADO' WHERE Id=?";
+	private static final String updateV = "UPDATE public.inmueble SET estadoInmueble='VENDIDO' WHERE Id=?";
 	
 	public T_inmueble() {	}
 	
@@ -686,6 +687,28 @@ public class T_inmueble {
 		ps = con.createStatement();
 //		System.out.println(id);
 		int nro=ps.executeUpdate("UPDATE public.inmueble SET estadoInmueble='RESERVADO' WHERE Id="+id+"");
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			}
+		}
+	
+	public void updateV(Object id){
+		Connection con = null;
+		Statement ps =  null;
+		con = ConnectionMA.get();
+		try{
+		
+		ps = con.createStatement();
+//		System.out.println(id);
+		int nro=ps.executeUpdate("UPDATE public.inmueble SET estadoInmueble='VENDIDO' WHERE Id="+id+"");
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
