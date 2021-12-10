@@ -7,6 +7,8 @@ package xp.ui;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,15 +16,18 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfWriter;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import xp.db.T_cliente;
 import xp.db.T_inmueble;
@@ -39,18 +44,37 @@ public class GenerarReserva extends javax.swing.JFrame {
 
 	
     private Object codigoI;
+    public static final String LOGO="C:\\Users\\Lucia\\git\\TP_MetAgi_2021\\logo.jpeg";
+	private static final String FOX = null;
     
     
-    
-    public static void crearPDF(Reserva reserva) throws FileNotFoundException, DocumentException {
+    public static void crearPDF(Reserva reserva) throws DocumentException, MalformedURLException, IOException {
 		Document documento = new Document();
 		
 		
 		FileOutputStream fichero = new FileOutputStream("comprobante.pdf");
 		PdfWriter.getInstance(documento, fichero);
 		
+		
 		documento.open();
-		Paragraph titulo = new Paragraph("Comprobante de reserva \n \n \n \n  ");
+		
+		 //agregando una imagen
+      /*  iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance("D:/UTN/Metodologias agiles/TP/descarga.png");
+        imagen.BorderWidth = 0;
+        imagen.Alignment = Element.ALIGN_LEFT;
+        float percentage = 0.0f;
+        percentage = 150 / imagen.Width;
+        imagen.ScalePercent(percentage * 100);
+       */
+        //insertamos la imagen
+      //  documento.add(imagen);
+		
+		
+		 Image img = Image.getInstance(LOGO);
+		 documento.add(img);
+		Paragraph titulo = new Paragraph("Comprobante de reserva \n \n",
+				FontFactory.getFont("arial",22,
+				Font.BOLD));
 		documento.add(titulo);
 		titulo.setAlignment(Element.ALIGN_CENTER);
 		documento.add(new Paragraph("Id inmueble: " + reserva.getIdI()));
@@ -64,9 +88,8 @@ public class GenerarReserva extends javax.swing.JFrame {
     	fecha.setAlignment(Element.ALIGN_RIGHT);
 		
 		
-		
-		
 		documento.close();
+	//	System.Diagnostics.Process.Start("C:/Users/FaleTala/Desktop/Hola.pdf");
 				
 	}
     
@@ -160,15 +183,22 @@ public class GenerarReserva extends javax.swing.JFrame {
             reserva.setIdI((String) idSelected);
             reserva.setLocalidadI(localidad);
             reserva.setPrecio(precioR);
-            
+        
           
             reserva.setFecha(LocalDate.now());
+            this.dispose();
         	try {
 				crearPDF(reserva);
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (DocumentException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

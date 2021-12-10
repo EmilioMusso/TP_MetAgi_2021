@@ -9,10 +9,7 @@ import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfWriter;
+
 
 public class Reserva {
 	String idI;
@@ -27,6 +24,10 @@ public class Reserva {
 	}
 	
 	
+
+
+
+
 	public String getIdI() {
 		return idI;
 	}
