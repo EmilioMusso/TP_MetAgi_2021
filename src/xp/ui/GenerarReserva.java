@@ -7,6 +7,8 @@ package xp.ui;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
+import com.lowagie.text.Image;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
 
@@ -39,10 +42,10 @@ public class GenerarReserva extends javax.swing.JFrame {
 
 	
     private Object codigoI;
+    public static final String LOGO="C:\\Users\\Lucia\\git\\TP_MetAgi_2021\\logo.jpeg";
     
     
-    
-    public static void crearPDF(Reserva reserva) throws FileNotFoundException, DocumentException {
+    public static void crearPDF(Reserva reserva) throws DocumentException, IOException, Exception {
 		Document documento = new Document();
 		
 		
@@ -50,16 +53,23 @@ public class GenerarReserva extends javax.swing.JFrame {
 		PdfWriter.getInstance(documento, fichero);
 		
 		documento.open();
-		Paragraph titulo = new Paragraph("Comprobante de reserva \n \n \n \n  ");
+		
+		Image img = Image.getInstance(LOGO);
+		img.setAlignment(img.ALIGN_CENTER);
+		 documento.add(img);
+		
+		Paragraph titulo = new Paragraph("Comprobante de reserva \n \n ",
+				FontFactory.getFont("arial",22,
+				Font.BOLD));
+		titulo.setAlignment(titulo.ALIGN_CENTER);
 		documento.add(titulo);
-		titulo.setAlignment(Element.ALIGN_CENTER);
 		documento.add(new Paragraph("Id inmueble: " + reserva.getIdI()));
     	documento.add(new Paragraph("Barrio: " + reserva.getCalleI()));
     	documento.add(new Paragraph("Localidad: " + reserva.getLocalidadI()));
     	documento.add(new Paragraph("Cliente numero: " + reserva.getIdCliente()));
     	documento.add(new Paragraph("Precio de reserva: " + reserva.getPrecio()));
     	
-    	Paragraph fecha = new Paragraph("\n \n \n \n \n \n \n \n Recuerde que pasado 15 dias a partir de la fecha se cae la reserva: " + reserva.getFecha());
+    	Paragraph fecha = new Paragraph("\n \n \n \n \n Recuerde que pasados los 15 días a partir de la fecha de reserva "+ reserva.getFecha()+ ", la misma vencerá " );
     	documento.add(fecha);
     	fecha.setAlignment(Element.ALIGN_RIGHT);
 		
@@ -169,6 +179,12 @@ public class GenerarReserva extends javax.swing.JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (DocumentException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
