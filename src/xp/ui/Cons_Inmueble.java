@@ -11,6 +11,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
@@ -18,15 +19,21 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JTable;
-import javax.swing.ImageIcon;
+import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.lowagie.text.DocumentException;
 
+import xp.Ini;
+import xp.db.T_cliente;
 import xp.db.T_inmueble;
 import xp.db.T_propietario;
+import xp.exceptions.CamposVaciosException;
+
 import javax.swing.JSeparator;
 
 public class Cons_Inmueble {
@@ -34,6 +41,17 @@ public class Cons_Inmueble {
 	public JFrame frame;
 	private JTable table_1;
 
+	//los uso para reservar
+	   private Object idSelected;
+       private String codigoSelected;
+       private String estadoSelected;
+   	//private String calleSelected;
+   	//private String numeroSelected;
+   	private String localidadSelected;
+   	private String provinciaSelected;
+	private String barrioSelected;
+	private static Cons_Inmueble window;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -41,8 +59,7 @@ public class Cons_Inmueble {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Cons_Inmueble window = new Cons_Inmueble();
-					window.frame.setIconImage((new ImageIcon("img/HouseImg.png")).getImage());
+					window = new Cons_Inmueble();
 					window.frame.setVisible(true);
 					window.frame.pack();
 				} catch (Exception e) {
@@ -240,7 +257,8 @@ public class Cons_Inmueble {
 		gbc_table_1.gridy = 17;
 //		frame.getContentPane().add(table_1, gbc_table_1);
 		        
-
+		
+        
         // Crea las columnas 
         model.addColumn("Id"); 
         model.addColumn("Cod_inmueble"); 
@@ -378,6 +396,7 @@ public class Cons_Inmueble {
 	        }
 		});
 		
+		//----------------------------------- RESERVA -------------------------------------
 		 JButton btnNewButton_2 = new JButton("Reservar");
         GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
         gbc_btnNewButton_2.anchor = GridBagConstraints.WEST;
@@ -385,9 +404,57 @@ public class Cons_Inmueble {
         gbc_btnNewButton_2.gridx = 2;
         gbc_btnNewButton_2.gridy = 14;
         frame.getContentPane().add(btnNewButton_2, gbc_btnNewButton_2);
+        
+     
+  
+        
+        
+     // Modo de seleccion
+        table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table_1.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+            	JTable table = (JTable)e.getSource();
+                int row = table.rowAtPoint(e.getPoint());
+                int column = table.columnAtPoint(e.getPoint());
+                
+                idSelected = table.getValueAt(row, 0);
+                //calleSelected =  table.getValueAt(row, 1).toString();
+            	//Selected =  table.getValueAt(row, 2).toString();
+            	codigoSelected =  table.getValueAt(row, 1).toString(); //le digo que guarde el codigo donde selecciona en la tabla
+            	estadoSelected =  table.getValueAt(row, 2).toString(); //le digo que guarde el estado donde selecciona en la tabla
+            	localidadSelected =  table.getValueAt(row, 3).toString(); //le digo que guarde la localidad donde selecciona en la tabla
+            	provinciaSelected =  table.getValueAt(row, 4).toString(); //le digo que guarde la provincia donde selecciona en la tabla
+            	barrioSelected =  table.getValueAt(row, 5).toString(); //le digo que guarde la provincia donde selecciona en la tabla
+//	            	System.out.println("Valor de celda: " + table.getValueAt(row, column));
+//	            	System.out.println("Id: " + table.getValueAt(row, 0));
+            	
+            }
+        });
+        
+        btnNewButton_2.addActionListener(e -> {
+			try {
+				if(idSelected == null) {
+					throw new CamposVaciosException("Por favor seleccione un inmueble a reservar.");
+										}
+				else {
+					if(estadoSelected.equals("RESERVADO")) {
+					throw new CamposVaciosException("Por favor seleccione un inmueble que no este reservado.");
+														}
+					else {
+				
+				GenerarReserva reserva = new GenerarReserva(idSelected,codigoSelected,localidadSelected,provinciaSelected,barrioSelected);
+				reserva.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				reserva.setVisible(true);
+						}
+					
+					}
+			} catch (CamposVaciosException | FileNotFoundException | DocumentException e1) {
+				VentanaFallo v1 = new VentanaFallo(e1.getMessage());
+				v1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				v1.setVisible(true);
+			}
+		 });
 	}
-        
-        
-        //aca el reservar que le pase los datos del inmueble id,calle, numero, localidad nada mas y llame a la ventanada generar reserva
-
+        //aca el reservar que le pase los datos del inmueble id,calle, numero, localidad nada mas
+		//y llame a la ventanada generar reserva
 }

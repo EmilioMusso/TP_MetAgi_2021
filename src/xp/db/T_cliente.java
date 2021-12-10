@@ -17,6 +17,8 @@ public class T_cliente {
 	private static final String tod = "SELECT * FROM public.cliente";
 	private static final String next_id = "SELECT nextval('public.seq_id') as num";
 	private static final String del = "DELETE FROM public.cliente WHERE Id=?";
+	private static final String c = "SELECT DISTINCT id FROM public.cliente";
+	
 
 	public T_cliente() {	}
 	
@@ -168,5 +170,36 @@ public class T_cliente {
 		}
 		return c1;
 	}
+	
+	public ArrayList<String> buscar_c() {
+		Connection con = null;
+		PreparedStatement ps =  null;
+		ResultSet rs = null;
+		con = ConnectionMA.get();
+		ArrayList<String> nombres = new ArrayList<String>();
+		
+		try{
+		ps = con.prepareStatement(c);
+		rs = ps.executeQuery();
+		while(rs.next()) {
+			nombres.add(rs.getString("id"));
+			
+		}}
+				
+		catch (SQLException e) {e.printStackTrace();
+		}finally {
+			if (con!=null)
+				try {con.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (ps!=null)
+				try {ps.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			if (rs!=null)
+				try {rs.close ();}
+				catch (SQLException e) {e.printStackTrace();}
+			
+			}
+		return nombres;
+		}
 	
 }
